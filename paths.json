@@ -1,10 +1,10 @@
 {
   "mappings": [
-    "/content/2026/38/astuteoctopus06379/:/",
-    "/content/2026/38/astuteoctopus06379/configuration:/.helix/config.json",
-    "/content/2026/38/astuteoctopus06379/metadata:/metadata.json"
+    "/content/2026/38/steadybison44946/:/",
+    "/content/2026/38/steadybison44946/configuration:/.helix/config.json",
+    "/content/2026/38/steadybison44946/metadata:/metadata.json"
   ],
   "includes": [
-    "/content/2026/38/astuteoctopus06379/"
+    "/content/2026/38/steadybison44946/"
   ]
 }
