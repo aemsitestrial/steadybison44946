@@ -1,0 +1,252 @@
+/* Scope to Block Name */
+.form-variations.block {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 24px;
+  background-color: var(--form-background-color, #000);
+  color: #FFF;
+  font-family: Roboto, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Foreground Container Pattern */
+.form-variations.block > .foreground {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Eyebrow Pre-Title */
+.form-variations.block > .foreground > .text > .eyebrow {
+  display: block;
+  text-align: left;
+  font: normal normal bold 12px/16px Roboto, sans-serif;
+  letter-spacing: 0.96px;
+  color: #FFF;
+  text-transform: uppercase;
+  opacity: 1;
+  margin-bottom: 12px;
+}
+
+/* Title Heading Formatting */
+.form-variations.block > .foreground > .text > .title :where(h1,h2,h3,h4,h5,h6) {
+  margin: 0 0 12px;
+  color: #FFF;
+  letter-spacing: 0;
+  font: normal normal normal 32px/38px Baskerville, serif;
+}
+
+@media (width >= 900px) {
+  .form-variations.block > .foreground > .text > .title :where(h1,h2,h3,h4,h5,h6) {
+    font: normal normal normal 40px/46px Baskerville, serif;
+  }
+}
+
+/* Theme Dark Variation Override */
+.form-variations.block.dark > .foreground > .text > .title {
+  color: #FFF;
+}
+
+.form-variations.block.dark > .foreground > .text > .eyebrow {
+  color: #FFF;
+}
+
+.form-variations.block .long-description {
+  color: #CCC;
+  font-size: 15px;
+  line-height: 22px;
+  margin-bottom: 28px;
+}
+
+.form-variations.block .long-description a {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+/* Flex Grid Layout for Fields */
+.form-variations.block .flex-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@media (width >= 900px) {
+  .form-variations.block .flex-grid {
+    flex-direction: row;
+  }
+
+  .form-variations.block .field-wrapper.width-50 {
+    flex: 1 1 50%;
+  }
+}
+
+.form-variations.block .field-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 24px;
+  width: 100%;
+}
+
+/* Underline Field Styling */
+.form-variations.block .field-label {
+  font-size: 13px;
+  color: #FFF;
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
+}
+
+.form-variations.block .required-asterisk {
+  color: #FFF;
+  margin-left: 2px;
+}
+
+.form-variations.block .form-input-underline,
+.form-variations.block .form-select-underline,
+.form-variations.block .form-textarea-underline {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #444;
+  color: #FFF;
+  font-size: 15px;
+  padding: 8px 0;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-variations.block .form-input-underline.error,
+.form-variations.block .form-select-underline.error,
+.form-variations.block .form-textarea-underline.error {
+  border-bottom-color: #FF4D4D;
+}
+
+/* Select Styling */
+.form-variations.block .form-select-underline {
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0 center;
+  background-size: 18px;
+  cursor: pointer;
+}
+
+.form-variations.block .form-select-underline option {
+  background-color: #111;
+  color: #FFF;
+}
+
+/* Textarea & Counter */
+.form-variations.block .form-textarea-underline {
+  min-height: 80px;
+  resize: vertical;
+}
+
+.form-variations.block .form-input-underline:focus,
+.form-variations.block .form-select-underline:focus,
+.form-variations.block .form-textarea-underline:focus {
+  border-bottom-color: #FFF;
+}
+
+.form-variations.block .char-counter {
+  text-align: right;
+  font-size: 11px;
+  color: #888;
+  margin-top: 4px;
+}
+
+/* Custom Checkbox */
+.form-variations.block .type-checkbox {
+  margin-top: 12px;
+}
+
+.form-variations.block .checkbox-container {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 18px;
+  color: #CCC;
+}
+
+.form-variations.block .checkbox-container input[type="checkbox"] {
+  accent-color: #FFF;
+  margin-right: 10px;
+  margin-top: 2px;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+.form-variations.block .checkbox-container a {
+  color: #FFF;
+  text-decoration: underline;
+}
+
+/* Footer & Pill Buttons */
+.form-variations.block .form-footer {
+  margin-top: 32px;
+}
+
+.form-variations.block .disclaimer-note {
+  font-size: 12px;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.form-variations.block .cta > .button.primary {
+  background-color: #666;
+  color: #FFF;
+  border: 0;
+  border-radius: 20px;
+  padding: 10px 28px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.form-variations.block .cta > .button.primary:hover {
+  background-color: #888;
+}
+
+/* Directory Lookup Card Output */
+.form-variations.block .directory-card {
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #333;
+}
+
+.form-variations.block .directory-intro {
+  font-size: 14px;
+  color: #CCC;
+  margin-bottom: 16px;
+}
+
+.form-variations.block .expert-name {
+  font-size: 18px;
+  color: #5B8FF9;
+  margin: 0 0 8px;
+}
+
+.form-variations.block .expert-email,
+.form-variations.block .expert-phone {
+  font-size: 14px;
+  color: #FFF;
+  margin: 4px 0;
+}
+
+.form-variations.block .expert-email a {
+  color: #FFF;
+  text-decoration: none;
+}
+
+.form-variations.block .form-success-message {
+  padding: 30px 0;
+  color: #FFF;
+}

@@ -64,7 +64,8 @@
         "text",
         "title",
 	"teaser",
-        "video"
+        "video",
+        "form-variations"
       ]
     }
   ]

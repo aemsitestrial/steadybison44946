@@ -481,6 +481,137 @@
     ]
   },
   {
+    "id": "form-variations",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "required": false,
+        "maxSize": 3,
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Dark",
+                "value": "dark"
+              },
+              {
+                "name": "Light",
+                "value": "light"
+              }
+            ]
+          },
+          {
+            "name": "Background Color",
+            "children": [
+              {
+                "name": "tcs Black",
+                "value": "tcs-background-black"
+              },
+              {
+                "name": "tcs Red",
+                "value": "tcs-background-red"
+              },
+              {
+                "name": "tcs Blue",
+                "value": "tcs-background-blue"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "value": "",
+        "label": "Eyebrow Tag",
+        "description": "Sets the small pre-title string above the heading (e.g. REQUEST FOR SERVICES)."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Heading",
+        "description": "Sets the main heading title of the form."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "titleType",
+        "value": "h2",
+        "label": "Heading Type",
+        "options": [
+          {
+            "name": "H1",
+            "value": "h1"
+          },
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          },
+          {
+            "name": "H4",
+            "value": "h4"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "value": "",
+        "label": "Form Description",
+        "description": "The introductory description shown below the title."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "formMode",
+        "value": "standard",
+        "label": "Form Mode",
+        "options": [
+          {
+            "name": "Standard Submission",
+            "value": "standard"
+          },
+          {
+            "name": "Conditional Action Switcher",
+            "value": "conditional_switcher"
+          },
+          {
+            "name": "Directory Lookup",
+            "value": "directory_lookup"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "value": "",
+        "label": "Form API Endpoint",
+        "description": "Target endpoint URL for standard form submissions."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "submitLabel",
+        "value": "Send",
+        "label": "Submit Button Text",
+        "description": "Text displayed inside primary submit button."
+      }
+    ]
+  },
+  {
     "id": "form",
     "fields": [
       {
