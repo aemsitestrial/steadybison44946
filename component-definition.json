@@ -256,6 +256,39 @@
           }
         },
         {
+          "title": "Icon",
+          "id": "icon",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/icon/v1/icon"
+              }
+            }
+          }
+        },
+        {
+          "title": "Accordion",
+          "id": "accordion",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/accordion/v1/accordion"
+              }
+            }
+          }
+        },
+        {
+          "title": "Video",
+          "id": "video",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/video/v1/video"
+              }
+            }
+          }
+        },
+        {
           "title": "DM Scene7 Template",
           "id": "dm-scene7-template",
           "plugins": {
