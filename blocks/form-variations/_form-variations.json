@@ -156,6 +156,75 @@
           "value": "Send",
           "label": "Submit Button Text",
           "description": "Text displayed inside primary submit button."
+        },
+        {
+          "component": "multifield",
+          "name": "fields",
+          "label": "Form Fields",
+          "valueType": "array",
+          "itemLabel": "Field",
+          "itemModel": "form-field-item",
+          "multi": true,
+          "description": "Dynamic list of form fields rendered in the form variation."
+        }
+      ]
+    },
+    {
+      "id": "form-field-item",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "label",
+          "label": "Label",
+          "value": ""
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "key",
+          "label": "Key",
+          "value": ""
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "type",
+          "label": "Type",
+          "value": "string",
+          "options": [
+            { "name": "Text", "value": "string" },
+            { "name": "Email", "value": "email" },
+            { "name": "Select", "value": "select" },
+            { "name": "Textarea", "value": "textarea" },
+            { "name": "Checkbox", "value": "checkbox" },
+            { "name": "Content", "value": "content" }
+          ]
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "width",
+          "label": "Width",
+          "value": "100%",
+          "options": [
+            { "name": "100%", "value": "100%" },
+            { "name": "50%", "value": "50%" }
+          ]
+        },
+        {
+          "component": "checkbox",
+          "valueType": "boolean",
+          "name": "mandatory",
+          "label": "Mandatory",
+          "value": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "modeCondition",
+          "label": "Conditional Visibility",
+          "value": "all"
         }
       ]
     }

@@ -28,28 +28,102 @@ export function parseFieldsTable(fieldsContainer) {
   const fields = [];
   if (!fieldsContainer) return fields;
 
-  const rows = fieldsContainer.querySelectorAll('tr');
-  const items = rows.length > 0 ? rows : [...fieldsContainer.children];
+  const tableRows = fieldsContainer.querySelectorAll ? fieldsContainer.querySelectorAll('tr') : [];
+  if (tableRows.length > 0) {
+    tableRows.forEach((row) => {
+      const cols = [...row.children].map((c) => c.innerHTML.trim());
+      if (cols.length >= 3) {
+        const label = cols[0] || '';
+        const key = cols[1]
+          ? cols[1].replace(/<[^>]*>/g, '').trim()
+          : label.toLowerCase().replace(/\s+/g, '_');
+        const typeRaw = cols[2]
+          ? cols[2].replace(/<[^>]*>/g, '').toLowerCase().trim()
+          : 'string';
+        const width = cols[3] ? cols[3].replace(/<[^>]*>/g, '').trim() : '100%';
+        const mandatoryRaw = cols[4]
+          ? cols[4].replace(/<[^>]*>/g, '').toLowerCase().trim()
+          : 'no';
+        const modeCondition = cols[5]
+          ? cols[5].replace(/<[^>]*>/g, '').trim()
+          : 'all';
 
-  items.forEach((row) => {
-    const cols = [...row.children].map((c) => c.innerHTML.trim());
-    if (cols.length >= 3) {
-      const label = cols[0] || '';
-      const key = cols[1] ? cols[1].replace(/<[^>]*>/g, '').trim() : label.toLowerCase().replace(/\s+/g, '_');
-      const typeRaw = cols[2] ? cols[2].replace(/<[^>]*>/g, '').toLowerCase().trim() : 'string';
-      const width = cols[3] ? cols[3].replace(/<[^>]*>/g, '').trim() : '100%';
-      const mandatoryRaw = cols[4] ? cols[4].replace(/<[^>]*>/g, '').toLowerCase().trim() : 'no';
-      const modeCondition = cols[5] ? cols[5].replace(/<[^>]*>/g, '').trim() : 'all';
+        let type = typeRaw;
+        let options = [];
+        let maxCharacters = 1500;
 
-      let type = typeRaw;
+        if (typeRaw.startsWith('select(')) {
+          type = 'select';
+          const optsString = typeRaw.substring(typeRaw.indexOf('(') + 1, typeRaw.lastIndexOf(')'));
+          options = optsString.split(',').map((o) => o.trim());
+        } else if (typeRaw.startsWith('textarea')) {
+          type = 'textarea';
+          if (typeRaw.includes('(')) {
+            const charStr = typeRaw.substring(typeRaw.indexOf('(') + 1, typeRaw.lastIndexOf(')'));
+            maxCharacters = parseInt(charStr, 10) || 1500;
+          }
+        }
+
+        const isRequired = mandatoryRaw === 'yes'
+          || mandatoryRaw === 'true'
+          || label.includes('*');
+
+        fields.push({
+          label: label.replace(/\*/g, '').trim(),
+          key,
+          type,
+          options,
+          width,
+          isRequired,
+          maxCharacters,
+          modeCondition,
+          rawLabelHTML: label,
+        });
+      }
+    });
+
+    return fields;
+  }
+
+  let multifieldItems = [];
+  if (fieldsContainer.matches) {
+    if (fieldsContainer.matches('.form-field-item, [data-model="form-field-item"]')) {
+      multifieldItems = [fieldsContainer];
+    } else {
+      multifieldItems = fieldsContainer.querySelectorAll('.form-field-item, [data-model="form-field-item"]');
+    }
+  }
+
+  if (multifieldItems.length > 0) {
+    multifieldItems.forEach((item) => {
+      const getValue = (name) => {
+        const node = item.querySelector(`[data-name="${name}"]`)
+          || item.querySelector(`[name="${name}"]`)
+          || item.querySelector(`[data-field-name="${name}"]`);
+
+        if (!node) return '';
+        if (node.value !== undefined && node.value !== null) {
+          return String(node.value).trim();
+        }
+        return String(node.textContent || '').trim();
+      };
+
+      const label = getValue('label') || getValue('fieldLabel') || '';
+      const key = getValue('key') || getValue('name') || label.toLowerCase().replace(/\s+/g, '_');
+      const typeRaw = getValue('type') || 'string';
+      const width = getValue('width') || '100%';
+      const mandatoryRaw = getValue('mandatory') || 'no';
+      const modeCondition = getValue('modeCondition') || 'all';
+
+      let type = typeRaw.toLowerCase();
       let options = [];
       let maxCharacters = 1500;
 
-      if (typeRaw.startsWith('select(')) {
+      if (typeRaw.toLowerCase().startsWith('select(')) {
         type = 'select';
         const optsString = typeRaw.substring(typeRaw.indexOf('(') + 1, typeRaw.lastIndexOf(')'));
         options = optsString.split(',').map((o) => o.trim());
-      } else if (typeRaw.startsWith('textarea')) {
+      } else if (type.startsWith('textarea')) {
         type = 'textarea';
         if (typeRaw.includes('(')) {
           const charStr = typeRaw.substring(typeRaw.indexOf('(') + 1, typeRaw.lastIndexOf(')'));
@@ -57,10 +131,12 @@ export function parseFieldsTable(fieldsContainer) {
         }
       }
 
-      const isRequired = mandatoryRaw === 'yes' || mandatoryRaw === 'true' || label.includes('*');
+      const isRequired = mandatoryRaw === 'yes'
+        || mandatoryRaw === 'true'
+        || String(label).includes('*');
 
       fields.push({
-        label: label.replace(/\*/g, '').trim(),
+        label: String(label).replace(/\*/g, '').trim(),
         key,
         type,
         options,
@@ -70,6 +146,15 @@ export function parseFieldsTable(fieldsContainer) {
         modeCondition,
         rawLabelHTML: label,
       });
+    });
+
+    return fields;
+  }
+
+  const directChildren = [...fieldsContainer.children];
+  directChildren.forEach((child) => {
+    if (child.matches && child.matches('.form-field-item, [data-model="form-field-item"]')) {
+      fields.push(...parseFieldsTable(child));
     }
   });
 
