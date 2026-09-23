@@ -35,85 +35,6 @@
           "label": "Rows"
         }
       ]
-    },
-    {
-      "id": "cta",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "linkText",
-          "label": "Link Text"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "linkUrl",
-          "label": "Link URL"
-        },
-        {
-          "component": "select",
-          "name": "variation",
-          "label": "CTA Variation",
-          "options": [
-            { "label": "Primary", "value": "primary" },
-            { "label": "Secondary", "value": "secondary" },
-            { "label": "Outline", "value": "outline" },
-            { "label": "Text Link", "value": "text-link" }
-          ]
-        }
-      ]
-    },
-    {
-      "id": "video",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "videoUrl",
-          "label": "Video URL"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "altText",
-          "label": "Alt / Title Text"
-        },
-        {
-          "component": "checkbox",
-          "name": "autoplay",
-          "label": "Autoplay"
-        }
-      ]
-    },
-    {
-      "id": "accordion",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "title",
-          "label": "Accordion Title"
-        },
-        {
-          "component": "richtext",
-          "valueType": "string",
-          "name": "description",
-          "label": "Description"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "ctaText",
-          "label": "CTA Text"
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "ctaUrl",
-          "label": "CTA URL"
-        }
-      ]
     }
   ],
   "filters": [
@@ -129,10 +50,7 @@
         "text",
         "image",
         "button",
-        "title",
-        "video",
-        "cta",
-        "accordion"
+        "title"
       ]
     }
   ]
