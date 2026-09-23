@@ -353,6 +353,137 @@
     ]
   },
   {
+    "id": "form-variations",
+    "fields": [
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "required": false,
+        "maxSize": 3,
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Dark Slate",
+                "value": "dark"
+              },
+              {
+                "name": "Light",
+                "value": "light"
+              }
+            ]
+          },
+          {
+            "name": "Background Color",
+            "children": [
+              {
+                "name": "TCS Black",
+                "value": "tcs-background-black"
+              },
+              {
+                "name": "TCS Red",
+                "value": "tcs-background-red"
+              },
+              {
+                "name": "TCS Blue",
+                "value": "tcs-background-blue"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "value": "",
+        "label": "Eyebrow Tag",
+        "description": "Small uppercase pre-title string (e.g. REQUEST FOR SERVICES, PARTNERSHIPS)."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "",
+        "label": "Form Heading",
+        "description": "Main heading text of the form."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "titleType",
+        "value": "h2",
+        "label": "Heading Type",
+        "options": [
+          {
+            "name": "H1",
+            "value": "h1"
+          },
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          },
+          {
+            "name": "H4",
+            "value": "h4"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "value": "",
+        "label": "Form Description",
+        "description": "Introductory description text shown below title."
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "formMode",
+        "value": "standard",
+        "label": "Form Mode / Intent",
+        "options": [
+          {
+            "name": "Standard Submission",
+            "value": "standard"
+          },
+          {
+            "name": "Conditional Action Switcher (Subscribe/Unsubscribe)",
+            "value": "conditional_switcher"
+          },
+          {
+            "name": "Directory Lookup (Press & Media)",
+            "value": "directory_lookup"
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "endpoint",
+        "value": "",
+        "label": "Form Submission Endpoint API",
+        "description": "Backend submission URL or API gateway path."
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "submitLabel",
+        "value": "Send",
+        "label": "Submit Button Text",
+        "description": "Label for primary action button (e.g. Send, Subscribe, Back to website)."
+      }
+    ]
+  },
+  {
     "id": "form",
     "fields": [
       {

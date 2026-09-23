@@ -29,7 +29,8 @@
       "text",
       "title",
       "teaser",
-      "video"
+      "video",
+      "form-variations"
     ]
   },
   {
@@ -63,6 +64,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "form-variations",
+    "components": [
+      "form-variations"
     ]
   },
   {
