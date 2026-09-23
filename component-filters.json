@@ -62,7 +62,10 @@
       "text",
       "image",
       "button",
-      "title"
+      "title",
+      "video",
+      "cta",
+      "accordion"
     ]
   },
   {
