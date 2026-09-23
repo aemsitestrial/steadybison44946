@@ -260,15 +260,143 @@
         "component": "text",
         "valueType": "number",
         "name": "columns",
-        "value": "",
+        "value": "2",
         "label": "Columns"
       },
       {
         "component": "text",
         "valueType": "number",
         "name": "rows",
-        "value": "",
+        "value": "1",
         "label": "Rows"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "required": false,
+        "maxSize": 3,
+        "options": [
+          {
+            "name": "Alignment",
+            "children": [
+              {
+                "name": "Vertical Center",
+                "value": "align-center"
+              },
+              {
+                "name": "Vertical Top",
+                "value": "align-top"
+              }
+            ]
+          },
+          {
+            "name": "Background Color",
+            "children": [
+              {
+                "name": "Light",
+                "value": "bg-light"
+              },
+              {
+                "name": "Dark",
+                "value": "bg-dark"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "cta",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "Link Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkUrl",
+        "label": "Link URL"
+      },
+      {
+        "component": "select",
+        "name": "variation",
+        "label": "CTA Variation",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Primary",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary",
+            "value": "secondary"
+          },
+          {
+            "name": "Outline",
+            "value": "outline"
+          },
+          {
+            "name": "Text Link",
+            "value": "text-link"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "video",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "videoUrl",
+        "label": "Video URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "altText",
+        "label": "Alt / Title Text"
+      },
+      {
+        "component": "checkbox",
+        "name": "autoplay",
+        "label": "Autoplay"
+      }
+    ]
+  },
+  {
+    "id": "accordion",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Accordion Title"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "label": "Description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaText",
+        "label": "CTA Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "ctaUrl",
+        "label": "CTA URL"
       }
     ]
   },

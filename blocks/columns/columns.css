@@ -1,33 +1,211 @@
+/* ==========================================================================
+   Base Layout & Grid Structural Styling
+   ========================================================================== */
+.columns.block {
+  position: relative;
+  background-color: var(--columns-background-color, transparent);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
 .columns > div {
   display: flex;
   flex-direction: column;
 }
- 
+
 .columns img {
   width: 100%;
+  height: auto;
+  display: block;
 }
- 
+
 .columns > div > div {
   order: 1;
 }
- 
+
 .columns > div > .columns-img-col {
   order: 0;
 }
- 
-.columns > div > .columns-img-col img {
+
+/* Block Variations (Dark / Light Theme Styling) */
+.columns.bg-dark {
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+.columns.bg-dark :where(h1, h2, h3, h4, h5, h6) {
+  color: #fff;
+}
+
+.columns.bg-light {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* ==========================================================================
+   Video Styles
+   ========================================================================== */
+.columns .columns-video {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
   display: block;
 }
- 
+
+.columns .columns-video-embed {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  height: 0;
+  overflow: hidden;
+  max-width: 100%;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+
+.columns .columns-video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* ==========================================================================
+   CTA Variations (Primary, Secondary, Outline, Text Link)
+   ========================================================================== */
+.columns .button {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 4px;
+  text-align: center;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  margin: 8px 0;
+}
+
+/* Primary CTA (Bold/Solid) */
+.columns .button.primary {
+  background-color: #0265dc;
+  color: #fff;
+  border: 2px solid #0265dc;
+}
+
+.columns .button.primary:hover {
+  background-color: #004bb5;
+  border-color: #004bb5;
+}
+
+/* Secondary CTA (Muted/Solid) */
+.columns .button.secondary {
+  background-color: #6c757d;
+  color: #fff;
+  border: 2px solid #6c757d;
+}
+
+.columns .button.secondary:hover {
+  background-color: #545b62;
+  border-color: #545b62;
+}
+
+/* Outline CTA */
+.columns .button.outline {
+  background-color: transparent;
+  color: #0265dc;
+  border: 2px solid #0265dc;
+}
+
+.columns .button.outline:hover {
+  background-color: #0265dc;
+  color: #fff;
+}
+
+/* Text Link CTA */
+.columns .cta-text-link {
+  color: #0265dc;
+  font-weight: 600;
+  text-decoration: underline;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.columns .cta-text-link:hover {
+  color: #004bb5;
+}
+
+/* ==========================================================================
+   Accordion Styles
+   ========================================================================== */
+.columns-accordion {
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  margin: 12px 0;
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.columns-accordion-title {
+  padding: 14px 18px;
+  font-weight: 600;
+  font-size: 1.05rem;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+  background-color: #f9f9f9;
+  color: #212529;
+  transition: background-color 0.2s ease;
+}
+
+.columns-accordion-title::-webkit-details-marker {
+  display: none;
+}
+
+.columns-accordion-title::after {
+  content: '+';
+  font-size: 1.2rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.columns-accordion[open] .columns-accordion-title {
+  background-color: #f0f4f8;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.columns-accordion[open] .columns-accordion-title::after {
+  content: '−';
+}
+
+.columns-accordion-content {
+  padding: 16px 18px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.columns-accordion-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Responsive Desktop View
+   ========================================================================== */
 @media (width >= 900px) {
   .columns > div {
     align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    flex-direction: row;
+    gap: 32px;
   }
- 
+
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+
+  .columns.align-top > div {
+    align-items: flex-start;
   }
 }

@@ -244,6 +244,16 @@
           "title": "Columns",
           "id": "columns",
           "plugins": {
+            "da": {
+              "rows": 1,
+              "columns": 2,
+              "fields": [
+                {
+                  "name": "classes",
+                  "selector": "div:nth-child(1)>div>ul"
+                }
+              ]
+            },
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/columns/v1/columns",
