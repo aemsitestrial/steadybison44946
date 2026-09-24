@@ -4437,7 +4437,7 @@
     ]
   },
   {
-    "id": "accordion",
+    "id": "form-accordion",
     "fields": [
       {
         "component": "container",
@@ -4610,7 +4610,7 @@
     ]
   },
   {
-    "id": "modal",
+    "id": "form-modal",
     "fields": [
       {
         "component": "container",
