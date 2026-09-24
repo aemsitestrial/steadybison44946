@@ -30,7 +30,7 @@
       "title",
       "teaser",
       "video",
-      "form-variations"
+      "variations-form"
     ]
   },
   {
@@ -67,26 +67,6 @@
       "video",
       "cta",
       "accordion"
-    ]
-  },
-  {
-    "id": "section",
-    "components": [
-      "columns",
-      "form-variations"
-    ]
-  },
-  {
-    "id": "form-variations",
-    "components": [
-      "form-type-dropdown",
-      "text-input",
-      "email-input",
-      "select-dropdown",
-      "textarea-field",
-      "checkbox-field",
-      "contact-directory",
-      "submit-button"
     ]
   },
   {
@@ -147,6 +127,17 @@
     "id": "tabs",
     "components": [
       "tabs-item"
+    ]
+  },
+  {
+    "id": "variations-form",
+    "components": [
+      "field-text",
+      "field-select",
+      "field-textarea",
+      "field-checkbox",
+      "contact-card",
+      "field-submit"
     ]
   },
   {

@@ -481,226 +481,6 @@
     ]
   },
   {
-    "id": "form-variations",
-    "fields": [
-      {
-        "component": "text",
-        "name": "title",
-        "label": "Form Header / Description",
-        "valueType": "string",
-        "required": false
-      },
-      {
-        "component": "text",
-        "name": "categoryTag",
-        "label": "Category Tag / Navigation Breadcrumb",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
-    "id": "form-type-dropdown",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Dropdown Field Label",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "options",
-        "label": "Options (Comma Separated, e.g. Subscribe, Unsubscribe)",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      }
-    ]
-  },
-  {
-    "id": "text-input",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Field Label",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "name": "showIfOption",
-        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
-    "id": "email-input",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Field Label",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "name": "showIfOption",
-        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
-    "id": "select-dropdown",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Dropdown Label",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "options",
-        "label": "Options (Comma Separated, e.g. Technology, Sport)",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "name": "showIfOption",
-        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
-    "id": "textarea-field",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Field Label",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "text",
-        "name": "maxChars",
-        "label": "Max Character Limit (e.g. 1500)",
-        "valueType": "number",
-        "value": "1500"
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "name": "showIfOption",
-        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
-    "id": "checkbox-field",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Consent Label Text",
-        "valueType": "string",
-        "required": true
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      },
-      {
-        "component": "text",
-        "name": "showIfOption",
-        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
-    "id": "contact-directory",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Region Select Label",
-        "valueType": "string",
-        "value": "Region"
-      },
-      {
-        "component": "checkbox",
-        "name": "required",
-        "label": "Mandatory (*)",
-        "valueType": "boolean"
-      }
-    ]
-  },
-  {
-    "id": "submit-button",
-    "fields": [
-      {
-        "component": "text",
-        "name": "label",
-        "label": "Button Text",
-        "valueType": "string",
-        "value": "Send"
-      },
-      {
-        "component": "text",
-        "name": "showIfOption",
-        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
-        "valueType": "string",
-        "required": false
-      }
-    ]
-  },
-  {
     "id": "form",
     "fields": [
       {
@@ -6536,6 +6316,221 @@
         "value": "",
         "label": "Second CTA Link",
         "description": "What link to open when clicking the button."
+      }
+    ]
+  },
+  {
+    "id": "variations-form",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "formTitle",
+        "label": "Form Title / Heading"
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "formDescription",
+        "label": "Form Description"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Theme & Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Dark Theme",
+            "value": "dark"
+          },
+          {
+            "name": "Light Theme",
+            "value": "light"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "field-text",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Field Name / ID",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Field Label",
+        "required": true
+      },
+      {
+        "component": "select",
+        "name": "type",
+        "label": "Input Type",
+        "value": "text",
+        "options": [
+          {
+            "name": "Text",
+            "value": "text"
+          },
+          {
+            "name": "Email",
+            "value": "email"
+          },
+          {
+            "name": "Tel",
+            "value": "tel"
+          }
+        ]
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory Field (*)"
+      },
+      {
+        "component": "text",
+        "name": "dependsOn",
+        "label": "Show Only If Parent Dropdown Value Equals"
+      }
+    ]
+  },
+  {
+    "id": "field-select",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Dropdown ID",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Dropdown Label",
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory Field (*)"
+      },
+      {
+        "component": "text",
+        "name": "options",
+        "label": "Options (Comma Separated e.g. Asia Pacific, India, USA)"
+      },
+      {
+        "component": "text",
+        "name": "dependsOn",
+        "label": "Show Only If Parent Dropdown Value Equals"
+      }
+    ]
+  },
+  {
+    "id": "field-textarea",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Field ID",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Field Label",
+        "required": true
+      },
+      {
+        "component": "number",
+        "name": "maxLength",
+        "label": "Max Character Limit",
+        "value": 1500
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory Field (*)"
+      },
+      {
+        "component": "text",
+        "name": "dependsOn",
+        "label": "Show Only If Parent Dropdown Value Equals"
+      }
+    ]
+  },
+  {
+    "id": "field-checkbox",
+    "fields": [
+      {
+        "component": "text",
+        "name": "name",
+        "label": "Checkbox ID",
+        "required": true
+      },
+      {
+        "component": "richtext",
+        "name": "label",
+        "label": "Consent Label / Disclaimer Text",
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory Field (*)"
+      },
+      {
+        "component": "text",
+        "name": "dependsOn",
+        "label": "Show Only If Parent Dropdown Value Equals"
+      }
+    ]
+  },
+  {
+    "id": "contact-card",
+    "fields": [
+      {
+        "component": "text",
+        "name": "region",
+        "label": "Target Region Match (e.g., India)",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "contactName",
+        "label": "Contact Person Name",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "emails",
+        "label": "Emails (Comma Separated)"
+      },
+      {
+        "component": "text",
+        "name": "phones",
+        "label": "Phone Numbers (Comma Separated)"
+      }
+    ]
+  },
+  {
+    "id": "field-submit",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Button Label",
+        "value": "Send"
+      },
+      {
+        "component": "text",
+        "name": "dependsOn",
+        "label": "Show Only If Parent Dropdown Value Equals"
       }
     ]
   },
