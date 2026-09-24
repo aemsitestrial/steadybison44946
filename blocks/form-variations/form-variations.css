@@ -1,6 +1,4 @@
-/* ==========================================================================
-   Form Variations Base Container & Dark Layout
-   ========================================================================== */
+/* Base Block Styling */
 .form-variations.block {
   position: relative;
   background-color: #030308;
@@ -16,55 +14,13 @@
   width: 100%;
 }
 
-.form-variations-header {
-  margin-bottom: 32px;
-}
-
-.form-variations-category-tag {
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #9aa4b2;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.form-variations-title {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  font-weight: 400;
-  color: #e2e8f0;
-}
-
-/* ==========================================================================
-   Underline Floating Label Inputs & Field Groups
-   ========================================================================== */
 .form-variations-group {
   position: relative;
   margin-bottom: 32px;
   width: 100%;
 }
 
-.form-variations-row {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-}
-
-@media (width >= 600px) {
-  .form-variations-row {
-    flex-direction: row;
-    gap: 24px;
-  }
-
-  .form-variations-row .form-variations-group {
-    flex: 1;
-  }
-}
-
+/* Floating Underline Labels */
 .form-variations-field {
   width: 100%;
   background: transparent;
@@ -97,7 +53,6 @@
   transition: all 0.2s ease;
 }
 
-/* Floating label trigger when field is focused or filled */
 .form-variations-field-select ~ .form-variations-label,
 .form-variations-field:focus ~ .form-variations-label,
 .form-variations-field:not(:placeholder-shown) ~ .form-variations-label {
@@ -106,9 +61,7 @@
   color: #a0aec0;
 }
 
-/* ==========================================================================
-   Select Dropdowns
-   ========================================================================== */
+/* Select Dropdown */
 .form-variations-field-select {
   appearance: none;
   cursor: pointer;
@@ -120,12 +73,9 @@
 .form-variations-field-select option {
   background-color: #0b0d17;
   color: #fff;
-  padding: 10px;
 }
 
-/* ==========================================================================
-   Textarea & Character Counter
-   ========================================================================== */
+/* Textarea & Counter */
 textarea.form-variations-field {
   resize: vertical;
   min-height: 70px;
@@ -138,9 +88,7 @@ textarea.form-variations-field {
   margin-top: 4px;
 }
 
-/* ==========================================================================
-   Checkboxes & Consent Text
-   ========================================================================== */
+/* Checkbox */
 .form-variations-checkbox-group {
   display: flex;
   align-items: flex-start;
@@ -154,14 +102,11 @@ textarea.form-variations-field {
   height: 16px;
   border: 1px solid #6c757d;
   border-radius: 2px;
-  outline: none;
   cursor: pointer;
-  margin-top: 2px;
   position: relative;
 }
 
 .form-variations-checkbox:checked {
-  background-color: transparent;
   border-color: #fff;
 }
 
@@ -177,24 +122,9 @@ textarea.form-variations-field {
 .checkbox-label {
   font-size: 0.82rem;
   color: #a0aec0;
-  line-height: 1.4;
 }
 
-.checkbox-label a {
-  color: #fff;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-.mandatory-note {
-  font-size: 0.75rem;
-  color: #8f9cae;
-  margin-bottom: 20px;
-}
-
-/* ==========================================================================
-   Buttons & Dynamic Cards
-   ========================================================================== */
+/* Buttons & Output Card */
 .form-variations-submit-btn {
   background-color: #8f9cae;
   color: #0b0d17;
@@ -204,27 +134,10 @@ textarea.form-variations-field {
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
 }
 
-.form-variations-submit-btn:hover {
-  background-color: #fff;
-}
-
-/* Press & Media Directory Card */
 .press-directory-result {
-  margin-top: 32px;
-  padding-top: 20px;
-}
-
-.expert-intro {
-  font-size: 0.9rem;
-  color: #a0aec0;
-  margin-bottom: 16px;
-}
-
-.expert-card {
-  margin-bottom: 24px;
+  margin-top: 24px;
 }
 
 .expert-name {
@@ -235,15 +148,9 @@ textarea.form-variations-field {
 }
 
 .expert-contact-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: block;
   color: #fff;
   text-decoration: none;
   font-size: 0.88rem;
   margin-bottom: 6px;
-}
-
-.expert-contact-link:hover {
-  text-decoration: underline;
 }

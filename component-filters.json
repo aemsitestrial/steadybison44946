@@ -70,13 +70,23 @@
     ]
   },
   {
+    "id": "section",
+    "components": [
+      "columns",
+      "form-variations"
+    ]
+  },
+  {
     "id": "form-variations",
     "components": [
-      "input",
-      "select",
-      "textarea",
-      "checkbox",
-      "button"
+      "form-type-dropdown",
+      "text-input",
+      "email-input",
+      "select-dropdown",
+      "textarea-field",
+      "checkbox-field",
+      "contact-directory",
+      "submit-button"
     ]
   },
   {

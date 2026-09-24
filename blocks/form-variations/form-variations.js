@@ -1,4 +1,4 @@
-/* Region Directory Contact Data for Press & Media */
+/* Region Directory Data Mapping */
 const REGION_CONTACTS = {
   'Asia Pacific': {
     name: 'Iris Tham',
@@ -23,202 +23,180 @@ const REGION_CONTACTS = {
   },
 };
 
-/* Helper: Real-Time Character Counter */
-function setupCharCounter(textarea, maxChars) {
+/* Helper: Character Counter Decoration */
+export function decorateCharCounter(groupEl, maxChars = 1500) {
+  const textarea = groupEl.querySelector('textarea');
+  if (!textarea) return;
+
   const counterDiv = document.createElement('div');
   counterDiv.className = 'char-counter';
   counterDiv.textContent = `(0/${maxChars})`;
   textarea.parentElement.appendChild(counterDiv);
 
   textarea.addEventListener('input', () => {
-    const len = textarea.value.length;
-    counterDiv.textContent = `(${len}/${maxChars})`;
+    counterDiv.textContent = `(${textarea.value.length}/${maxChars})`;
   });
 }
 
-/* Helper: Conditional Field Toggling for Analyst Relations */
-function handleAnalystRelationsToggle(container, selectedAction) {
-  const dynamicWrapper = container.querySelector('.dynamic-analyst-fields');
-  if (!dynamicWrapper) return;
+/* Helper: Case 1 Conditional Logic Renderer */
+export function setupConditionalToggling(formWrapper) {
+  const masterDropdown = formWrapper.querySelector('.master-type-dropdown');
+  if (!masterDropdown) return;
 
-  if (selectedAction === 'Unsubscribe') {
-    dynamicWrapper.innerHTML = `
-      <p style="font-size: 0.88rem; color: #a0aec0; margin-bottom: 24px;">Unsubscribe from TCS' Analyst Relations Updates</p>
-      <div class="form-variations-group">
-        <input type="email" id="email" class="form-variations-field" placeholder=" " required />
-        <label for="email" class="form-variations-label">Email*</label>
-      </div>
-      <div class="form-variations-checkbox-group">
-        <input type="checkbox" id="consent" class="form-variations-checkbox" required />
-        <label for="consent" class="checkbox-label">
-          I want to stop receiving Analyst Relations mailers, related event notifications and invitations from TCS.
-        </label>
-      </div>
-      <div class="mandatory-note">For further details on how your personal data will be processed and how your consent can be managed, refer to the <a href="#" style="color:#fff;text-decoration:underline;">TCS Privacy Notice</a>.<br><br>*Mandatory fields</div>
-      <button type="submit" class="form-variations-submit-btn">Unsubscribe</button>
-    `;
-  } else {
-    dynamicWrapper.innerHTML = `
-      <p style="font-size: 0.88rem; color: #a0aec0; margin-bottom: 24px;">Subscribe to receive our latest analyst relations updates</p>
-      <div class="form-variations-row">
-        <div class="form-variations-group">
-          <input type="text" id="firstName" class="form-variations-field" placeholder=" " required />
-          <label for="firstName" class="form-variations-label">First name*</label>
-        </div>
-        <div class="form-variations-group">
-          <input type="text" id="lastName" class="form-variations-field" placeholder=" " required />
-          <label for="lastName" class="form-variations-label">Last name*</label>
-        </div>
-      </div>
-      <div class="form-variations-group">
-        <input type="email" id="email" class="form-variations-field" placeholder=" " required />
-        <label for="email" class="form-variations-label">Email*</label>
-      </div>
-      <div class="form-variations-group">
-        <input type="text" id="company" class="form-variations-field" placeholder=" " required />
-        <label for="company" class="form-variations-label">Company*</label>
-      </div>
-      <div class="form-variations-checkbox-group">
-        <input type="checkbox" id="consent" class="form-variations-checkbox" required />
-        <label for="consent" class="checkbox-label">
-          I consent to processing of my personal data entered above for the purpose of receiving Analyst Relations mailers, related event notifications and invitations from TCS.
-        </label>
-      </div>
-      <div class="mandatory-note">For further details on how your personal data will be processed and how your consent can be managed, refer to the <a href="#" style="color:#fff;text-decoration:underline;">TCS Privacy Notice</a>.<br><br>*Mandatory fields</div>
-      <button type="submit" class="form-variations-submit-btn">Subscribe</button>
-    `;
-  }
+  const conditionalFields = formWrapper.querySelectorAll('[data-show-if]');
+
+  const applyCondition = (selectedVal) => {
+    conditionalFields.forEach((field) => {
+      const condition = field.getAttribute('data-show-if');
+      const input = field.querySelector('input, select, textarea');
+
+      if (!condition || condition.trim().toLowerCase() === selectedVal.trim().toLowerCase()) {
+        field.style.display = 'block';
+        if (input && field.hasAttribute('data-originally-required')) {
+          input.setAttribute('required', '');
+        }
+      } else {
+        field.style.display = 'none';
+        if (input) {
+          input.removeAttribute('required');
+        }
+      }
+    });
+  };
+
+  masterDropdown.addEventListener('change', (e) => applyCondition(e.target.value));
+  applyCondition(masterDropdown.value);
 }
 
-/* Helper: Render Region Contacts for Press & Media Directory */
-function handleRegionSelection(region, resultContainer) {
-  const contact = REGION_CONTACTS[region];
-  if (!contact) {
-    resultContainer.innerHTML = '';
-    return;
-  }
+/* Helper: Render Directory Contacts for Regional Directory Field */
+export function decorateDirectory(formWrapper) {
+  const regionSelect = formWrapper.querySelector('.directory-region-select');
+  const resultContainer = formWrapper.querySelector('.directory-result-container');
+  if (!regionSelect || !resultContainer) return;
 
-  resultContainer.innerHTML = `
-    <div class="press-directory-result">
-      <div class="expert-intro">Here you go - the expert(s) listed below are waiting to hear from you.</div>
-      <div class="expert-card">
-        <div class="expert-name">${contact.name}</div>
-        <a href="mailto:${contact.email}" class="expert-contact-link">✉ ${contact.email}</a>
-        ${contact.phone ? `<a href="tel:${contact.phone}" class="expert-contact-link">📞 ${contact.phone}</a>` : ''}
-        ${contact.altEmail ? `<a href="mailto:${contact.altEmail}" class="expert-contact-link">✉ ${contact.altEmail}</a>` : ''}
+  regionSelect.addEventListener('change', (e) => {
+    const contact = REGION_CONTACTS[e.target.value];
+    if (!contact) {
+      resultContainer.innerHTML = '';
+      return;
+    }
+
+    resultContainer.innerHTML = `
+      <div class="press-directory-result">
+        <div class="expert-intro">Here you go - the expert(s) listed below are waiting to hear from you.</div>
+        <div class="expert-card">
+          <div class="expert-name">${contact.name}</div>
+          <a href="mailto:${contact.email}" class="expert-contact-link">✉ ${contact.email}</a>
+          ${contact.phone ? `<a href="tel:${contact.phone}" class="expert-contact-link">📞 ${contact.phone}</a>` : ''}
+          ${contact.altEmail ? `<a href="mailto:${contact.altEmail}" class="expert-contact-link">✉ ${contact.altEmail}</a>` : ''}
+        </div>
+        <button type="button" class="form-variations-submit-btn" onclick="window.history.back()">Back to website</button>
       </div>
-      <button type="button" class="form-variations-submit-btn" onclick="window.history.back()">Back to website</button>
-    </div>
-  `;
+    `;
+  });
 }
 
-/* Main Block Decorator Function */
+/* Main Decorator Function */
 export default function decorate(block) {
-  const formWrapper = document.createElement('div');
+  const formWrapper = document.createElement('form');
   formWrapper.className = 'form-variations-wrapper';
 
-  const isPressMedia = block.classList.contains('press-media');
-  const isAnalyst = block.classList.contains('analyst-updates');
-  const isPartnerships = block.classList.contains('partnerships');
+  const children = [...block.children];
 
-  if (isPressMedia) {
-    formWrapper.innerHTML = `
-      <div class="form-variations-header">
-        <div class="form-variations-category-tag">&lt; BACK &nbsp;&nbsp;|&nbsp;&nbsp; PRESS AND MEDIA</div>
-        <div class="form-variations-title">We're so glad you reached out! Connecting you to our experts on the ground is a priority for us. Tell us which region you're looking to find out more about, and we'll put you in touch.</div>
-      </div>
-      <div class="form-variations-group">
-        <select id="regionSelect" class="form-variations-field form-variations-field-select" required>
-          <option value="" disabled selected hidden></option>
-          <option value="Asia Pacific">Asia Pacific</option>
-          <option value="Australia & New Zealand">Australia & New Zealand</option>
-          <option value="USA & Canada">USA & Canada</option>
-          <option value="India">India</option>
-          <option value="Europe">Europe</option>
-          <option value="Latin America">Latin America</option>
-          <option value="Japan">Japan</option>
-          <option value="UK">UK</option>
-          <option value="Middle East & Africa">Middle East & Africa</option>
-        </select>
-        <label for="regionSelect" class="form-variations-label">Region</label>
-      </div>
-      <div id="directoryResult"></div>
-    `;
+  children.forEach((row) => {
+    const fieldType = row.firstElementChild?.textContent?.trim().toLowerCase();
+    const configCols = [...row.children].slice(1);
 
-    const select = formWrapper.querySelector('#regionSelect');
-    const resultDiv = formWrapper.querySelector('#directoryResult');
-    select.addEventListener('change', (e) => handleRegionSelection(e.target.value, resultDiv));
-  } else if (isAnalyst) {
-    formWrapper.innerHTML = `
-      <div class="form-variations-header">
-        <div class="form-variations-category-tag">&lt; BACK &nbsp;&nbsp;|&nbsp;&nbsp; LOOKING FOR THE LATEST ANALYST UPDATES?</div>
-        <div class="form-variations-title">Let us know how we can help.</div>
-      </div>
-      <div class="form-variations-group">
-        <select id="actionSelect" class="form-variations-field form-variations-field-select" required>
-          <option value="Subscribe" selected>Subscribe</option>
-          <option value="Unsubscribe">Unsubscribe</option>
-        </select>
-        <label for="actionSelect" class="form-variations-label">I'D LIKE TO</label>
-      </div>
-      <form class="dynamic-analyst-fields"></form>
-    `;
+    const group = document.createElement('div');
+    group.className = 'form-variations-group';
 
-    const select = formWrapper.querySelector('#actionSelect');
-    select.addEventListener('change', (e) => handleAnalystRelationsToggle(formWrapper, e.target.value));
-    handleAnalystRelationsToggle(formWrapper, 'Subscribe');
-  } else {
-    // Default Website Feedback / Partnerships / CSR Forms
-    formWrapper.innerHTML = `
-      <div class="form-variations-header">
-        <div class="form-variations-category-tag">&lt; BACK &nbsp;&nbsp;|&nbsp;&nbsp; ${isPartnerships ? 'PARTNERSHIPS' : 'WEBSITE FEEDBACK'}</div>
-        <div class="form-variations-title">${isPartnerships ? "We're passionate about our partnerships. If you're looking to know more about how we set-up for success, or to incubate a new idea, do get in touch." : 'Let us know what you think of the tcs.com experience. We welcome your suggestions, comments, and opinions.'}</div>
-      </div>
-      <form>
-        <div class="form-variations-row">
-          <div class="form-variations-group">
-            <input type="text" id="firstName" class="form-variations-field" placeholder=" " required />
-            <label for="firstName" class="form-variations-label">First name*</label>
-          </div>
-          <div class="form-variations-group">
-            <input type="text" id="lastName" class="form-variations-field" placeholder=" " required />
-            <label for="lastName" class="form-variations-label">Last name*</label>
-          </div>
-        </div>
-        <div class="${isPartnerships ? 'form-variations-row' : 'form-variations-group'}">
-          <div class="form-variations-group">
-            <input type="email" id="email" class="form-variations-field" placeholder=" " required />
-            <label for="email" class="form-variations-label">${isPartnerships ? 'Email ID*' : 'Email*'}</label>
-          </div>
-          ${isPartnerships ? `
-            <div class="form-variations-group">
-              <select id="sector" class="form-variations-field form-variations-field-select" required>
-                <option value="" disabled selected hidden></option>
-                <option value="Technology">Technology</option>
-                <option value="Sport">Sport</option>
-              </select>
-              <label for="sector" class="form-variations-label">Sector*</label>
-            </div>
-          ` : ''}
-        </div>
-        <div class="form-variations-group">
-          <textarea id="message" class="form-variations-field" placeholder=" " maxlength="1500" required></textarea>
-          <label for="message" class="form-variations-label">How can we help you?*</label>
-        </div>
-        <div class="form-variations-checkbox-group">
-          <input type="checkbox" id="consent" class="form-variations-checkbox" required />
-          <label for="consent" class="checkbox-label">
-            I consent to processing of my personal data entered above for ${isPartnerships ? 'TCS to contact me.*' : 'the purpose of recording the feedback.*'}
-          </label>
-        </div>
-        <div class="mandatory-note">For further details on how your personal data will be processed and how your consent can be managed, refer to the <a href="#" style="color:#fff;text-decoration:underline;">TCS Privacy Notice</a>.<br><br>*Mandatory fields</div>
-        <button type="submit" class="form-variations-submit-btn">Send</button>
-      </form>
-    `;
+    // Parse Case 1 conditional parameters if defined in authoring
+    const showIf = configCols[2]?.textContent?.trim();
+    if (showIf) {
+      group.setAttribute('data-show-if', showIf);
+    }
 
-    const textarea = formWrapper.querySelector('textarea');
-    if (textarea) setupCharCounter(textarea, 1500);
-  }
+    const labelText = configCols[0]?.textContent?.trim() || 'Label';
+    const isRequired = configCols[1]?.textContent?.trim() === 'true';
+
+    if (isRequired) {
+      group.setAttribute('data-originally-required', 'true');
+    }
+
+    switch (fieldType) {
+      case 'form-type-dropdown': {
+        const options = (configCols[1]?.textContent || 'Type 1,Type 2')
+          .split(',')
+          .map((opt) => opt.trim());
+
+        group.innerHTML = `
+          <select id="masterType" class="form-variations-field form-variations-field-select master-type-dropdown" ${isRequired ? 'required' : ''}>
+            ${options.map((opt, i) => `<option value="${opt}" ${i === 0 ? 'selected' : ''}>${opt}</option>`).join('')}
+          </select>
+          <label for="masterType" class="form-variations-label">${labelText}</label>
+        `;
+        break;
+      }
+
+      case 'text-input':
+      case 'email-input': {
+        const inputType = fieldType === 'email-input' ? 'email' : 'text';
+        group.innerHTML = `
+          <input type="${inputType}" class="form-variations-field" placeholder=" " ${isRequired ? 'required' : ''} />
+          <label class="form-variations-label">${labelText}${isRequired ? '*' : ''}</label>
+        `;
+        break;
+      }
+
+      case 'textarea-field': {
+        const maxChars = parseInt(configCols[1]?.textContent?.trim() || '1500', 10);
+        group.innerHTML = `
+          <textarea class="form-variations-field" placeholder=" " maxlength="${maxChars}" ${isRequired ? 'required' : ''}></textarea>
+          <label class="form-variations-label">${labelText}${isRequired ? '*' : ''}</label>
+        `;
+        decorateCharCounter(group, maxChars);
+        break;
+      }
+
+      case 'checkbox-field': {
+        group.className = 'form-variations-checkbox-group';
+        if (showIf) group.setAttribute('data-show-if', showIf);
+        group.innerHTML = `
+          <input type="checkbox" class="form-variations-checkbox" ${isRequired ? 'required' : ''} />
+          <label class="checkbox-label">${labelText}${isRequired ? '*' : ''}</label>
+        `;
+        break;
+      }
+
+      case 'contact-directory': {
+        group.innerHTML = `
+          <select class="form-variations-field form-variations-field-select directory-region-select" ${isRequired ? 'required' : ''}>
+            <option value="" disabled selected hidden></option>
+            ${Object.keys(REGION_CONTACTS).map((region) => `<option value="${region}">${region}</option>`).join('')}
+          </select>
+          <label class="form-variations-label">${labelText}</label>
+          <div class="directory-result-container"></div>
+        `;
+        break;
+      }
+
+      case 'submit-button': {
+        group.innerHTML = `
+          <button type="submit" class="form-variations-submit-btn">${labelText}</button>
+        `;
+        break;
+      }
+
+      default:
+        break;
+    }
+
+    formWrapper.appendChild(group);
+  });
 
   block.replaceChildren(formWrapper);
+
+  // Initialize Case 1 conditional toggles & directory logic
+  setupConditionalToggling(formWrapper);
+  decorateDirectory(formWrapper);
 }

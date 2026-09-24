@@ -484,52 +484,217 @@
     "id": "form-variations",
     "fields": [
       {
-        "component": "select",
-        "name": "formType",
-        "label": "Form Variation / Type",
+        "component": "text",
+        "name": "title",
+        "label": "Form Header / Description",
         "valueType": "string",
-        "required": true,
-        "options": [
-          {
-            "name": "Website Feedback",
-            "value": "feedback"
-          },
-          {
-            "name": "Partnerships",
-            "value": "partnerships"
-          },
-          {
-            "name": "Press & Media Directory",
-            "value": "press-media"
-          },
-          {
-            "name": "CSR (TCS Empowers)",
-            "value": "csr"
-          },
-          {
-            "name": "Analyst Relations Updates",
-            "value": "analyst-updates"
-          }
-        ]
+        "required": false
       },
       {
         "component": "text",
         "name": "categoryTag",
-        "label": "Category Tag Text",
+        "label": "Category Tag / Navigation Breadcrumb",
         "valueType": "string",
         "required": false
+      }
+    ]
+  },
+  {
+    "id": "form-type-dropdown",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Dropdown Field Label",
+        "valueType": "string",
+        "required": true
       },
       {
         "component": "text",
-        "name": "title",
-        "label": "Header / Intro Description",
+        "name": "options",
+        "label": "Options (Comma Separated, e.g. Subscribe, Unsubscribe)",
         "valueType": "string",
-        "required": false
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "text-input",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Field Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
       },
       {
         "component": "text",
-        "name": "submitEndpoint",
-        "label": "Form Submit Endpoint URL",
+        "name": "showIfOption",
+        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
+        "valueType": "string",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "email-input",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Field Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "showIfOption",
+        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
+        "valueType": "string",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "select-dropdown",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Dropdown Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "options",
+        "label": "Options (Comma Separated, e.g. Technology, Sport)",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "showIfOption",
+        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
+        "valueType": "string",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "textarea-field",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Field Label",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "text",
+        "name": "maxChars",
+        "label": "Max Character Limit (e.g. 1500)",
+        "valueType": "number",
+        "value": "1500"
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "showIfOption",
+        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
+        "valueType": "string",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "checkbox-field",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Consent Label Text",
+        "valueType": "string",
+        "required": true
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
+      },
+      {
+        "component": "text",
+        "name": "showIfOption",
+        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
+        "valueType": "string",
+        "required": false
+      }
+    ]
+  },
+  {
+    "id": "contact-directory",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Region Select Label",
+        "valueType": "string",
+        "value": "Region"
+      },
+      {
+        "component": "checkbox",
+        "name": "required",
+        "label": "Mandatory (*)",
+        "valueType": "boolean"
+      }
+    ]
+  },
+  {
+    "id": "submit-button",
+    "fields": [
+      {
+        "component": "text",
+        "name": "label",
+        "label": "Button Text",
+        "valueType": "string",
+        "value": "Send"
+      },
+      {
+        "component": "text",
+        "name": "showIfOption",
+        "label": "Show Only If Parent Dropdown Equals (Case 1 Condition)",
         "valueType": "string",
         "required": false
       }
