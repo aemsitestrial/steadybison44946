@@ -70,6 +70,17 @@
     ]
   },
   {
+    "id": "form-variations",
+    "components": [
+      "field-text",
+      "field-select",
+      "field-textarea",
+      "field-checkbox",
+      "contact-card",
+      "field-submit"
+    ]
+  },
+  {
     "id": "form",
     "components": [
       "captcha",
