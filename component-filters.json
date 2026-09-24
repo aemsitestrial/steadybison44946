@@ -70,6 +70,16 @@
     ]
   },
   {
+    "id": "form-variations",
+    "components": [
+      "input",
+      "select",
+      "textarea",
+      "checkbox",
+      "button"
+    ]
+  },
+  {
     "id": "form",
     "components": [
       "captcha",

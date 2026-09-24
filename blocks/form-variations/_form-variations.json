@@ -5,58 +5,18 @@
       "id": "form-variations",
       "plugins": {
         "da": {
-          "rows": 8,
-          "columns": 1,
           "fields": [
             {
-              "name": "classes",
-              "selector": "div:nth-child(1)>div>ul"
-            },
-            {
-              "name": "eyebrow",
-              "selector": "div:nth-child(2)>div"
-            },
-            {
-              "name": "title",
-              "selector": "div:nth-child(3)>div"
-            },
-            {
-              "name": "titleType",
-              "selector": "div:nth-child(3)>div>:first-child"
-            },
-            {
-              "name": "description",
-              "selector": "div:nth-child(4)>div"
-            },
-            {
-              "name": "formMode",
-              "selector": "div:nth-child(5)>div"
-            },
-            {
-              "name": "endpoint",
-              "selector": "div:nth-child(6)>div>p>a[href]"
-            },
-            {
-              "name": "submitLabel",
-              "selector": "div:nth-child(7)>div>p>strong"
-            },
-            {
-              "name": "fieldsTable",
-              "selector": "div:nth-child(8)>div>table"
+              "name": "formType",
+              "selector": "div:nth-child(1) > div"
             }
           ]
         },
         "xwalk": {
           "page": {
-            "resourceType": "core/franklin/components/block/v1/block",
+            "resourceType": "core/franklin/components/form-variations/v1/form-variations",
             "template": {
-              "name": "Form Variations",
-              "model": "form-variations",
-              "title": "Contact Us",
-              "titleType": "h2",
-              "formMode": "standard",
-              "submitLabel": "Send",
-              "classes": ["dark", "tcs-background-black"]
+              "formType": "feedback"
             }
           }
         }
@@ -68,166 +28,53 @@
       "id": "form-variations",
       "fields": [
         {
-          "component": "multiselect",
-          "name": "classes",
-          "label": "Style",
+          "component": "select",
+          "name": "formType",
+          "label": "Form Variation / Type",
           "valueType": "string",
-          "required": false,
-          "maxSize": 3,
+          "required": true,
           "options": [
-            {
-              "name": "Theme",
-              "children": [
-                { "name": "Dark", "value": "dark" },
-                { "name": "Light", "value": "light" }
-              ]
-            },
-            {
-              "name": "Background Color",
-              "children": [
-                { "name": "tcs Black", "value": "tcs-background-black" },
-                { "name": "tcs Red", "value": "tcs-background-red" },
-                { "name": "tcs Blue", "value": "tcs-background-blue" }
-              ]
-            }
+            { "name": "Website Feedback", "value": "feedback" },
+            { "name": "Partnerships", "value": "partnerships" },
+            { "name": "Press & Media Directory", "value": "press-media" },
+            { "name": "CSR (TCS Empowers)", "value": "csr" },
+            { "name": "Analyst Relations Updates", "value": "analyst-updates" }
           ]
         },
         {
           "component": "text",
+          "name": "categoryTag",
+          "label": "Category Tag Text",
           "valueType": "string",
-          "name": "eyebrow",
-          "value": "",
-          "label": "Eyebrow Tag",
-          "description": "Sets the small pre-title string above the heading (e.g. REQUEST FOR SERVICES)."
+          "required": false
         },
         {
           "component": "text",
-          "valueType": "string",
           "name": "title",
-          "value": "",
-          "label": "Heading",
-          "description": "Sets the main heading title of the form."
-        },
-        {
-          "component": "select",
+          "label": "Header / Intro Description",
           "valueType": "string",
-          "name": "titleType",
-          "value": "h2",
-          "label": "Heading Type",
-          "options": [
-            { "name": "H1", "value": "h1" },
-            { "name": "H2", "value": "h2" },
-            { "name": "H3", "value": "h3" },
-            { "name": "H4", "value": "h4" }
-          ]
-        },
-        {
-          "component": "richtext",
-          "valueType": "string",
-          "name": "description",
-          "value": "",
-          "label": "Form Description",
-          "description": "The introductory description shown below the title."
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "formMode",
-          "value": "standard",
-          "label": "Form Mode",
-          "options": [
-            { "name": "Standard Submission", "value": "standard" },
-            { "name": "Conditional Action Switcher", "value": "conditional_switcher" },
-            { "name": "Directory Lookup", "value": "directory_lookup" }
-          ]
+          "required": false
         },
         {
           "component": "text",
+          "name": "submitEndpoint",
+          "label": "Form Submit Endpoint URL",
           "valueType": "string",
-          "name": "endpoint",
-          "value": "",
-          "label": "Form API Endpoint",
-          "description": "Target endpoint URL for standard form submissions."
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "submitLabel",
-          "value": "Send",
-          "label": "Submit Button Text",
-          "description": "Text displayed inside primary submit button."
-        },
-        {
-          "component": "multifield",
-          "name": "fields",
-          "label": "Form Fields",
-          "valueType": "array",
-          "itemLabel": "Field",
-          "itemModel": "form-field-item",
-          "multi": true,
-          "description": "Dynamic list of form fields rendered in the form variation."
-        }
-      ]
-    },
-    {
-      "id": "form-field-item",
-      "fields": [
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "label",
-          "label": "Label",
-          "value": ""
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "key",
-          "label": "Key",
-          "value": ""
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "type",
-          "label": "Type",
-          "value": "string",
-          "options": [
-            { "name": "Text", "value": "string" },
-            { "name": "Email", "value": "email" },
-            { "name": "Select", "value": "select" },
-            { "name": "Textarea", "value": "textarea" },
-            { "name": "Checkbox", "value": "checkbox" },
-            { "name": "Content", "value": "content" }
-          ]
-        },
-        {
-          "component": "select",
-          "valueType": "string",
-          "name": "width",
-          "label": "Width",
-          "value": "100%",
-          "options": [
-            { "name": "100%", "value": "100%" },
-            { "name": "50%", "value": "50%" }
-          ]
-        },
-        {
-          "component": "checkbox",
-          "valueType": "boolean",
-          "name": "mandatory",
-          "label": "Mandatory",
-          "value": false
-        },
-        {
-          "component": "text",
-          "valueType": "string",
-          "name": "modeCondition",
-          "label": "Conditional Visibility",
-          "value": "all"
+          "required": false
         }
       ]
     }
   ],
-  "filters": []
+  "filters": [
+    {
+      "id": "form-variations",
+      "components": [
+        "input",
+        "select",
+        "textarea",
+        "checkbox",
+        "button"
+      ]
+    }
+  ]
 }

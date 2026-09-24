@@ -332,61 +332,18 @@
           "id": "form-variations",
           "plugins": {
             "da": {
-              "rows": 8,
-              "columns": 1,
               "fields": [
                 {
-                  "name": "classes",
-                  "selector": "div:nth-child(1)>div>ul"
-                },
-                {
-                  "name": "eyebrow",
-                  "selector": "div:nth-child(2)>div"
-                },
-                {
-                  "name": "title",
-                  "selector": "div:nth-child(3)>div"
-                },
-                {
-                  "name": "titleType",
-                  "selector": "div:nth-child(3)>div>:first-child"
-                },
-                {
-                  "name": "description",
-                  "selector": "div:nth-child(4)>div"
-                },
-                {
-                  "name": "formMode",
-                  "selector": "div:nth-child(5)>div"
-                },
-                {
-                  "name": "endpoint",
-                  "selector": "div:nth-child(6)>div>p>a[href]"
-                },
-                {
-                  "name": "submitLabel",
-                  "selector": "div:nth-child(7)>div>p>strong"
-                },
-                {
-                  "name": "fieldsTable",
-                  "selector": "div:nth-child(8)>div>table"
+                  "name": "formType",
+                  "selector": "div:nth-child(1) > div"
                 }
               ]
             },
             "xwalk": {
               "page": {
-                "resourceType": "core/franklin/components/block/v1/block",
+                "resourceType": "core/franklin/components/form-variations/v1/form-variations",
                 "template": {
-                  "name": "Form Variations",
-                  "model": "form-variations",
-                  "title": "Contact Us",
-                  "titleType": "h2",
-                  "formMode": "standard",
-                  "submitLabel": "Send",
-                  "classes": [
-                    "dark",
-                    "tcs-background-black"
-                  ]
+                  "formType": "feedback"
                 }
               }
             }
