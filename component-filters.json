@@ -30,7 +30,7 @@
       "title",
       "teaser",
       "video",
-      "variations-form"
+      "form-variations"
     ]
   },
   {
@@ -127,17 +127,6 @@
     "id": "tabs",
     "components": [
       "tabs-item"
-    ]
-  },
-  {
-    "id": "variations-form",
-    "components": [
-      "field-text",
-      "field-select",
-      "field-textarea",
-      "field-checkbox",
-      "contact-card",
-      "field-submit"
     ]
   },
   {
