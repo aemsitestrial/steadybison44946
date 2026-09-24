@@ -41,7 +41,11 @@ export class WizardLayout {
   validateContainer(container) {
     const fieldElements = [...container.querySelectorAll(this.inputFields)];
     const isValid = fieldElements.reduce((valid, fieldElement) => {
-      const isFieldValid = fieldElement.checkValidity();
+      const isHidden = fieldElement.closest('.field-wrapper')?.dataset?.visible === 'false';
+      let isFieldValid = true;
+      if (!isHidden) {
+        isFieldValid = fieldElement.checkValidity();
+      }
       return valid && isFieldValid;
     }, true);
 
@@ -67,7 +71,9 @@ export class WizardLayout {
       // add/remove active class from menu item
       const navigateToMenuItem = panel.querySelector(`li[data-index="${navigateTo.dataset.index}"]`);
       currentMenuItem.classList.remove('wizard-menu-active-item');
+      currentMenuItem.removeAttribute('aria-current');
       navigateToMenuItem.classList.add('wizard-menu-active-item');
+      navigateToMenuItem.setAttribute('aria-current', 'true');
       const event = new CustomEvent('wizard:navigate', {
         detail: {
           prevStep: { id: current.id, index: +current.dataset.index },
@@ -144,6 +150,7 @@ export class WizardLayout {
       // create wizard menu
       const wizardMenu = WizardLayout.createMenu(Array.from(children));
       wizardMenu.querySelector('li').classList.add('wizard-menu-active-item');
+      wizardMenu.querySelector('li').setAttribute('aria-current', 'true');
       // Insert the menu before the first child of the wizard
       panel.insertBefore(wizardMenu, children[0]);
       WizardLayout.attachMutationObserver(panel);
@@ -151,16 +158,16 @@ export class WizardLayout {
 
     const wrapper = document.createElement('div');
     wrapper.className = 'wizard-button-wrapper';
+    if (this.includePrevBtn && children.length) {
+      this.addButton(wrapper, panel, {
+        label: { value: 'Back' }, fieldType: 'button', name: 'back', id: 'wizard-button-prev',
+      }, false);
+    }
 
     if (this.includeNextBtn && children.length) {
       this.addButton(wrapper, panel, {
-        label: { value: 'Continue' }, fieldType: 'button', name: 'next', id: 'wizard-button-next',
+        label: { value: 'Next' }, fieldType: 'button', name: 'next', id: 'wizard-button-next',
       });
-    }
-
-    const resetBtn = panel.querySelector('.reset-wrapper');
-    if (resetBtn) {
-      wrapper.append(resetBtn);
     }
 
     this.assignIndexToSteps(panel);

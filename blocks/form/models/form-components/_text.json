@@ -10,7 +10,6 @@
             "template": {
               "jcr:title": "Text",
               "fieldType": "plain-text",
-              "visible": true,
               "textIsRich": true,
               "value": "Adaptive Form Text Component"
             }
@@ -48,6 +47,7 @@
             "name": "colspan",
             "label": "Column Span",
             "valueType": "string",
+            "value": "12",
             "options": [
                 {
                     "name": "1 column",

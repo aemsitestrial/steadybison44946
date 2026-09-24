@@ -102,12 +102,12 @@
       "password",
       "plain-text",
       "radio-group",
-      "range",
       "rating",
       "telephone-input",
       "text-input",
       "tnc",
-      "wizard"
+      "wizard",
+      "range"
     ]
   },
   {

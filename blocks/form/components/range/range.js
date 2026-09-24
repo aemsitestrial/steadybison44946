@@ -18,7 +18,6 @@ function updateBubble(input, element) {
   bubble.style.left = `calc(${left})`;
   element.setAttribute('style', style);
 }
-
 export default async function decorate(fieldDiv, fieldJson) {
   const input = fieldDiv.querySelector('input');
   // modify the type in case it is not range.

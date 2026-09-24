@@ -25,7 +25,7 @@
             "valueType": "boolean"
         },
         {
-            "component": "text",
+            "component": "datasource-bindref",
             "name": "dataRef",
             "label": "Bind reference",
             "valueType": "string"
@@ -61,6 +61,7 @@
             "name": "colspan",
             "label": "Column Span",
             "valueType": "string",
+            "value": "12",
             "options": [
                 {
                     "name": "1 column",

@@ -466,9 +466,7 @@
                 "resourceType": "core/fd/components/form/button/v1/button",
                 "template": {
                   "jcr:title": "Button",
-                  "fieldType": "button",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "button"
                 }
               }
             }
@@ -492,10 +490,8 @@
                     "Item 1",
                     "Item 2"
                   ],
-                  "visible": true,
-                  "enabled": true,
                   "orientation": "horizontal",
-                  "type": "number[]"
+                  "type": "string[]"
                 }
               }
             }
@@ -511,16 +507,14 @@
                 "template": {
                   "jcr:title": "Checkbox",
                   "fieldType": "checkbox",
-                  "checkedValue": "on",
-                  "enabled": true,
-                  "visible": true
+                  "checkedValue": "on"
                 }
               }
             }
           }
         },
         {
-          "title": "Date Picker",
+          "title": "Date Input",
           "id": "date-input",
           "plugins": {
             "xwalk": {
@@ -528,9 +522,7 @@
                 "resourceType": "core/fd/components/form/datepicker/v1/datepicker",
                 "template": {
                   "jcr:title": "Date Input",
-                  "fieldType": "date-input",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "date-input"
                 }
               }
             }
@@ -554,9 +546,7 @@
                     "Item 1",
                     "Item 2"
                   ],
-                  "enabled": true,
-                  "visible": true,
-                  "type": "number"
+                  "type": "string"
                 }
               }
             }
@@ -571,9 +561,7 @@
                 "resourceType": "core/fd/components/form/emailinput/v1/emailinput",
                 "template": {
                   "jcr:title": "Email Input",
-                  "fieldType": "email",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "email"
                 }
               }
             }
@@ -597,9 +585,8 @@
                     "application/pdf"
                   ],
                   "buttonText": "Attach",
-                  "type": "file",
-                  "enabled": true,
-                  "visible": true
+                  "dragDropText": "Drag and Drop To Upload",
+                  "type": "file"
                 }
               }
             }
@@ -615,8 +602,7 @@
                 "template": {
                   "jcr:title": "Fragment",
                   "fieldType": "panel",
-                  "enabled": true,
-                  "visible": true
+                  "minOccur": 1
                 }
               }
             }
@@ -631,8 +617,7 @@
                 "resourceType": "core/fd/components/form/image/v1/image",
                 "template": {
                   "jcr:title": "Image",
-                  "fieldType": "image",
-                  "visible": true
+                  "fieldType": "image"
                 }
               }
             }
@@ -647,9 +632,7 @@
                 "resourceType": "core/fd/components/form/numberinput/v1/numberinput",
                 "template": {
                   "jcr:title": "Number Input",
-                  "fieldType": "number-input",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "number-input"
                 }
               }
             }
@@ -665,8 +648,6 @@
                 "template": {
                   "jcr:title": "Panel",
                   "fieldType": "panel",
-                  "enabled": true,
-                  "visible": true,
                   "minOccur": 1
                 }
               }
@@ -691,8 +672,6 @@
                     "Item 1",
                     "Item 2"
                   ],
-                  "enabled": true,
-                  "visible": true,
                   "orientation": "horizontal"
                 }
               }
@@ -724,9 +703,7 @@
                 "template": {
                   "jcr:title": "Reset",
                   "buttonType": "reset",
-                  "fieldType": "button",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "button"
                 }
               }
             }
@@ -742,9 +719,7 @@
                 "template": {
                   "jcr:title": "Submit",
                   "buttonType": "submit",
-                  "fieldType": "button",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "button"
                 }
               }
             }
@@ -759,9 +734,7 @@
                 "resourceType": "core/fd/components/form/telephoneinput/v1/telephoneinput",
                 "template": {
                   "jcr:title": "Telephone Input",
-                  "fieldType": "text-input",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "text-input"
                 }
               }
             }
@@ -776,9 +749,7 @@
                 "resourceType": "core/fd/components/form/textinput/v1/textinput",
                 "template": {
                   "jcr:title": "Text Input",
-                  "fieldType": "text-input",
-                  "enabled": true,
-                  "visible": true
+                  "fieldType": "text-input"
                 }
               }
             }
@@ -794,7 +765,6 @@
                 "template": {
                   "jcr:title": "Text",
                   "fieldType": "plain-text",
-                  "visible": true,
                   "textIsRich": true,
                   "value": "Adaptive Form Text Component"
                 }
@@ -813,20 +783,15 @@
                   "jcr:title": "Accordion",
                   "fieldType": "panel",
                   "fd:viewType": "accordion",
-                  "enabled": true,
-                  "visible": true,
+                  "minOccur": 1,
                   "panel1": {
                     "jcr:title": "Item 1",
                     "fieldType": "panel",
-                    "visible": true,
-                    "enabled": true,
                     "sling:resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer"
                   },
                   "panel2": {
                     "jcr:title": "Item 2",
                     "fieldType": "panel",
-                    "visible": true,
-                    "enabled": true,
                     "sling:resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer"
                   }
                 }
@@ -845,7 +810,6 @@
                   "jcr:title": "Modal",
                   "fieldType": "panel",
                   "fd:viewType": "modal",
-                  "enabled": true,
                   "visible": false
                 }
               }
@@ -869,24 +833,6 @@
           }
         },
         {
-          "title": "Range",
-          "id": "range",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/fd/components/form/numberinput/v1/numberinput",
-                "template": {
-                  "jcr:title": "Range",
-                  "fieldType": "number-input",
-                  "fd:viewType": "range",
-                  "enabled": true,
-                  "visible": true
-                }
-              }
-            }
-          }
-        },
-        {
           "title": "Rating",
           "id": "rating",
           "plugins": {
@@ -896,9 +842,7 @@
                 "template": {
                   "jcr:title": "Rating",
                   "fieldType": "number-input",
-                  "fd:viewType": "rating",
-                  "enabled": true,
-                  "visible": true
+                  "fd:viewType": "rating"
                 }
               }
             }
@@ -915,8 +859,6 @@
                   "jcr:title": "Terms and conditions",
                   "fieldType": "panel",
                   "fd:viewType": "tnc",
-                  "enabled": true,
-                  "visible": true,
                   "text": {
                     "value": "Text related to the terms and conditions come here.",
                     "sling:resourceType": "core/fd/components/form/text/v1/text",
@@ -929,8 +871,6 @@
                     ],
                     "type": "string[]",
                     "fd:viewType": "toggleable-link",
-                    "enabled": true,
-                    "visible": true,
                     "title": "I agree to the terms & conditions",
                     "enumNames": [
                       "Privacy policy."
@@ -954,8 +894,6 @@
                     "sling:resourceType": "core/fd/components/form/checkbox/v1/checkbox",
                     "fieldType": "checkbox",
                     "required": true,
-                    "enabled": true,
-                    "visible": true,
                     "type": "string",
                     "enum": [
                       "true"
@@ -977,20 +915,15 @@
                   "jcr:title": "Wizard",
                   "fieldType": "panel",
                   "fd:viewType": "wizard",
-                  "enabled": true,
-                  "visible": true,
+                  "minOccur": 1,
                   "panel1": {
                     "jcr:title": "Item 1",
                     "fieldType": "panel",
-                    "visible": true,
-                    "enabled": true,
                     "sling:resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer"
                   },
                   "panel2": {
                     "jcr:title": "Item 2",
                     "fieldType": "panel",
-                    "visible": true,
-                    "enabled": true,
                     "sling:resourceType": "core/fd/components/form/panelcontainer/v1/panelcontainer"
                   }
                 }
