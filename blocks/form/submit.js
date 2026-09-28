@@ -70,6 +70,10 @@ function constructPayload(form) {
       }
     }
   });
+
+  // OPTIONAL: Delete confirmPassword from the JSON payload sent to backend
+  delete payload.confirmPassword;
+
   return { payload };
 }
 
@@ -117,9 +121,33 @@ async function submitDocBasedForm(form, captcha) {
   }
 }
 
+/**
+ * Validates that password and confirm password fields match.
+ * Target inputs by their authored 'name' attributes.
+ */
+function validatePasswordMatch(form) {
+  // Adjust field names if you authored them differently (e.g., 'confirm-password')
+  const passwordInput = form.querySelector('input[name="password"]');
+  const confirmPasswordInput = form.querySelector('input[name="confirmPassword"]');
+
+  if (passwordInput && confirmPasswordInput) {
+    if (passwordInput.value !== confirmPasswordInput.value) {
+      // Sets an explicit validation error on the HTML5 constraint engine
+      confirmPasswordInput.setCustomValidity('Passwords do not match');
+    } else {
+      // Clear previous error if they match
+      confirmPasswordInput.setCustomValidity('');
+    }
+  }
+}
+
 export async function handleSubmit(e, form, captcha) {
   e.preventDefault();
 
+  // 1. Validate password equality BEFORE checking form validity
+  validatePasswordMatch(form);
+
+  // 2. checkValidity() will return false if customValidity was set above
   const valid = form.checkValidity();
   if (valid) {
     e.submitter?.setAttribute('disabled', '');
@@ -134,6 +162,7 @@ export async function handleSubmit(e, form, captcha) {
       }
     }
   } else {
+    // 3. Focus and scroll to the invalid field (confirm password if it mismatched)
     const firstInvalidEl = form.querySelector(':invalid:not(fieldset)');
     if (firstInvalidEl) {
       firstInvalidEl.focus();
