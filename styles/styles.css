@@ -14,12 +14,11 @@
   /* colors */
   --background-color: white;
   --light-color: #f8f8f8;
-  --light-green-color: #e8f5e9; /* Added: Light green tint */
   --dark-color: #505050;
   --text-color: #131313;
   --link-color: #3b63fb;
   --link-hover-color: #1d3ecf;
-  --overlay-background-color: lightgrey;
+  --overlay-background-color:lightgrey;
 
   /* fonts */
   --body-font-family: roboto, roboto-fallback, sans-serif;
@@ -72,12 +71,6 @@
     --heading-font-size-s: 20px;
     --heading-font-size-xs: 18px;
   }
-}
-
-/* Page-level theme modifier (applied via Page Metadata: Theme = light-green) */
-body.theme-light-green,
-body.light-green {
-  --background-color: var(--light-green-color);
 }
 
 body {
@@ -270,19 +263,4 @@ main .section.highlight {
   background-color: var(--light-color);
   margin: 0;
   padding: 40px 0;
-}
-
-/* Section-level light green theme (applied via Section Metadata: Style = light-green) */
-main .section.light-green {
-  background-color: var(--light-green-color);
-  margin: 0;
-  padding: 40px 0;
-}
-
-/* Block-level light green theme (e.g. Columns block with bg-light-green) */
-.columns.bg-light-green,
-[class*="bg-light-green"] {
-  --columns-background-color: var(--light-green-color);
-
-  background-color: var(--light-green-color);
 }
