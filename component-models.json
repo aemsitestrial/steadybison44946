@@ -330,6 +330,10 @@
     ]
   },
   {
+    "id": "column",
+    "fields": []
+  },
+  {
     "id": "cta",
     "fields": [
       {

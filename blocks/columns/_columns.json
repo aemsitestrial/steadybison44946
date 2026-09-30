@@ -1,7 +1,7 @@
 {
   "definitions": [
     {
-      "title": "Columns",
+      "title": "Columns Container",
       "id": "columns",
       "plugins": {
         "da": {
@@ -21,6 +21,17 @@
               "columns": "2",
               "rows": "1"
             }
+          }
+        }
+      }
+    },
+    {
+      "title": "Column Item",
+      "id": "column",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/columns/v1/column"
           }
         }
       }
@@ -157,6 +168,10 @@
           ]
         }
       ]
+    },
+    {
+      "id": "column",
+      "fields": []
     },
     {
       "id": "cta",

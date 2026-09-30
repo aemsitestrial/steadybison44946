@@ -18,9 +18,12 @@ export function decorateImage(col) {
 
 /* Helper: Decorate Badges */
 export function decorateBadges(col) {
-  const badges = col.querySelectorAll('.badge, [data-badge-text]');
+  const badges = col.querySelectorAll('.badge, [data-badge-text], .columns-card-badge');
   badges.forEach((badge) => {
     badge.classList.add('columns-card-badge');
+    badge.setAttribute('data-aue-type', 'component');
+    badge.setAttribute('data-aue-model', 'badge');
+    badge.setAttribute('data-aue-label', 'Badge Tag');
   });
 }
 
@@ -29,6 +32,10 @@ export function decorateCardMeta(col) {
   const metaWrapper = col.querySelector('.card-metadata');
   if (metaWrapper) {
     metaWrapper.classList.add('columns-card-meta-row');
+    metaWrapper.setAttribute('data-aue-type', 'component');
+    metaWrapper.setAttribute('data-aue-model', 'card-metadata');
+    metaWrapper.setAttribute('data-aue-label', 'Card Metadata');
+
     const topics = metaWrapper.querySelector('.topics');
     if (topics) topics.classList.add('card-meta-topics');
     const readTime = metaWrapper.querySelector('.read-time');
@@ -41,6 +48,10 @@ export function decorateAuthor(col) {
   const authorWrapper = col.querySelector('.author');
   if (authorWrapper) {
     authorWrapper.classList.add('columns-card-author');
+    authorWrapper.setAttribute('data-aue-type', 'component');
+    authorWrapper.setAttribute('data-aue-model', 'author');
+    authorWrapper.setAttribute('data-aue-label', 'Author Profile');
+
     const img = authorWrapper.querySelector('img');
     if (img) img.classList.add('author-avatar');
 
@@ -60,6 +71,9 @@ export function decorateTaxonomy(col) {
   const taxonomy = col.querySelector('.card-footer-taxonomy');
   if (taxonomy) {
     taxonomy.classList.add('columns-footer-taxonomy');
+    taxonomy.setAttribute('data-aue-type', 'component');
+    taxonomy.setAttribute('data-aue-model', 'card-footer-taxonomy');
+    taxonomy.setAttribute('data-aue-label', 'Card Footer Taxonomy');
   }
 }
 
@@ -74,10 +88,16 @@ export function decorateVideo(col) {
       video.controls = true;
       video.playsInline = true;
       video.className = 'columns-video';
+      video.setAttribute('data-aue-type', 'component');
+      video.setAttribute('data-aue-model', 'video');
+      video.setAttribute('data-aue-label', 'Video');
       link.replaceWith(video);
     } else {
       const embedContainer = document.createElement('div');
       embedContainer.className = 'columns-video-embed';
+      embedContainer.setAttribute('data-aue-type', 'component');
+      embedContainer.setAttribute('data-aue-model', 'video');
+      embedContainer.setAttribute('data-aue-label', 'Video');
 
       let embedSrc = url;
       if (url.includes('youtube.com/watch?v=')) {
@@ -102,6 +122,9 @@ export function decorateButtons(col) {
 
     const parent = cta.parentElement;
     cta.classList.add('button');
+    cta.setAttribute('data-aue-type', 'component');
+    cta.setAttribute('data-aue-model', 'cta');
+    cta.setAttribute('data-aue-label', 'CTA Link');
 
     if (parent.tagName === 'STRONG' || cta.classList.contains('primary') || parent.classList.contains('primary')) {
       cta.classList.add('primary');
@@ -124,6 +147,9 @@ export function decorateAccordion(col) {
 
     const accordionWrapper = document.createElement('details');
     accordionWrapper.className = 'columns-accordion';
+    accordionWrapper.setAttribute('data-aue-type', 'component');
+    accordionWrapper.setAttribute('data-aue-model', 'accordion');
+    accordionWrapper.setAttribute('data-aue-label', 'Accordion');
 
     const summary = document.createElement('summary');
     summary.className = 'columns-accordion-title';
@@ -157,9 +183,14 @@ export default function decorate(block) {
     block.style.setProperty('--columns-background-color', `var(--${backgroundColor.substring(3)})`);
   }
 
-  // Iterate rows and columns
+  // Iterate rows and columns and inject Universal Editor container filter
   [...block.children].forEach((row) => {
     [...row.children].forEach((col) => {
+      // Mark column as container element for Universal Editor
+      col.setAttribute('data-aue-filter', 'column');
+      col.setAttribute('data-aue-type', 'container');
+      col.setAttribute('data-aue-label', 'Column Container');
+
       decorateImage(col);
       decorateBadges(col);
       decorateCardMeta(col);
