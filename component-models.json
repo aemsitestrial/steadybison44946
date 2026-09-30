@@ -273,7 +273,7 @@
       {
         "component": "multiselect",
         "name": "classes",
-        "label": "Style",
+        "label": "Style / Layout Variant",
         "valueType": "string",
         "required": false,
         "maxSize": 3,
@@ -292,15 +292,36 @@
             ]
           },
           {
-            "name": "Background Color",
+            "name": "Background Theme",
             "children": [
               {
-                "name": "Light",
+                "name": "Light Theme",
                 "value": "bg-light"
               },
               {
-                "name": "Dark",
+                "name": "Dark Theme",
                 "value": "bg-dark"
+              },
+              {
+                "name": "Blue Accent Theme",
+                "value": "bg-blue"
+              }
+            ]
+          },
+          {
+            "name": "Card Preset Layouts",
+            "children": [
+              {
+                "name": "Featured Grid (3-Col)",
+                "value": "cards-featured"
+              },
+              {
+                "name": "Case Study Grid (2-Col)",
+                "value": "cards-case-study"
+              },
+              {
+                "name": "Theme Grid (3x2)",
+                "value": "cards-theme"
               }
             ]
           }
@@ -346,6 +367,87 @@
             "value": "text-link"
           }
         ]
+      }
+    ]
+  },
+  {
+    "id": "badge",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "badgeText",
+        "label": "Badge Label (e.g. GUIDE, REPORT)"
+      },
+      {
+        "component": "select",
+        "name": "badgeStyle",
+        "label": "Badge Style",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Accent Blue",
+            "value": "badge-primary"
+          },
+          {
+            "name": "Muted Light",
+            "value": "badge-muted"
+          },
+          {
+            "name": "Dark Badge",
+            "value": "badge-dark"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "card-metadata",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "topics",
+        "label": "Topics / Tags (Pipe-separated)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "readTime",
+        "label": "Read Time (e.g., 14 MIN READ)"
+      }
+    ]
+  },
+  {
+    "id": "author",
+    "fields": [
+      {
+        "component": "reference",
+        "name": "avatar",
+        "label": "Author Headshot / Avatar"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "authorName",
+        "label": "Author Name"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "authorRole",
+        "label": "Author Title / Location"
+      }
+    ]
+  },
+  {
+    "id": "card-footer-taxonomy",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "taxonomyList",
+        "label": "Footer Taxonomy List (Bullet-separated)"
       }
     ]
   },

@@ -16,6 +16,53 @@ export function decorateImage(col) {
   }
 }
 
+/* Helper: Decorate Badges */
+export function decorateBadges(col) {
+  const badges = col.querySelectorAll('.badge, [data-badge-text]');
+  badges.forEach((badge) => {
+    badge.classList.add('columns-card-badge');
+  });
+}
+
+/* Helper: Decorate Card Header Metadata Row (Topics + Read Time) */
+export function decorateCardMeta(col) {
+  const metaWrapper = col.querySelector('.card-metadata');
+  if (metaWrapper) {
+    metaWrapper.classList.add('columns-card-meta-row');
+    const topics = metaWrapper.querySelector('.topics');
+    if (topics) topics.classList.add('card-meta-topics');
+    const readTime = metaWrapper.querySelector('.read-time');
+    if (readTime) readTime.classList.add('card-meta-readtime');
+  }
+}
+
+/* Helper: Decorate Author Metadata Profiles */
+export function decorateAuthor(col) {
+  const authorWrapper = col.querySelector('.author');
+  if (authorWrapper) {
+    authorWrapper.classList.add('columns-card-author');
+    const img = authorWrapper.querySelector('img');
+    if (img) img.classList.add('author-avatar');
+
+    const info = authorWrapper.querySelector('div');
+    if (info) {
+      info.classList.add('author-info');
+      const name = info.querySelector('strong, span:first-child');
+      if (name) name.classList.add('author-name');
+      const role = info.querySelector('span:last-child');
+      if (role && role !== name) role.classList.add('author-role');
+    }
+  }
+}
+
+/* Helper: Decorate Card Footer Taxonomy List */
+export function decorateTaxonomy(col) {
+  const taxonomy = col.querySelector('.card-footer-taxonomy');
+  if (taxonomy) {
+    taxonomy.classList.add('columns-footer-taxonomy');
+  }
+}
+
 /* Helper: Convert video links into interactive HTML5 or responsive Embeds */
 export function decorateVideo(col) {
   const videoLinks = col.querySelectorAll('a[href*=".mp4"], a[href*="youtube.com"], a[href*="youtu.be"], a[href*="vimeo.com"]');
@@ -114,6 +161,10 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     [...row.children].forEach((col) => {
       decorateImage(col);
+      decorateBadges(col);
+      decorateCardMeta(col);
+      decorateAuthor(col);
+      decorateTaxonomy(col);
       decorateVideo(col);
       decorateButtons(col);
       decorateAccordion(col);

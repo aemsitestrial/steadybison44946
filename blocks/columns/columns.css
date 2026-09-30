@@ -21,13 +21,17 @@
 
 .columns > div > div {
   order: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .columns > div > .columns-img-col {
   order: 0;
 }
 
-/* Block Variations (Dark / Light Theme Styling) */
+/* ==========================================================================
+   Block Theme Variations (Dark / Light / Blue Styling)
+   ========================================================================== */
 .columns.bg-dark {
   background-color: #1a1a1a;
   color: #fff;
@@ -42,6 +46,124 @@
   color: #212529;
 }
 
+.columns.bg-blue {
+  background-color: #3b82f6;
+  color: #fff;
+}
+
+.columns.bg-blue :where(h1, h2, h3, h4, h5, h6) {
+  color: #fff;
+}
+
+/* ==========================================================================
+   Badge Tags & Category Pills
+   ========================================================================== */
+.columns .columns-card-badge,
+.columns .badge {
+  display: inline-block;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: #3b82f6;
+  color: #fff;
+  border-radius: 2px;
+  width: fit-content;
+}
+
+.columns .badge-muted {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.columns .badge-dark {
+  background-color: #111827;
+  color: #fff;
+}
+
+/* ==========================================================================
+   Card Meta Row (Topics & Read Time)
+   ========================================================================== */
+.columns .columns-card-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.8rem;
+  color: #6b7280;
+  text-transform: uppercase;
+  margin: 12px 0;
+}
+
+.columns.bg-dark .columns-card-meta-row,
+.columns.bg-blue .columns-card-meta-row {
+  color: #d1d5db;
+}
+
+.columns .card-meta-topics {
+  font-weight: 500;
+}
+
+.columns .card-meta-readtime {
+  margin-left: auto;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Author Profile Component
+   ========================================================================== */
+.columns .columns-card-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.columns .columns-card-author .author-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.columns .columns-card-author .author-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.columns .columns-card-author .author-name {
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.columns .columns-card-author .author-role {
+  font-size: 0.75rem;
+  color: #6b7280;
+  text-transform: uppercase;
+}
+
+.columns.bg-dark .columns-card-author .author-role,
+.columns.bg-blue .columns-card-author .author-role {
+  color: #9ca3af;
+}
+
+/* ==========================================================================
+   Card Footer Taxonomy List (Theme Cards)
+   ========================================================================== */
+.columns .columns-footer-taxonomy {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #9ca3af;
+  border-top: 1px solid rgb(255 255 255 / 15%);
+  padding-top: 12px;
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* ==========================================================================
    Video Styles
    ========================================================================== */
@@ -54,7 +176,7 @@
 
 .columns .columns-video-embed {
   position: relative;
-  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+  padding-bottom: 56.25%;
   height: 0;
   overflow: hidden;
   max-width: 100%;
@@ -82,9 +204,9 @@
   text-align: center;
   transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
   margin: 8px 0;
+  width: fit-content;
 }
 
-/* Primary CTA (Bold/Solid) */
 .columns .button.primary {
   background-color: #0265dc;
   color: #fff;
@@ -96,7 +218,6 @@
   border-color: #004bb5;
 }
 
-/* Secondary CTA (Muted/Solid) */
 .columns .button.secondary {
   background-color: #6c757d;
   color: #fff;
@@ -108,11 +229,16 @@
   border-color: #545b62;
 }
 
-/* Outline CTA */
 .columns .button.outline {
   background-color: transparent;
   color: #0265dc;
   border: 2px solid #0265dc;
+}
+
+.columns.bg-dark .button.outline,
+.columns.bg-blue .button.outline {
+  color: #fff;
+  border-color: #fff;
 }
 
 .columns .button.outline:hover {
@@ -120,18 +246,23 @@
   color: #fff;
 }
 
-/* Text Link CTA */
 .columns .cta-text-link {
   color: #0265dc;
   font-weight: 600;
-  text-decoration: underline;
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.columns.bg-dark .cta-text-link,
+.columns.bg-blue .cta-text-link {
+  color: #fff;
 }
 
 .columns .cta-text-link:hover {
-  color: #004bb5;
+  text-decoration: underline;
 }
 
 /* ==========================================================================
@@ -191,11 +322,11 @@
 }
 
 /* ==========================================================================
-   Responsive Desktop View
+   Responsive Desktop Layouts & Grid Presets
    ========================================================================== */
 @media (width >= 900px) {
   .columns > div {
-    align-items: center;
+    align-items: stretch;
     flex-direction: row;
     gap: 32px;
   }
@@ -207,5 +338,21 @@
 
   .columns.align-top > div {
     align-items: flex-start;
+  }
+
+  /* Preset Layout Variations */
+  .columns.cards-featured > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .columns.cards-case-study > div {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .columns.cards-theme > div {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
