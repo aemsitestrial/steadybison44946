@@ -50,9 +50,7 @@
         "text",
         "image",
         "button",
-        "title",
-        "cards"
-      ]
+        "title"      ]
     }
   ]
 }
