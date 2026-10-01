@@ -80,7 +80,7 @@
           "valueType": "string",
           "name": "fileReference",
           "label": "Image (Optional)",
-          "description": "Background image for the card. Leave empty if using static background color.",
+          "description": "Background image for the card",
           "multi": false
         },
         {
@@ -88,7 +88,7 @@
           "valueType": "string",
           "name": "fileReferenceAlt",
           "value": "",
-          "label": "Image Alt Text",
+          "label": "Alt Text",
           "description": "Descriptive text for accessibility"
         },
         {
@@ -130,7 +130,7 @@
           "component": "text",
           "valueType": "string",
           "name": "tag",
-          "value": "TAG",
+          "value": "",
           "label": "Tag",
           "description": "Badge text displayed at top of card"
         },
@@ -140,22 +140,22 @@
           "name": "eyebrow",
           "value": "",
           "label": "Eyebrow",
-          "description": "Optional category text above title"
+          "description": "Category text above title"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "title",
-          "value": "The intelligent enterprise",
-          "label": "Heading",
-          "description": "Main card heading"
+          "value": "",
+          "label": "Title",
+          "description": "Main card heading text"
         },
         {
           "component": "select",
           "valueType": "string",
           "name": "titleType",
           "value": "h2",
-          "label": "Heading Tag",
+          "label": "Heading Type",
           "options": [
             { "name": "H1", "value": "h1" },
             { "name": "H2", "value": "h2" },
@@ -167,29 +167,29 @@
           "component": "richtext",
           "valueType": "string",
           "name": "description",
-          "value": "How AI is transforming decisions, operations and the nature of work",
+          "value": "",
           "label": "Description",
-          "description": "Sub-text description"
+          "description": "Card body text"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "link",
           "value": "",
-          "label": "Card Link URL"
+          "label": "CTA Link"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "linkText",
           "value": "",
-          "label": "Link Text"
+          "label": "CTA Text"
         },
         {
           "component": "select",
           "name": "linkType",
           "value": "primary",
-          "label": "Link Style",
+          "label": "CTA Style",
           "valueType": "string",
           "options": [
             { "name": "Primary Button", "value": "primary" },
