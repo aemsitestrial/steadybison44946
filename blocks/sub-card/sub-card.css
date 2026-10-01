@@ -10,14 +10,14 @@
   box-sizing: border-box;
 }
 
-@media (min-width: 600px) {
+@media (width >= 600px) {
   .sub-card-container,
   .sub-card-wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
 }
 
-@media (min-width: 900px) {
+@media (width >= 900px) {
   .sub-card-container,
   .sub-card-wrapper {
     grid-template-columns: repeat(4, 1fr);
@@ -36,26 +36,26 @@
   overflow: hidden;
   border-radius: 2px;
   background-color: #1b222d; /* Default Dark Theme */
-  color: #ffffff;
+  color: #fff;
 }
 
 /* Theme Variants */
 .sub-card.theme-blue,
 .sub-card[data-theme="blue"] {
   background-color: #3b66e6;
-  color: #ffffff;
+  color: #fff;
 }
 
 .sub-card.theme-yellow,
 .sub-card[data-theme="yellow"] {
   background-color: #fabb2d;
-  color: #111111;
+  color: #111;
 }
 
 .sub-card.theme-light,
 .sub-card[data-theme="light"] {
   background-color: #e5e5e5;
-  color: #111111;
+  color: #111;
 }
 
 /* Background Image inside Sub Card */
@@ -75,7 +75,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%);
+  background: linear-gradient(180deg, rgb(0 0 0 / 40%) 0%, rgb(0 0 0 / 10%) 100%);
   z-index: 1;
 }
 
@@ -100,15 +100,15 @@
   text-transform: uppercase;
   letter-spacing: 0.8px;
   padding: 3px 6px;
-  background-color: #ffffff;
-  color: #111111;
+  background-color: #fff;
+  color: #111;
   border-radius: 1px;
 }
 
 .sub-card.theme-yellow .sub-card-tag,
 .sub-card.theme-light .sub-card-tag {
   background-color: transparent;
-  border: 1px solid #111111;
+  border: 1px solid #111;
 }
 
 .sub-card-readtime {
