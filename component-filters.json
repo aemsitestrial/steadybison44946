@@ -30,7 +30,8 @@
       "title",
       "teaser",
       "video",
-      "form-variations"
+      "form-variations",
+      "content-cards"
     ]
   },
   {
@@ -64,6 +65,12 @@
       "image",
       "button",
       "title"
+    ]
+  },
+  {
+    "id": "content-cards",
+    "components": [
+      "content-card-item"
     ]
   },
   {

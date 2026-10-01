@@ -50,8 +50,8 @@
         "cards",
         "carousel",
         "columns",
-	"dm-video",
-	"dm-scene7-template",
+	      "dm-video",
+	      "dm-scene7-template",
         "embed",
         "fragment",
         "form",
@@ -65,7 +65,8 @@
         "title",
 	"teaser",
         "video",
-        "form-variations"
+        "form-variations",
+        "content-cards"
       ]
     }
   ]
