@@ -31,7 +31,8 @@
       "teaser",
       "video",
       "form-variations",
-      "content-cards"
+      "content-cards",
+      "sub-card-container"
     ]
   },
   {
