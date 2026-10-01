@@ -7,6 +7,7 @@
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgb(0 0 0 / 8%);
+  background-color: #1e2538;
 }
 
 .card.block.portrait {
@@ -15,6 +16,31 @@
 
 .card.block.landscape {
   aspect-ratio: 4 / 3;
+}
+
+/* Static Background Color Variations */
+.card.block.tcs-background-dark-navy {
+  background-color: #1e2538;
+}
+
+.card.block.tcs-background-blue {
+  background-color: #4372e6;
+}
+
+.card.block.tcs-background-red {
+  background-color: #e31b23;
+}
+
+.card.block.tcs-background-yellow {
+  background-color: #fdb913;
+}
+
+.card.block.tcs-background-beige {
+  background-color: #f5f2eb;
+}
+
+.card.block.tcs-background-black {
+  background-color: #111;
 }
 
 /* Background Image */
@@ -33,15 +59,6 @@
   display: block;
 }
 
-/* Optional Overlay Gradient for Text Readability */
-.card.block > .background::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgb(0 0 0 / 25%) 0%, rgb(0 0 0 / 0%) 40%);
-  pointer-events: none;
-}
-
 /* Foreground Overlay Layout */
 .card.block > .foreground {
   position: relative;
@@ -57,7 +74,24 @@
 .card.block > .foreground > .text {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+}
+
+/* Tag Badge Styling */
+.card.block .tag {
+  margin-bottom: 24px;
+}
+
+.card.block .tag span {
+  display: inline-block;
+  background-color: #fff;
+  color: #111;
+  font-family: var(--body-font-family, sans-serif);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 2px;
 }
 
 /* Eyebrow */
@@ -67,38 +101,37 @@
   font-weight: 600;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #333;
+  color: #a0aec0;
+  margin-bottom: 8px;
 }
 
-/* Title Header Matching Image Typography */
+/* Title Header */
 .card.block .title :where(h1, h2, h3, h4, h5, h6) {
-  margin: 0;
+  margin: 0 0 16px;
   font-family: var(--heading-font-family, sans-serif);
-  font-size: 36px;
-  line-height: 1.15;
+  font-size: 38px;
+  line-height: 1.1;
   font-weight: 400;
   color: #2d3132;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
-/* Base Description Text (Placed before higher specificity .dark variant) */
+/* Base Description Text */
 .card.block .description {
-  font-size: 14px;
-  line-height: 1.5;
+  font-size: 16px;
+  line-height: 1.45;
   color: #4a4a4a;
-  margin-top: 4px;
 }
 
-/* Dark Theme Overrides (Higher Specificity) */
+/* Dark Theme Overrides (White Text for Navy/Blue/Red/Black backgrounds) */
 .card.block.dark .title :where(h1, h2, h3, h4, h5, h6),
-.card.block.dark .eyebrow,
 .card.block.dark .description {
   color: #fff;
 }
 
 /* CTAs */
 .card.block .cta {
-  margin-top: 16px;
+  margin-top: 20px;
   display: flex;
   gap: 12px;
 }
@@ -114,18 +147,18 @@
 }
 
 .card.block .cta a.button.primary {
-  background-color: #2d3132;
-  color: #fff;
+  background-color: #fff;
+  color: #111;
 }
 
 .card.block .cta a.button.secondary {
   background-color: transparent;
-  border: 1px solid #2d3132;
-  color: #2d3132;
+  border: 1px solid #fff;
+  color: #fff;
 }
 
 @media (width >= 900px) {
   .card.block .title :where(h1, h2, h3, h4, h5, h6) {
-    font-size: 40px;
+    font-size: 42px;
   }
 }

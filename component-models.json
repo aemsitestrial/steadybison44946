@@ -209,8 +209,8 @@
         "component": "reference",
         "valueType": "string",
         "name": "fileReference",
-        "label": "Image",
-        "description": "Background image for the card",
+        "label": "Image (Optional)",
+        "description": "Background image for the card. Leave empty if using static background color.",
         "multi": false
       },
       {
@@ -224,7 +224,7 @@
       {
         "component": "multiselect",
         "name": "classes",
-        "label": "Style",
+        "label": "Style & Background",
         "valueType": "string",
         "required": false,
         "maxSize": 3,
@@ -233,12 +233,41 @@
             "name": "Theme",
             "children": [
               {
-                "name": "Light Text",
-                "value": "light"
+                "name": "Dark / Light Text",
+                "value": "dark"
               },
               {
-                "name": "Dark Text",
-                "value": "dark"
+                "name": "Light / Dark Text",
+                "value": "light"
+              }
+            ]
+          },
+          {
+            "name": "Background Color",
+            "children": [
+              {
+                "name": "Dark Navy",
+                "value": "tcs-background-dark-navy"
+              },
+              {
+                "name": "Blue",
+                "value": "tcs-background-blue"
+              },
+              {
+                "name": "Red",
+                "value": "tcs-background-red"
+              },
+              {
+                "name": "Yellow",
+                "value": "tcs-background-yellow"
+              },
+              {
+                "name": "Beige",
+                "value": "tcs-background-beige"
+              },
+              {
+                "name": "Black",
+                "value": "tcs-background-black"
               }
             ]
           },
@@ -260,25 +289,33 @@
       {
         "component": "text",
         "valueType": "string",
+        "name": "tag",
+        "value": "TAG",
+        "label": "Tag",
+        "description": "Badge text displayed at top of card"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
         "name": "eyebrow",
         "value": "",
         "label": "Eyebrow",
-        "description": "Small category header above title"
+        "description": "Optional category text above title"
       },
       {
         "component": "text",
         "valueType": "string",
         "name": "title",
-        "value": "Human + Machine",
+        "value": "The intelligent enterprise",
         "label": "Heading",
-        "description": "Card title"
+        "description": "Main card heading"
       },
       {
         "component": "select",
         "valueType": "string",
         "name": "titleType",
         "value": "h2",
-        "label": "Heading Type",
+        "label": "Heading Tag",
         "options": [
           {
             "name": "H1",
@@ -302,9 +339,9 @@
         "component": "richtext",
         "valueType": "string",
         "name": "description",
-        "value": "",
+        "value": "How AI is transforming decisions, operations and the nature of work",
         "label": "Description",
-        "description": "Optional body description"
+        "description": "Sub-text description"
       },
       {
         "component": "text",
@@ -324,7 +361,7 @@
         "component": "select",
         "name": "linkType",
         "value": "primary",
-        "label": "Link Type",
+        "label": "Link Style",
         "valueType": "string",
         "options": [
           {

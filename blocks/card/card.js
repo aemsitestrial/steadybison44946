@@ -22,23 +22,25 @@ export function decorateButtons(...buttons) {
 export function generateCardDOM(props) {
   const [
     pictureContainer,
+    tag,
     eyebrow,
     title,
     description,
     cta,
   ] = props;
 
-  // Background Image setup
+  // Background Image setup if picture element exists
   const picture = pictureContainer ? pictureContainer.querySelector('picture') : null;
   if (picture) {
     const img = picture.querySelector('img');
     if (img && img.src) {
-      const optimizedPicture = createOptimizedPicture(img.src, img.alt || 'Human + Machine', false, [{ width: '750' }]);
+      const optimizedPicture = createOptimizedPicture(img.src, img.alt || '', false, [{ width: '750' }]);
       pictureContainer.textContent = '';
       pictureContainer.appendChild(optimizedPicture);
     }
   }
 
+  const hasTag = tag && tag.textContent.trim() !== '';
   const hasEyebrow = eyebrow && eyebrow.textContent.trim() !== '';
   const hasTitle = title && title.textContent.trim() !== '';
   const hasDescription = description && description.textContent.trim() !== '';
@@ -51,6 +53,7 @@ export function generateCardDOM(props) {
     </div>
     <div class="foreground">
       <div class="text">
+        ${hasTag ? `<div class="tag"><span>${tag.textContent.trim()}</span></div>` : ''}
         ${hasEyebrow ? `<div class="eyebrow">${eyebrow.textContent.trim().toUpperCase()}</div>` : ''}
         ${hasTitle ? `<div class="title">${title.innerHTML}</div>` : ''}
         ${hasDescription ? `<div class="description">${description.innerHTML}</div>` : ''}
@@ -68,15 +71,16 @@ export default function decorate(block) {
 
   const props = rows.map((row) => row.firstElementChild);
 
-  // Extract essential rows corresponding to JSON definition sequence
   const pictureContainer = props[0];
-  const eyebrow = props[1];
-  const title = props[2];
-  const description = props[3];
-  const cta = props[4];
+  const tag = props[1];
+  const eyebrow = props[2];
+  const title = props[3];
+  const description = props[4];
+  const cta = props[5];
 
   const cardDOM = generateCardDOM([
     pictureContainer,
+    tag,
     eyebrow,
     title,
     description,

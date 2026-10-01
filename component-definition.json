@@ -163,7 +163,7 @@
           "id": "card",
           "plugins": {
             "da": {
-              "rows": 7,
+              "rows": 8,
               "columns": 1,
               "fields": [
                 {
@@ -179,32 +179,36 @@
                   "selector": "div:nth-child(1)>div>ul"
                 },
                 {
-                  "name": "eyebrow",
+                  "name": "tag",
                   "selector": "div:nth-child(2)>div"
                 },
                 {
-                  "name": "title",
+                  "name": "eyebrow",
                   "selector": "div:nth-child(3)>div"
                 },
                 {
-                  "name": "titleType",
-                  "selector": "div:nth-child(3)>div>:first-child"
-                },
-                {
-                  "name": "description",
+                  "name": "title",
                   "selector": "div:nth-child(4)>div"
                 },
                 {
+                  "name": "titleType",
+                  "selector": "div:nth-child(4)>div>:first-child"
+                },
+                {
+                  "name": "description",
+                  "selector": "div:nth-child(5)>div"
+                },
+                {
                   "name": "link",
-                  "selector": "div:nth-child(5)>div>p>a[href]"
+                  "selector": "div:nth-child(6)>div>p>a[href]"
                 },
                 {
                   "name": "linkText",
-                  "selector": "div:nth-child(5)>div>p>a"
+                  "selector": "div:nth-child(6)>div>p>a"
                 },
                 {
                   "name": "linkType",
-                  "selector": "div:nth-child(5)>div>p>:first-child"
+                  "selector": "div:nth-child(6)>div>p>:first-child"
                 }
               ]
             },
@@ -214,11 +218,13 @@
                 "template": {
                   "name": "Card",
                   "model": "card",
-                  "title": "Human + Machine",
+                  "tag": "TAG",
+                  "title": "The intelligent enterprise",
                   "titleType": "h2",
-                  "description": "",
+                  "description": "How AI is transforming decisions, operations and the nature of work",
                   "classes": [
-                    "light"
+                    "dark",
+                    "tcs-background-dark-navy"
                   ]
                 }
               }

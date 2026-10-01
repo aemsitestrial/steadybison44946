@@ -5,7 +5,7 @@
       "id": "card",
       "plugins": {
         "da": {
-          "rows": 7,
+          "rows": 8,
           "columns": 1,
           "fields": [
             {
@@ -21,32 +21,36 @@
               "selector": "div:nth-child(1)>div>ul"
             },
             {
-              "name": "eyebrow",
+              "name": "tag",
               "selector": "div:nth-child(2)>div"
             },
             {
-              "name": "title",
+              "name": "eyebrow",
               "selector": "div:nth-child(3)>div"
             },
             {
-              "name": "titleType",
-              "selector": "div:nth-child(3)>div>:first-child"
-            },
-            {
-              "name": "description",
+              "name": "title",
               "selector": "div:nth-child(4)>div"
             },
             {
+              "name": "titleType",
+              "selector": "div:nth-child(4)>div>:first-child"
+            },
+            {
+              "name": "description",
+              "selector": "div:nth-child(5)>div"
+            },
+            {
               "name": "link",
-              "selector": "div:nth-child(5)>div>p>a[href]"
+              "selector": "div:nth-child(6)>div>p>a[href]"
             },
             {
               "name": "linkText",
-              "selector": "div:nth-child(5)>div>p>a"
+              "selector": "div:nth-child(6)>div>p>a"
             },
             {
               "name": "linkType",
-              "selector": "div:nth-child(5)>div>p>:first-child"
+              "selector": "div:nth-child(6)>div>p>:first-child"
             }
           ]
         },
@@ -56,10 +60,11 @@
             "template": {
               "name": "Card",
               "model": "card",
-              "title": "Human + Machine",
+              "tag": "TAG",
+              "title": "The intelligent enterprise",
               "titleType": "h2",
-              "description": "",
-              "classes": ["light"]
+              "description": "How AI is transforming decisions, operations and the nature of work",
+              "classes": ["dark", "tcs-background-dark-navy"]
             }
           }
         }
@@ -74,8 +79,8 @@
           "component": "reference",
           "valueType": "string",
           "name": "fileReference",
-          "label": "Image",
-          "description": "Background image for the card",
+          "label": "Image (Optional)",
+          "description": "Background image for the card. Leave empty if using static background color.",
           "multi": false
         },
         {
@@ -89,7 +94,7 @@
         {
           "component": "multiselect",
           "name": "classes",
-          "label": "Style",
+          "label": "Style & Background",
           "valueType": "string",
           "required": false,
           "maxSize": 3,
@@ -97,8 +102,19 @@
             {
               "name": "Theme",
               "children": [
-                { "name": "Light Text", "value": "light" },
-                { "name": "Dark Text", "value": "dark" }
+                { "name": "Dark / Light Text", "value": "dark" },
+                { "name": "Light / Dark Text", "value": "light" }
+              ]
+            },
+            {
+              "name": "Background Color",
+              "children": [
+                { "name": "Dark Navy", "value": "tcs-background-dark-navy" },
+                { "name": "Blue", "value": "tcs-background-blue" },
+                { "name": "Red", "value": "tcs-background-red" },
+                { "name": "Yellow", "value": "tcs-background-yellow" },
+                { "name": "Beige", "value": "tcs-background-beige" },
+                { "name": "Black", "value": "tcs-background-black" }
               ]
             },
             {
@@ -113,25 +129,33 @@
         {
           "component": "text",
           "valueType": "string",
+          "name": "tag",
+          "value": "TAG",
+          "label": "Tag",
+          "description": "Badge text displayed at top of card"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
           "name": "eyebrow",
           "value": "",
           "label": "Eyebrow",
-          "description": "Small category header above title"
+          "description": "Optional category text above title"
         },
         {
           "component": "text",
           "valueType": "string",
           "name": "title",
-          "value": "Human + Machine",
+          "value": "The intelligent enterprise",
           "label": "Heading",
-          "description": "Card title"
+          "description": "Main card heading"
         },
         {
           "component": "select",
           "valueType": "string",
           "name": "titleType",
           "value": "h2",
-          "label": "Heading Type",
+          "label": "Heading Tag",
           "options": [
             { "name": "H1", "value": "h1" },
             { "name": "H2", "value": "h2" },
@@ -143,9 +167,9 @@
           "component": "richtext",
           "valueType": "string",
           "name": "description",
-          "value": "",
+          "value": "How AI is transforming decisions, operations and the nature of work",
           "label": "Description",
-          "description": "Optional body description"
+          "description": "Sub-text description"
         },
         {
           "component": "text",
@@ -165,7 +189,7 @@
           "component": "select",
           "name": "linkType",
           "value": "primary",
-          "label": "Link Type",
+          "label": "Link Style",
           "valueType": "string",
           "options": [
             { "name": "Primary Button", "value": "primary" },
