@@ -1065,6 +1065,29 @@
           }
         },
         {
+          "title": "Sub Card Container",
+          "id": "sub-card-container",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/sub-card-container/v1/sub-card-container",
+                "template": {}
+              }
+            }
+          }
+        },
+        {
+          "title": "Sub Card",
+          "id": "sub-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/sub-card/v1/sub-card"
+              }
+            }
+          }
+        },
+        {
           "title": "Table",
           "id": "table",
           "plugins": {

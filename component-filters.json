@@ -115,6 +115,21 @@
     ]
   },
   {
+    "id": "sub-card-container",
+    "components": [
+      "sub-card"
+    ]
+  },
+  {
+    "id": "sub-card",
+    "components": [
+      "text",
+      "image",
+      "button",
+      "title"
+    ]
+  },
+  {
     "id": "table",
     "components": [
       "table-row"

@@ -5790,6 +5790,87 @@
     ]
   },
   {
+    "id": "sub-card-container",
+    "fields": []
+  },
+  {
+    "id": "sub-card",
+    "fields": [
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "tags",
+        "label": "Tags (comma separated, e.g. TAG, STORY)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "readTime",
+        "label": "Read Time (e.g. 14 min read)"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "overline",
+        "label": "Overline Text"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "label": "Title / Heading"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "stat",
+        "label": "Big Stat / Metric (e.g. 65K+)"
+      },
+      {
+        "component": "reference",
+        "valueType": "string",
+        "name": "image",
+        "label": "Card Image / Logo"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "theme",
+        "label": "Card Theme",
+        "options": [
+          {
+            "name": "Dark (Default)",
+            "value": "dark"
+          },
+          {
+            "name": "Blue",
+            "value": "blue"
+          },
+          {
+            "name": "Yellow",
+            "value": "yellow"
+          },
+          {
+            "name": "Light Gray",
+            "value": "light"
+          }
+        ]
+      },
+      {
+        "component": "aem-content",
+        "valueType": "string",
+        "name": "link",
+        "label": "CTA Link"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "label": "CTA Text (e.g. Read Story)"
+      }
+    ]
+  },
+  {
     "id": "table",
     "fields": [
       {

@@ -1,0 +1,162 @@
+/* Container Layout */
+.sub-card-container,
+.sub-card-wrapper {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+@media (min-width: 600px) {
+  .sub-card-container,
+  .sub-card-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 900px) {
+  .sub-card-container,
+  .sub-card-wrapper {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Base Sub Card */
+.sub-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: 420px;
+  padding: 28px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border-radius: 2px;
+  background-color: #1b222d; /* Default Dark Theme */
+  color: #ffffff;
+}
+
+/* Theme Variants */
+.sub-card.theme-blue,
+.sub-card[data-theme="blue"] {
+  background-color: #3b66e6;
+  color: #ffffff;
+}
+
+.sub-card.theme-yellow,
+.sub-card[data-theme="yellow"] {
+  background-color: #fabb2d;
+  color: #111111;
+}
+
+.sub-card.theme-light,
+.sub-card[data-theme="light"] {
+  background-color: #e5e5e5;
+  color: #111111;
+}
+
+/* Background Image inside Sub Card */
+.sub-card .sub-card-media,
+.sub-card picture,
+.sub-card img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Overlay gradient when card has background image */
+.sub-card.has-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.1) 100%);
+  z-index: 1;
+}
+
+/* Layer content over media */
+.sub-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Tags and Header Metadata */
+.sub-card-tags-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sub-card-tag {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 3px 6px;
+  background-color: #ffffff;
+  color: #111111;
+  border-radius: 1px;
+}
+
+.sub-card.theme-yellow .sub-card-tag,
+.sub-card.theme-light .sub-card-tag {
+  background-color: transparent;
+  border: 1px solid #111111;
+}
+
+.sub-card-readtime {
+  font-size: 0.8rem;
+  opacity: 0.85;
+}
+
+/* Typography elements */
+.sub-card-overline {
+  font-size: 0.85rem;
+  opacity: 0.8;
+  margin: 6px 0;
+}
+
+.sub-card h1,
+.sub-card h2,
+.sub-card h3,
+.sub-card h4 {
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.25;
+  margin: 12px 0;
+  color: inherit;
+}
+
+/* Large Number / Stat display (e.g. 65K+) */
+.sub-card-stat {
+  font-size: 4rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+/* Call to Action Link */
+.sub-card-cta {
+  margin-top: auto;
+  padding-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: inherit;
+  text-decoration: none;
+}
+
+.sub-card-cta:hover .arrow {
+  transform: translateX(4px);
+  transition: transform 0.2s ease;
+}

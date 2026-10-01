@@ -1,0 +1,115 @@
+{
+  "definitions": [
+    {
+      "title": "Sub Card Container",
+      "id": "sub-card-container",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/sub-card-container/v1/sub-card-container",
+            "template": {}
+          }
+        }
+      }
+    },
+    {
+      "title": "Sub Card",
+      "id": "sub-card",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/sub-card/v1/sub-card"
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "sub-card-container",
+      "fields": []
+    },
+    {
+      "id": "sub-card",
+      "fields": [
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "tags",
+          "label": "Tags (comma separated, e.g. TAG, STORY)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "readTime",
+          "label": "Read Time (e.g. 14 min read)"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "overline",
+          "label": "Overline Text"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "title",
+          "label": "Title / Heading"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "stat",
+          "label": "Big Stat / Metric (e.g. 65K+)"
+        },
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Card Image / Logo"
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "theme",
+          "label": "Card Theme",
+          "options": [
+            { "name": "Dark (Default)", "value": "dark" },
+            { "name": "Blue", "value": "blue" },
+            { "name": "Yellow", "value": "yellow" },
+            { "name": "Light Gray", "value": "light" }
+          ]
+        },
+        {
+          "component": "aem-content",
+          "valueType": "string",
+          "name": "link",
+          "label": "CTA Link"
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "linkText",
+          "label": "CTA Text (e.g. Read Story)"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "sub-card-container",
+      "components": [
+        "sub-card"
+      ]
+    },
+    {
+      "id": "sub-card",
+      "components": [
+        "text",
+        "image",
+        "button",
+        "title"
+      ]
+    }
+  ]
+}
