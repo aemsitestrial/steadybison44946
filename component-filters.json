@@ -63,14 +63,7 @@
       "text",
       "image",
       "button",
-      "title",
-      "video",
-      "cta",
-      "accordion",
-      "badge",
-      "card-metadata",
-      "author",
-      "card-footer-taxonomy"
+      "title"
     ]
   },
   {

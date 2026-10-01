@@ -241,19 +241,9 @@
           }
         },
         {
-          "title": "Columns Container",
+          "title": "Columns",
           "id": "columns",
           "plugins": {
-            "da": {
-              "rows": 1,
-              "columns": 2,
-              "fields": [
-                {
-                  "name": "classes",
-                  "selector": "div:nth-child(1)>div>ul"
-                }
-              ]
-            },
             "xwalk": {
               "page": {
                 "resourceType": "core/franklin/components/columns/v1/columns",
@@ -261,72 +251,6 @@
                   "columns": "2",
                   "rows": "1"
                 }
-              }
-            }
-          }
-        },
-        {
-          "title": "Column Item",
-          "id": "column",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/columns/v1/column"
-              }
-            }
-          }
-        },
-        {
-          "title": "CTA Link",
-          "id": "cta",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/cta/v1/cta"
-              }
-            }
-          }
-        },
-        {
-          "title": "Badge Tag",
-          "id": "badge",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/badge/v1/badge"
-              }
-            }
-          }
-        },
-        {
-          "title": "Card Metadata",
-          "id": "card-metadata",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/card-metadata/v1/card-metadata"
-              }
-            }
-          }
-        },
-        {
-          "title": "Author Profile",
-          "id": "author",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/author/v1/author"
-              }
-            }
-          }
-        },
-        {
-          "title": "Card Footer Taxonomy",
-          "id": "card-footer-taxonomy",
-          "plugins": {
-            "xwalk": {
-              "page": {
-                "resourceType": "core/franklin/components/card-footer-taxonomy/v1/card-footer-taxonomy"
               }
             }
           }
