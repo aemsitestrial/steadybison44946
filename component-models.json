@@ -208,6 +208,147 @@
       {
         "component": "reference",
         "valueType": "string",
+        "name": "fileReference",
+        "label": "Image",
+        "description": "Background image for the card",
+        "multi": false
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "fileReferenceAlt",
+        "value": "",
+        "label": "Image Alt Text",
+        "description": "Descriptive text for accessibility"
+      },
+      {
+        "component": "multiselect",
+        "name": "classes",
+        "label": "Style",
+        "valueType": "string",
+        "required": false,
+        "maxSize": 3,
+        "options": [
+          {
+            "name": "Theme",
+            "children": [
+              {
+                "name": "Light Text",
+                "value": "light"
+              },
+              {
+                "name": "Dark Text",
+                "value": "dark"
+              }
+            ]
+          },
+          {
+            "name": "Overlay Aspect Ratio",
+            "children": [
+              {
+                "name": "Portrait",
+                "value": "portrait"
+              },
+              {
+                "name": "Landscape",
+                "value": "landscape"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "eyebrow",
+        "value": "",
+        "label": "Eyebrow",
+        "description": "Small category header above title"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "title",
+        "value": "Human + Machine",
+        "label": "Heading",
+        "description": "Card title"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "titleType",
+        "value": "h2",
+        "label": "Heading Type",
+        "options": [
+          {
+            "name": "H1",
+            "value": "h1"
+          },
+          {
+            "name": "H2",
+            "value": "h2"
+          },
+          {
+            "name": "H3",
+            "value": "h3"
+          },
+          {
+            "name": "H4",
+            "value": "h4"
+          }
+        ]
+      },
+      {
+        "component": "richtext",
+        "valueType": "string",
+        "name": "description",
+        "value": "",
+        "label": "Description",
+        "description": "Optional body description"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "link",
+        "value": "",
+        "label": "Card Link URL"
+      },
+      {
+        "component": "text",
+        "valueType": "string",
+        "name": "linkText",
+        "value": "",
+        "label": "Link Text"
+      },
+      {
+        "component": "select",
+        "name": "linkType",
+        "value": "primary",
+        "label": "Link Type",
+        "valueType": "string",
+        "options": [
+          {
+            "name": "Primary Button",
+            "value": "primary"
+          },
+          {
+            "name": "Secondary Button",
+            "value": "secondary"
+          },
+          {
+            "name": "Text Link",
+            "value": "link"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "card",
+    "fields": [
+      {
+        "component": "reference",
+        "valueType": "string",
         "name": "image",
         "label": "Image",
         "multi": false

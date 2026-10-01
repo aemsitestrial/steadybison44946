@@ -67,7 +67,8 @@
         "video",
         "form-variations",
         "content-cards",
-        "sub-card-container"
+        "sub-card-container",
+        "card"
       ]
     }
   ]
