@@ -2,55 +2,63 @@
   margin: 48px auto;
   width: 100%;
 }
- 
+
 /* Row container */
-.columns .columns-row,
-.columns > div {
+.columns .columns-row {
   display: grid;
   grid-template-columns: 1fr;
   gap: 24px;
 }
- 
+
 /* Individual Column Container */
 .columns .columns-col {
   display: flex;
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  box-sizing: border-box;
 }
- 
-/* Ensure child blocks (like quote) take full width of their column */
+
 .columns .columns-col > * {
   width: 100%;
 }
- 
-.columns-variant-image-copy .columns-row {
-  align-items: center;
+
+/* Card Theme Styles (Triggered by Authoring Dropdown) */
+.columns .columns-col.default-light,
+.columns .columns-col .default-light {
+  background-color: #fff;
+  color: #111;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
 }
- 
-.columns-variant-content-links .columns-text-col {
-  gap: 12px;
+
+.columns .columns-col.default-dark,
+.columns .columns-col .default-dark {
+  background-color: #1e1e1e;
+  color: #fff;
+  border-radius: 12px;
+  padding: 24px;
 }
- 
-.columns-variant-followup-copy .columns-text-col {
-  gap: 10px;
-}
- 
+
+/* Image formatting inside columns */
 .columns img {
   display: block;
   width: 100%;
   height: auto;
   border-radius: 12px;
 }
- 
+
+/* Column order defaults */
 .columns .columns-img-col {
   order: 0;
 }
- 
+
 .columns .columns-text-col {
   order: 1;
 }
- 
+
 /* Link Lists inside columns */
 .columns .columns-link-list {
   display: flex;
@@ -60,25 +68,25 @@
   padding: 0;
   list-style: none;
 }
- 
+
 .columns .columns-link-list li {
   margin: 0;
 }
- 
+
 .columns .columns-link {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  color: var(--text-color);
+  color: var(--text-color, #111);
   font-weight: 600;
   text-decoration: none;
 }
- 
+
 .columns .columns-link:hover,
 .columns .columns-link:focus-visible {
   text-decoration: underline;
 }
- 
+
 .columns .columns-link-arrow {
   display: inline-flex;
   align-items: center;
@@ -86,38 +94,33 @@
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--link-color);
-  color: var(--background-color);
+  background: var(--link-color, #06c);
+  color: var(--background-color, #fff);
   font-size: 1.1rem;
   line-height: 1;
 }
- 
+
 /* Responsive Grid Breakpoints */
 @media (width >= 600px) {
-  .columns-2-cols .columns-row,
-  .columns-2-cols > div {
+  .columns-2-cols .columns-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
- 
-  .columns-3-cols .columns-row,
-  .columns-3-cols > div {
+
+  .columns-3-cols .columns-row {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
- 
+
 @media (width >= 900px) {
-  .columns .columns-row,
-  .columns > div {
+  .columns .columns-row {
     gap: 32px;
   }
- 
-  .columns-2-cols.columns-variant-image-copy .columns-row,
-  .columns-2-cols.columns-variant-image-copy > div {
+
+  .columns-2-cols.columns-variant-image-copy .columns-row {
     grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   }
- 
-  .columns-2-cols.columns-variant-content-links .columns-row,
-  .columns-2-cols.columns-variant-content-links > div {
+
+  .columns-2-cols.columns-variant-text-links .columns-row {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }

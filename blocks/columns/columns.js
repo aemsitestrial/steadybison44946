@@ -1,8 +1,8 @@
 export default function decorate(block) {
   const rows = [...block.children];
-
   if (!rows.length) return;
 
+  // 1. Add grid column count class
   const columnCount = rows[0].children.length;
   block.classList.add(`columns-${columnCount}-cols`);
 
@@ -12,25 +12,40 @@ export default function decorate(block) {
 
     columns.forEach((column) => {
       column.classList.add('columns-col');
+      const allTextElements = [...column.querySelectorAll('p, div, span')];
+      allTextElements.forEach((el) => {
+        const text = el.textContent.trim().toLowerCase();
+        if (text === 'default-light' || text === 'default-dark') {
+          column.classList.add(text);
+          el.remove(); // Prevents "default-light" from rendering as visible text on page
+        }
+      });
 
-      // Check for media vs content
+      // --- Detect element types ---
       const picture = column.querySelector('picture');
       const heading = column.querySelector('h1, h2, h3, h4, h5, h6');
       const list = column.querySelector('ul, ol');
-      const hasBlock = column.querySelector('[class*="block"]'); // Detects child blocks like quote
+      const hasParagraph = column.querySelector('p');
+      const hasBlock = column.querySelector('[class*="block"]');
 
-      if (picture && column.children.length === 1) {
+      // Check if image column (handles standalone <picture> or single <picture> inside <p>)
+      const isImageCol = picture && (
+        column.children.length === 1
+        || (column.children.length === 1 && column.firstElementChild.tagName === 'P' && column.firstElementChild.children.length === 1)
+      );
+
+      if (isImageCol) {
         column.classList.add('columns-img-col');
       }
 
-      if (heading || list || hasBlock || column.querySelector('p')) {
+      if (heading || list || hasBlock || hasParagraph) {
         column.classList.add('columns-text-col');
       }
 
-      // Format link lists if present
+      // --- Link List arrow injection ---
       if (list) {
         list.classList.add('columns-link-list');
-        [...list.querySelectorAll('a')].forEach((link) => {
+        list.querySelectorAll('a').forEach((link) => {
           link.classList.add('columns-link');
           if (!link.querySelector('.columns-link-arrow')) {
             const arrow = document.createElement('span');
@@ -43,18 +58,18 @@ export default function decorate(block) {
       }
     });
 
-    // Handle 2-column variants safely
+    // --- 2-Column Variants ---
     if (columns.length === 2) {
       const [firstCol, secondCol] = columns;
-      const firstColumnHasImage = firstCol.querySelector('picture');
-      const secondColumnHasHeading = secondCol.querySelector('h1, h2, h3, h4, h5, h6');
-      const secondColumnHasList = secondCol.querySelector('ul, ol');
+      const firstHasImage = firstCol.querySelector('picture');
+      const secondHasHeading = secondCol.querySelector('h1, h2, h3, h4, h5, h6');
+      const secondHasList = secondCol.querySelector('ul, ol');
 
-      if (firstColumnHasImage && secondColumnHasHeading) {
+      if (firstHasImage && secondHasHeading) {
         block.classList.add('columns-variant-image-copy');
       }
-      if (secondColumnHasList && secondCol.querySelector('p')) {
-        block.classList.add('columns-variant-content-links');
+      if (secondHasList && secondCol.querySelector('p')) {
+        block.classList.add('columns-variant-text-links');
       }
     }
   });
