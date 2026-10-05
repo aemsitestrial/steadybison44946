@@ -19,17 +19,30 @@ export function decorateButtons(...buttons) {
     .join('');
 }
 
-export function generateCardDOM(props) {
-  const [
-    pictureContainer,
-    tag,
-    eyebrow,
-    title,
-    description,
-    cta,
-  ] = props;
+export default function decorate(block) {
+  // Add universal editor model hook to the root element
+  block.setAttribute('data-aue-model', 'card');
 
-  // Background Image setup if picture element exists
+  const rows = [...block.children];
+  if (!rows.length) return;
+
+  const props = rows.map((row) => row.firstElementChild);
+
+  const pictureContainer = props[0];
+  const tag = props[1];
+  const eyebrow = props[2];
+  const title = props[3];
+  const description = props[4];
+  const cta = props[5];
+
+  // Instrument DOM elements for Universal Editor overlay
+  if (pictureContainer) pictureContainer.setAttribute('data-aue-prop', 'fileReference');
+  if (tag) tag.setAttribute('data-aue-prop', 'tag');
+  if (eyebrow) eyebrow.setAttribute('data-aue-prop', 'eyebrow');
+  if (title) title.setAttribute('data-aue-prop', 'title');
+  if (description) description.setAttribute('data-aue-prop', 'description');
+
+  // Background Image setup
   const picture = pictureContainer ? pictureContainer.querySelector('picture') : null;
   if (picture) {
     const img = picture.querySelector('img');
@@ -46,47 +59,62 @@ export function generateCardDOM(props) {
   const hasDescription = description && description.textContent.trim() !== '';
   const hasCta = cta && cta.querySelector('a');
 
-  // Construct DOM Fragment
-  const cardDOM = document.createRange().createContextualFragment(`
-    <div class="background">
-      ${picture ? pictureContainer.innerHTML : ''}
-    </div>
-    <div class="foreground">
-      <div class="text">
-        ${hasTag ? `<div class="tag"><span>${tag.textContent.trim()}</span></div>` : ''}
-        ${hasEyebrow ? `<div class="eyebrow">${eyebrow.textContent.trim().toUpperCase()}</div>` : ''}
-        ${hasTitle ? `<div class="title">${title.innerHTML}</div>` : ''}
-        ${hasDescription ? `<div class="description">${description.innerHTML}</div>` : ''}
-        ${hasCta ? `<div class="cta">${decorateButtons(cta)}</div>` : ''}
-      </div>
-    </div>
-  `);
+  // Construct DOM Fragment preserving instrumented Nodes
+  const backgroundDiv = document.createElement('div');
+  backgroundDiv.className = 'background';
+  if (picture) backgroundDiv.appendChild(pictureContainer);
 
-  return cardDOM;
-}
+  const foregroundDiv = document.createElement('div');
+  foregroundDiv.className = 'foreground';
 
-export default function decorate(block) {
-  const rows = [...block.children];
-  if (!rows.length) return;
+  const textDiv = document.createElement('div');
+  textDiv.className = 'text';
 
-  const props = rows.map((row) => row.firstElementChild);
+  if (hasTag) {
+    const tagEl = document.createElement('div');
+    tagEl.className = 'tag';
+    tagEl.setAttribute('data-aue-prop', 'tag');
+    tagEl.setAttribute('data-aue-type', 'text');
+    tagEl.innerHTML = `<span>${tag.textContent.trim()}</span>`;
+    textDiv.appendChild(tagEl);
+  }
 
-  const pictureContainer = props[0];
-  const tag = props[1];
-  const eyebrow = props[2];
-  const title = props[3];
-  const description = props[4];
-  const cta = props[5];
+  if (hasEyebrow) {
+    const eyebrowEl = document.createElement('div');
+    eyebrowEl.className = 'eyebrow';
+    eyebrowEl.setAttribute('data-aue-prop', 'eyebrow');
+    eyebrowEl.setAttribute('data-aue-type', 'text');
+    eyebrowEl.textContent = eyebrow.textContent.trim().toUpperCase();
+    textDiv.appendChild(eyebrowEl);
+  }
 
-  const cardDOM = generateCardDOM([
-    pictureContainer,
-    tag,
-    eyebrow,
-    title,
-    description,
-    cta,
-  ]);
+  if (hasTitle) {
+    const titleEl = document.createElement('div');
+    titleEl.className = 'title';
+    titleEl.setAttribute('data-aue-prop', 'title');
+    titleEl.setAttribute('data-aue-type', 'text');
+    titleEl.innerHTML = title.innerHTML;
+    textDiv.appendChild(titleEl);
+  }
+
+  if (hasDescription) {
+    const descEl = document.createElement('div');
+    descEl.className = 'description';
+    descEl.setAttribute('data-aue-prop', 'description');
+    descEl.setAttribute('data-aue-type', 'richtext');
+    descEl.innerHTML = description.innerHTML;
+    textDiv.appendChild(descEl);
+  }
+
+  if (hasCta) {
+    const ctaEl = document.createElement('div');
+    ctaEl.className = 'cta';
+    ctaEl.innerHTML = decorateButtons(cta);
+    textDiv.appendChild(ctaEl);
+  }
+
+  foregroundDiv.appendChild(textDiv);
 
   block.textContent = '';
-  block.append(cardDOM);
+  block.append(backgroundDiv, foregroundDiv);
 }

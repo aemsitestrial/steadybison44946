@@ -33,7 +33,8 @@
       "form-variations",
       "content-cards",
       "sub-card-container",
-      "card"
+      "card",
+      "blockHarsha"
     ]
   },
   {
@@ -67,13 +68,16 @@
       "image",
       "button",
       "title",
-      "card"
+      "demo-card-column",
+      "cards",
+      "dm-video",
+      "quote"
     ]
   },
   {
-    "id": "content-cards",
+    "id": "demo-card-column",
     "components": [
-      "content-card-item"
+      "demo-card-column-item"
     ]
   },
   {

@@ -209,31 +209,25 @@
         "component": "reference",
         "valueType": "string",
         "name": "fileReference",
-        "label": "Image (Optional)",
-        "description": "Background image for the card",
-        "multi": false
+        "label": "Background Image"
       },
       {
-        "component": "text",
+        "component": "text-input",
         "valueType": "string",
         "name": "fileReferenceAlt",
-        "value": "",
-        "label": "Alt Text",
-        "description": "Descriptive text for accessibility"
+        "label": "Image Alt Text"
       },
       {
         "component": "multiselect",
-        "name": "classes",
-        "label": "Style & Background",
         "valueType": "string",
-        "required": false,
-        "maxSize": 3,
+        "name": "classes",
+        "label": "Style & Background Color",
         "options": [
           {
             "name": "Theme",
             "children": [
               {
-                "name": "Dark / Light Text",
+                "name": "Dark / White Text",
                 "value": "dark"
               },
               {
@@ -270,51 +264,31 @@
                 "value": "tcs-background-black"
               }
             ]
-          },
-          {
-            "name": "Overlay Aspect Ratio",
-            "children": [
-              {
-                "name": "Portrait",
-                "value": "portrait"
-              },
-              {
-                "name": "Landscape",
-                "value": "landscape"
-              }
-            ]
           }
         ]
       },
       {
-        "component": "text",
+        "component": "text-input",
         "valueType": "string",
         "name": "tag",
-        "value": "",
-        "label": "Tag",
-        "description": "Badge text displayed at top of card"
+        "label": "Tag Badge Text"
       },
       {
-        "component": "text",
+        "component": "text-input",
         "valueType": "string",
         "name": "eyebrow",
-        "value": "",
-        "label": "Eyebrow",
-        "description": "Category text above title"
+        "label": "Eyebrow"
       },
       {
-        "component": "text",
+        "component": "text-input",
         "valueType": "string",
         "name": "title",
-        "value": "",
-        "label": "Title",
-        "description": "Main card heading text"
+        "label": "Card Heading"
       },
       {
         "component": "select",
         "valueType": "string",
         "name": "titleType",
-        "value": "h2",
         "label": "Heading Type",
         "options": [
           {
@@ -339,42 +313,33 @@
         "component": "richtext",
         "valueType": "string",
         "name": "description",
-        "value": "",
-        "label": "Description",
-        "description": "Card body text"
+        "label": "Description"
       },
       {
-        "component": "text",
+        "component": "text-input",
         "valueType": "string",
         "name": "link",
-        "value": "",
-        "label": "CTA Link"
+        "label": "CTA Link URL"
       },
       {
-        "component": "text",
+        "component": "text-input",
         "valueType": "string",
         "name": "linkText",
-        "value": "",
-        "label": "CTA Text"
+        "label": "CTA Button Text"
       },
       {
         "component": "select",
-        "name": "linkType",
-        "value": "primary",
-        "label": "CTA Style",
         "valueType": "string",
+        "name": "linkType",
+        "label": "CTA Button Style",
         "options": [
           {
-            "name": "Primary Button",
+            "name": "Primary",
             "value": "primary"
           },
           {
-            "name": "Secondary Button",
+            "name": "Secondary",
             "value": "secondary"
-          },
-          {
-            "name": "Text Link",
-            "value": "link"
           }
         ]
       }
@@ -438,20 +403,40 @@
         "component": "text",
         "valueType": "number",
         "name": "columns",
-        "value": "",
+        "value": "2",
         "label": "Columns"
       },
       {
         "component": "text",
         "valueType": "number",
         "name": "rows",
-        "value": "",
+        "value": "1",
         "label": "Rows"
+      },
+      {
+        "component": "select",
+        "name": "layout",
+        "label": "Layout variant",
+        "value": "default",
+        "options": [
+          {
+            "name": "Default",
+            "value": "default"
+          },
+          {
+            "name": "Image and copy",
+            "value": "image-copy"
+          },
+          {
+            "name": "Text and links",
+            "value": "text-links"
+          }
+        ]
       }
     ]
   },
   {
-    "id": "content-cards",
+    "id": "demo-card-column",
     "fields": [
       {
         "component": "select",
@@ -472,7 +457,7 @@
     ]
   },
   {
-    "id": "content-card-item",
+    "id": "demo-card-column-item",
     "fields": [
       {
         "component": "reference",
@@ -480,6 +465,31 @@
         "name": "image",
         "label": "Image",
         "multi": false
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "theme",
+        "value": "default-light",
+        "label": "Card Theme (Child Color / Style)",
+        "options": [
+          {
+            "name": "Default Light",
+            "value": "default-light"
+          },
+          {
+            "name": "Blue Solid (No Image)",
+            "value": "blue-solid"
+          },
+          {
+            "name": "Dark Charcoal",
+            "value": "dark-charcoal"
+          },
+          {
+            "name": "Brand Accent Border",
+            "value": "brand-accent-border"
+          }
+        ]
       },
       {
         "component": "text",

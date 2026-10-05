@@ -1,33 +1,123 @@
-.columns > div {
-  display: flex;
-  flex-direction: column;
-}
- 
-.columns img {
+.columns {
+  margin: 48px auto;
   width: 100%;
 }
  
-.columns > div > div {
-  order: 1;
+/* Row container */
+.columns .columns-row,
+.columns > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
  
-.columns > div > .columns-img-col {
+/* Individual Column Container */
+.columns .columns-col {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+ 
+/* Ensure child blocks (like quote) take full width of their column */
+.columns .columns-col > * {
+  width: 100%;
+}
+ 
+.columns-variant-image-copy .columns-row {
+  align-items: center;
+}
+ 
+.columns-variant-content-links .columns-text-col {
+  gap: 12px;
+}
+ 
+.columns-variant-followup-copy .columns-text-col {
+  gap: 10px;
+}
+ 
+.columns img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+}
+ 
+.columns .columns-img-col {
   order: 0;
 }
  
-.columns > div > .columns-img-col img {
-  display: block;
+.columns .columns-text-col {
+  order: 1;
+}
+ 
+/* Link Lists inside columns */
+.columns .columns-link-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+ 
+.columns .columns-link-list li {
+  margin: 0;
+}
+ 
+.columns .columns-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-color);
+  font-weight: 600;
+  text-decoration: none;
+}
+ 
+.columns .columns-link:hover,
+.columns .columns-link:focus-visible {
+  text-decoration: underline;
+}
+ 
+.columns .columns-link-arrow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--link-color);
+  color: var(--background-color);
+  font-size: 1.1rem;
+  line-height: 1;
+}
+ 
+/* Responsive Grid Breakpoints */
+@media (width >= 600px) {
+  .columns-2-cols .columns-row,
+  .columns-2-cols > div {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+ 
+  .columns-3-cols .columns-row,
+  .columns-3-cols > div {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
  
 @media (width >= 900px) {
+  .columns .columns-row,
   .columns > div {
-    align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    gap: 32px;
   }
  
-  .columns > div > div {
-    flex: 1;
-    order: unset;
+  .columns-2-cols.columns-variant-image-copy .columns-row,
+  .columns-2-cols.columns-variant-image-copy > div {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  }
+ 
+  .columns-2-cols.columns-variant-content-links .columns-row,
+  .columns-2-cols.columns-variant-content-links > div {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }

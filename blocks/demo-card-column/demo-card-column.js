@@ -2,16 +2,22 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 function getCellText(cell) {
-  if (!cell) return '';
+  if (!cell) {
+    return '';
+  }
   return cell.querySelector('p, div, a, span')?.textContent?.trim() || cell.textContent?.trim() || '';
 }
 
 function renderImageCell(cell, className) {
   const picture = cell?.querySelector('picture');
-  if (!picture) return null;
+  if (!picture) {
+    return null;
+  }
 
   const img = picture.querySelector('img');
-  if (!img) return null;
+  if (!img) {
+    return null;
+  }
 
   const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
   moveInstrumentation(img, optimizedPic.querySelector('img'));
@@ -24,63 +30,74 @@ function renderImageCell(cell, className) {
 }
 
 function getLinkCell(buttonLinkCell) {
-  if (!buttonLinkCell) return null;
+  if (!buttonLinkCell) {
+    return null;
+  }
   return buttonLinkCell.querySelector('a');
 }
 
 export default function decorate(block) {
   const isArticleVariant = block.classList.contains('article-cards');
   const ul = document.createElement('ul');
-  ul.className = 'content-cards-grid';
+  ul.className = 'demo-card-column-grid';
 
   [...block.children].forEach((row) => {
     const li = document.createElement('li');
-    li.className = 'content-card-item';
+    li.className = 'demo-card-column-item';
 
     moveInstrumentation(row, li);
 
     const cells = [...row.children];
     if (cells.length > 0) {
-      const imageCell = cells[0] || null;
-      const categoryCell = cells[1] || null;
-      const topicCell = cells[2] || null;
-      const publishedDateCell = cells[3] || null;
-      const titleCell = cells[4] || null;
-      const descriptionCell = cells[5] || null;
-      const statsCell = cells[6] || null;
-      const buttonLinkCell = cells[7] || null;
+      const imageCell = cells[0];
+      const themeCell = cells[1];
+      const categoryCell = cells[2];
+      const topicCell = cells[3];
+      const publishedDateCell = cells[4];
+      const titleCell = cells[5];
+      const descriptionCell = cells[6];
+      const statsCell = cells[7];
+      const buttonLinkCell = cells[8];
+
+      // Apply theme class if present
+      const theme = getCellText(themeCell);
+      if (theme) {
+        li.classList.add(theme);
+      }
 
       if (isArticleVariant) {
         if (imageCell && imageCell.querySelector('picture')) {
           const imageWrapper = renderImageCell(imageCell, 'card-image-banner');
-          if (imageWrapper) li.append(imageWrapper);
+          if (imageWrapper) {
+            li.append(imageWrapper);
+          }
         } else {
           li.classList.add('is-featured-report');
         }
 
-        const category = getCellText(categoryCell);
-        const topic = getCellText(topicCell);
+        const catText = getCellText(categoryCell);
+        const topicText = getCellText(topicCell);
         const pubDate = getCellText(publishedDateCell);
 
-        if (category || topic || pubDate) {
+        if (catText || topicText || pubDate) {
           const metaContainer = document.createElement('div');
           metaContainer.className = 'card-meta-bar';
 
           const tagsWrapper = document.createElement('div');
           tagsWrapper.className = 'meta-tags-wrapper';
 
-          if (category) {
+          if (catText) {
             const catSpan = document.createElement('span');
             catSpan.className = 'meta-category-badge';
-            catSpan.textContent = category;
+            catSpan.textContent = catText;
             moveInstrumentation(categoryCell, catSpan);
             tagsWrapper.append(catSpan);
           }
 
-          if (topic) {
+          if (topicText) {
             const topicSpan = document.createElement('span');
             topicSpan.className = 'meta-topic-text';
-            topicSpan.textContent = topic;
+            topicSpan.textContent = topicText;
             moveInstrumentation(topicCell, topicSpan);
             tagsWrapper.append(topicSpan);
           }
@@ -135,7 +152,9 @@ export default function decorate(block) {
 
         if (imageCell && imageCell.querySelector('picture')) {
           const imageWrapper = renderImageCell(imageCell, 'card-image-banner');
-          if (imageWrapper) topContent.append(imageWrapper);
+          if (imageWrapper) {
+            topContent.append(imageWrapper);
+          }
         }
 
         const categoryText = getCellText(categoryCell);

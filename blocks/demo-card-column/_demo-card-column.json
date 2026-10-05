@@ -1,31 +1,31 @@
 {
   "definitions": [
     {
-      "title": "Content Cards",
-      "id": "content-cards",
+      "title": "Demo Card Column",
+      "id": "demo-card-column",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block",
             "template": {
-              "name": "Content Cards",
-              "model": "content-cards",
-              "filter": "content-cards"
+              "name": "Demo Card Column",
+              "model": "demo-card-column",
+              "filter": "demo-card-column"
             }
           }
         }
       }
     },
     {
-      "title": "Content Card Item",
-      "id": "content-card-item",
+      "title": "Demo Card Column Item",
+      "id": "demo-card-column-item",
       "plugins": {
         "xwalk": {
           "page": {
             "resourceType": "core/franklin/components/block/v1/block/item",
             "template": {
-              "name": "Content Card Item",
-              "model": "content-card-item"
+              "name": "Demo Card Column Item",
+              "model": "demo-card-column-item"
             }
           }
         }
@@ -34,7 +34,7 @@
   ],
   "models": [
     {
-      "id": "content-cards",
+      "id": "demo-card-column",
       "fields": [
         {
           "component": "select",
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "id": "content-card-item",
+      "id": "demo-card-column-item",
       "fields": [
         {
           "component": "reference",
@@ -63,6 +63,31 @@
           "name": "image",
           "label": "Image",
           "multi": false
+        },
+        {
+          "component": "select",
+          "valueType": "string",
+          "name": "theme",
+          "value": "default-light",
+          "label": "Card Theme (Child Color / Style)",
+          "options": [
+            {
+              "name": "Default Light",
+              "value": "default-light"
+            },
+            {
+              "name": "Blue Solid (No Image)",
+              "value": "blue-solid"
+            },
+            {
+              "name": "Dark Charcoal",
+              "value": "dark-charcoal"
+            },
+            {
+              "name": "Brand Accent Border",
+              "value": "brand-accent-border"
+            }
+          ]
         },
         {
           "component": "text",
@@ -111,9 +136,9 @@
   ],
   "filters": [
     {
-      "id": "content-cards",
+      "id": "demo-card-column",
       "components": [
-        "content-card-item"
+        "demo-card-column-item"
       ]
     }
   ]

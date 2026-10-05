@@ -68,7 +68,8 @@
         "form-variations",
         "content-cards",
         "sub-card-container",
-        "card"
+        "card",
+        "blockHarsha"
       ]
     }
   ]

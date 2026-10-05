@@ -61,9 +61,13 @@
               "name": "Card",
               "model": "card",
               "tag": "TAG",
+              "eyebrow": "",
               "title": "The intelligent enterprise",
               "titleType": "h2",
               "description": "How AI is transforming decisions, operations and the nature of work",
+              "link": "",
+              "linkText": "",
+              "linkType": "primary",
               "classes": ["dark", "tcs-background-dark-navy"]
             }
           }
@@ -79,30 +83,24 @@
           "component": "reference",
           "valueType": "string",
           "name": "fileReference",
-          "label": "Image (Optional)",
-          "description": "Background image for the card",
-          "multi": false
+          "label": "Background Image"
         },
         {
-          "component": "text",
+          "component": "text-input",
           "valueType": "string",
           "name": "fileReferenceAlt",
-          "value": "",
-          "label": "Alt Text",
-          "description": "Descriptive text for accessibility"
+          "label": "Image Alt Text"
         },
         {
           "component": "multiselect",
-          "name": "classes",
-          "label": "Style & Background",
           "valueType": "string",
-          "required": false,
-          "maxSize": 3,
+          "name": "classes",
+          "label": "Style & Background Color",
           "options": [
             {
               "name": "Theme",
               "children": [
-                { "name": "Dark / Light Text", "value": "dark" },
+                { "name": "Dark / White Text", "value": "dark" },
                 { "name": "Light / Dark Text", "value": "light" }
               ]
             },
@@ -116,45 +114,31 @@
                 { "name": "Beige", "value": "tcs-background-beige" },
                 { "name": "Black", "value": "tcs-background-black" }
               ]
-            },
-            {
-              "name": "Overlay Aspect Ratio",
-              "children": [
-                { "name": "Portrait", "value": "portrait" },
-                { "name": "Landscape", "value": "landscape" }
-              ]
             }
           ]
         },
         {
-          "component": "text",
+          "component": "text-input",
           "valueType": "string",
           "name": "tag",
-          "value": "",
-          "label": "Tag",
-          "description": "Badge text displayed at top of card"
+          "label": "Tag Badge Text"
         },
         {
-          "component": "text",
+          "component": "text-input",
           "valueType": "string",
           "name": "eyebrow",
-          "value": "",
-          "label": "Eyebrow",
-          "description": "Category text above title"
+          "label": "Eyebrow"
         },
         {
-          "component": "text",
+          "component": "text-input",
           "valueType": "string",
           "name": "title",
-          "value": "",
-          "label": "Title",
-          "description": "Main card heading text"
+          "label": "Card Heading"
         },
         {
           "component": "select",
           "valueType": "string",
           "name": "titleType",
-          "value": "h2",
           "label": "Heading Type",
           "options": [
             { "name": "H1", "value": "h1" },
@@ -167,34 +151,28 @@
           "component": "richtext",
           "valueType": "string",
           "name": "description",
-          "value": "",
-          "label": "Description",
-          "description": "Card body text"
+          "label": "Description"
         },
         {
-          "component": "text",
+          "component": "text-input",
           "valueType": "string",
           "name": "link",
-          "value": "",
-          "label": "CTA Link"
+          "label": "CTA Link URL"
         },
         {
-          "component": "text",
+          "component": "text-input",
           "valueType": "string",
           "name": "linkText",
-          "value": "",
-          "label": "CTA Text"
+          "label": "CTA Button Text"
         },
         {
           "component": "select",
-          "name": "linkType",
-          "value": "primary",
-          "label": "CTA Style",
           "valueType": "string",
+          "name": "linkType",
+          "label": "CTA Button Style",
           "options": [
-            { "name": "Primary Button", "value": "primary" },
-            { "name": "Secondary Button", "value": "secondary" },
-            { "name": "Text Link", "value": "link" }
+            { "name": "Primary", "value": "primary" },
+            { "name": "Secondary", "value": "secondary" }
           ]
         }
       ]
