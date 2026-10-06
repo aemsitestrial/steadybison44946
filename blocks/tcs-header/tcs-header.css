@@ -1,0 +1,349 @@
+/* ==========================================================================
+   BASIC TCS HEADER SHELL
+   ========================================================================== */
+.tcs-header-wrapper {
+  height: 124px;
+}
+ 
+.tcs-header .tcs-nav-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  background-color: #fff;
+  border-bottom: 1px solid #e0e0e0;
+}
+ 
+.tcs-header nav#tcs-nav {
+  box-sizing: border-box;
+  position: relative;
+  z-index: 20;
+  margin: 0 auto;
+  max-width: 1440px;
+  height: 124px;
+  padding: 40px 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+ 
+/* Logos */
+.tcs-header .nav-brand-primary img {
+  width: 146px;
+  height: 34.8px;
+  object-fit: contain;
+}
+ 
+.tcs-header .nav-brand-secondary img {
+  width: 50px;
+  height: 44px;
+  object-fit: contain;
+}
+ 
+.tcs-header .nav-brand-primary picture,
+.tcs-header .nav-brand-secondary picture {
+  display: block;
+}
+ 
+.tcs-header .nav-brand-primary a,
+.tcs-header .nav-brand-secondary a {
+  text-decoration: none;
+  font-weight: 700;
+  color: #1e1e1e;
+}
+ 
+.tcs-header.variant-compact nav#tcs-nav {
+  height: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+ 
+.tcs-header.variant-compact .nav-brand-primary img {
+  width: 112px;
+  height: 28px;
+}
+ 
+.tcs-header.variant-centered nav#tcs-nav {
+  position: relative;
+}
+ 
+.tcs-header.variant-centered .nav-brand-primary {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+ 
+/* Desktop Links */
+@media (width >= 1025px) {
+  .tcs-header .nav-hamburger {
+    display: none;
+  }
+ 
+  .tcs-header .nav-sections .tcs-nav-list {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+ 
+  .tcs-header .nav-sections a {
+    color: #1e1e1e;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1rem;
+  }
+ 
+  .tcs-header.variant-centered nav#tcs-nav {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger {
+    display: block;
+    flex: 0 0 auto;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger button {
+    width: 40px;
+    height: 40px;
+    border: 0;
+    padding: 8px;
+    background: transparent;
+    cursor: pointer;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger-icon,
+  .tcs-header.variant-centered .nav-hamburger-icon::before,
+  .tcs-header.variant-centered .nav-hamburger-icon::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: #1e1e1e;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger-icon::before,
+  .tcs-header.variant-centered .nav-hamburger-icon::after {
+    content: '';
+    position: relative;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger-icon::before {
+    top: -6px;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger-icon::after {
+    top: 4px;
+  }
+ 
+  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon {
+    background-color: transparent;
+  }
+ 
+  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::before {
+    transform: translateY(0) rotate(45deg);
+  }
+ 
+  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::after {
+    transform: translateY(0) rotate(-45deg);
+  }
+ 
+  .tcs-header.variant-centered .nav-sections {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    margin: 0;
+    padding: 24px 80px;
+    box-sizing: border-box;
+    background: #fff;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
+  }
+ 
+  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-sections {
+    display: block;
+  }
+ 
+  .tcs-header.variant-centered .nav-sections .tcs-nav-list {
+    justify-content: center;
+    gap: 2.5rem;
+  }
+ 
+  .tcs-header.variant-centered .nav-brand-primary {
+    position: static;
+    flex: 0 0 auto;
+    transform: none;
+  }
+ 
+  .tcs-header.variant-centered .nav-brand-secondary {
+    margin-left: auto;
+  }
+}
+ 
+/* Mobile Layout */
+@media (width <= 1024px) {
+  .tcs-header-wrapper {
+    height: 64px;
+  }
+ 
+  .tcs-header nav#tcs-nav {
+    height: 64px;
+    padding: 12px 20px;
+  }
+ 
+  .tcs-header.variant-compact nav#tcs-nav {
+    height: 56px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+ 
+  .tcs-header.variant-centered .nav-brand-primary {
+    position: static;
+    transform: none;
+  }
+ 
+  .tcs-header.variant-centered nav#tcs-nav {
+    justify-content: flex-start;
+    gap: 12px;
+  }
+ 
+  .tcs-header.variant-centered .nav-hamburger {
+    display: block;
+    flex: 0 0 auto;
+  }
+ 
+  .tcs-header .nav-brand-primary img {
+    width: 100px;
+    height: 24px;
+  }
+ 
+  .tcs-header .nav-brand-secondary {
+    display: none;
+  }
+ 
+  .tcs-header.variant-centered .nav-brand-secondary {
+    display: block;
+    margin-left: auto;
+  }
+ 
+  .tcs-header.variant-centered .nav-brand-secondary img {
+    width: 42px;
+    height: 36px;
+  }
+ 
+  .tcs-header .nav-sections {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    z-index: 10;
+    width: 100%;
+    max-height: calc(100dvh - 64px);
+    background: #fff;
+    padding: 2rem;
+    box-sizing: border-box;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+ 
+  .tcs-header.variant-centered .nav-sections {
+    top: 100%;
+  }
+ 
+  .tcs-header.variant-compact .nav-sections {
+    max-height: calc(100dvh - 56px);
+  }
+ 
+  .tcs-header .nav-sections .tcs-nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+ 
+  .tcs-header .nav-sections a {
+    color: #1e1e1e;
+    text-decoration: none;
+    font-size: 1rem;
+  }
+ 
+  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-sections {
+    display: block;
+  }
+ 
+  .tcs-header .nav-hamburger button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+  }
+ 
+  .tcs-header .nav-hamburger-icon,
+  .tcs-header .nav-hamburger-icon::before,
+  .tcs-header .nav-hamburger-icon::after {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: #1e1e1e;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+ 
+  .tcs-header .nav-hamburger-icon::before {
+    content: "";
+    transform: translateY(-6px);
+  }
+ 
+  .tcs-header .nav-hamburger-icon::after {
+    content: "";
+    transform: translateY(4px);
+  }
+ 
+  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon {
+    background-color: transparent;
+  }
+ 
+  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::before {
+    transform: translateY(0) rotate(45deg);
+  }
+ 
+  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::after {
+    transform: translateY(0) rotate(-45deg);
+  }
+}
+ 
+/* Dark theme overrides must follow responsive base colors. */
+.tcs-header.variant-dark .tcs-nav-wrapper,
+.tcs-header[data-variant="dark"] .tcs-nav-wrapper {
+  background-color: #1e1e1e;
+  border-bottom-color: #333;
+}
+ 
+.tcs-header[data-variant="dark"] .nav-brand-primary a,
+.tcs-header[data-variant="dark"] .nav-brand-secondary a,
+.tcs-header.variant-dark .nav-brand-primary a,
+.tcs-header.variant-dark .nav-brand-secondary a,
+.tcs-header.variant-dark nav#tcs-nav .nav-sections a,
+.tcs-header[data-variant="dark"] nav#tcs-nav .nav-sections a,
+.tcs-header.variant-dark nav#tcs-nav .nav-sections li,
+.tcs-header[data-variant="dark"] nav#tcs-nav .nav-sections li {
+  color: #fff !important;
+}
+ 
+.tcs-header.variant-dark .nav-sections,
+.tcs-header[data-variant="dark"] .nav-sections {
+  background-color: #1e1e1e;
+}
+ 
+.tcs-header.variant-dark .nav-hamburger-icon,
+.tcs-header.variant-dark .nav-hamburger-icon::before,
+.tcs-header.variant-dark .nav-hamburger-icon::after,
+.tcs-header[data-variant="dark"] .nav-hamburger-icon,
+.tcs-header[data-variant="dark"] .nav-hamburger-icon::before,
+.tcs-header[data-variant="dark"] .nav-hamburger-icon::after {
+  background-color: #fff;
+}
