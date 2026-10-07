@@ -1,4 +1,15 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
+import { decorateNavigation } from '../navigation/navigation.js';
+
+const NAVIGATION_STYLESHEET = `${window.hlx.codeBasePath}/blocks/navigation/navigation.css`;
+
+function loadNavigationStyles() {
+  if (document.querySelector(`link[href="${NAVIGATION_STYLESHEET}"]`)) return;
+  const stylesheet = document.createElement('link');
+  stylesheet.rel = 'stylesheet';
+  stylesheet.href = NAVIGATION_STYLESHEET;
+  document.head.append(stylesheet);
+}
 
 /**
  * Helper to safely extract property elements or child values
@@ -61,30 +72,12 @@ export default function decorate(block) {
     tataLogo: getProp(block, 'tataLogo'),
     tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
   };
+  const menuSource = block.querySelector('[data-aue-prop="menu"]')
+    || ([...block.children][5]?.children[1])
+    || block.querySelector('ul');
+  const menuContent = menuSource?.cloneNode(true);
   const supportedVariants = ['standard', 'compact', 'dark', 'centered'];
   if (!supportedVariants.includes(config.headerVariant)) config.headerVariant = 'standard';
-
-  // 2. Extract Menu Content
-  const menuRow = [...block.children][5];
-  const menuSource = block.querySelector('[data-aue-prop="menu"]')
-    || (menuRow && (menuRow.children[1] || menuRow))
-    || block.querySelector('ul');
-  let navList = document.createElement('ul');
-  navList.className = 'tcs-nav-list';
-
-  if (menuSource) {
-    const ul = menuSource.querySelector('ul') || menuSource;
-    if (ul && ul.tagName === 'UL') {
-      navList = ul.cloneNode(true);
-      navList.className = 'tcs-nav-list';
-    } else {
-      menuSource.querySelectorAll('a[href]').forEach((link) => {
-        const item = document.createElement('li');
-        item.append(link.cloneNode(true));
-        navList.append(item);
-      });
-    }
-  }
 
   // 3. Rebuild Clean Block DOM
   block.textContent = '';
@@ -117,11 +110,6 @@ export default function decorate(block) {
   }
   brandPrimary.append(primaryAnchor);
 
-  // Navigation Links
-  const navSections = document.createElement('div');
-  navSections.className = 'nav-sections';
-  navSections.append(navList);
-
   // Tata Logo
   const brandSecondary = document.createElement('div');
   brandSecondary.className = 'nav-brand-secondary';
@@ -142,48 +130,14 @@ export default function decorate(block) {
   }
   brandSecondary.append(secondaryAnchor);
 
-  // Mobile & Centered Hamburger Toggle
-  const hamburgerWrapper = document.createElement('div');
-  hamburgerWrapper.className = 'nav-hamburger';
-  const hamburgerButton = document.createElement('button');
-  hamburgerButton.type = 'button';
-  hamburgerButton.setAttribute('aria-controls', 'tcs-nav');
-  hamburgerButton.setAttribute('aria-label', 'Open menu');
-  hamburgerButton.setAttribute('aria-expanded', 'false');
-  hamburgerButton.innerHTML = '<span class="nav-hamburger-icon"></span>';
-
-  const toggleMenu = (openState) => {
-    const isExpanded = openState !== undefined
-      ? openState
-      : nav.getAttribute('aria-expanded') !== 'true';
-
-    nav.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-    hamburgerButton.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
-    hamburgerButton.setAttribute('aria-label', isExpanded ? 'Close menu' : 'Open menu');
-
-    const isDesktop = window.innerWidth >= 1025;
-    document.body.style.overflowY = !isExpanded || isDesktop ? '' : 'hidden';
-  };
-
-  hamburgerButton.addEventListener('click', () => toggleMenu());
-
-  // Window Resize & Keyboard Event Listeners
-  window.addEventListener('resize', () => {
-    // Reconcile menu state when crossing the responsive breakpoint.
-    toggleMenu(false);
-  });
-
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && nav.getAttribute('aria-expanded') === 'true') {
-      toggleMenu(false);
-      hamburgerButton.focus();
-    }
-  });
-
-  hamburgerWrapper.append(hamburgerButton);
-
   // Assemble
-  nav.append(hamburgerWrapper, brandPrimary, navSections, brandSecondary);
+  nav.append(brandPrimary, brandSecondary);
   navWrapper.append(nav);
   block.append(navWrapper);
+
+  const navigation = document.createElement('div');
+  navigation.className = 'navigation tcs-header-navigation';
+  block.append(navigation);
+  loadNavigationStyles();
+  if (menuContent) decorateNavigation(navigation, menuContent);
 }

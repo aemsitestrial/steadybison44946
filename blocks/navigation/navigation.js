@@ -23,11 +23,6 @@ function getItems(list) {
     .filter((item) => item.label);
 }
 
-function getRootList(block) {
-  const menu = block.querySelector('[data-aue-prop="menu"]') || block;
-  return menu.matches('ul') ? menu : menu.querySelector('ul');
-}
-
 function createLink(item, className) {
   const link = document.createElement(item.link ? 'a' : 'span');
   link.className = className;
@@ -96,8 +91,8 @@ function createThirdLevelPanel(item) {
   return panel;
 }
 
-export default function decorate(block) {
-  const rootList = getRootList(block);
+export function decorateNavigation(block, menuSource = block) {
+  const rootList = menuSource.matches('ul') ? menuSource : menuSource.querySelector('ul');
   const items = rootList ? getItems(rootList) : [];
   let activeL1 = null;
   let activeL2 = null;
@@ -196,4 +191,8 @@ export default function decorate(block) {
   dock.append(hamburger, nav);
   block.append(dock);
   render();
+}
+
+export default function decorate(block) {
+  decorateNavigation(block, block.querySelector('[data-aue-prop="menu"]') || block);
 }
