@@ -5933,39 +5933,10 @@
     "id": "navigation",
     "fields": [
       {
-        "component": "select",
-        "name": "headerVariant",
-        "label": "Header Variant",
-        "valueType": "string",
-        "options": [
-          {
-            "title": "Floating Bottom Dock",
-            "value": "floating-bottom"
-          },
-          {
-            "title": "Standard Top Header",
-            "value": "standard"
-          },
-          {
-            "title": "Compact Header",
-            "value": "compact"
-          },
-          {
-            "title": "Dark Header",
-            "value": "dark"
-          },
-          {
-            "title": "Centered Header",
-            "value": "centered"
-          }
-        ],
-        "value": "floating-bottom"
-      },
-      {
         "component": "richtext",
         "name": "menu",
         "label": "Navigation Menu",
-        "description": "Create nested lists: Level 1 items form dock pill buttons, Level 2 items form megamenu grid entries.",
+        "description": "Create a bulleted list with one top-level item per main menu button. Add nested bullets for the second row and a third nested level for the panel links.",
         "valueType": "string",
         "value": ""
       }

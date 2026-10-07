@@ -1,234 +1,236 @@
-/* ==========================================================================
-   FIGMA BOTTOM DOCK NAVIGATION & MEGAMENU SPECIFICATIONS
-   ========================================================================== */
-
-/* Prevent parent container clipping in Universal Editor and production */
 .navigation-wrapper,
 .navigation-container,
 .navigation {
   overflow: visible !important;
 }
 
-/* Floating Bottom Dock Root Container */
 .navigation.floating-bottom-dock {
   position: fixed;
-  bottom: 32px;
-  left: 50%;
-  transform: translateX(-50%);
   z-index: 9999;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  max-width: 95vw;
-}
-
-/* Inner Dock Shell - Dynamically fits all items without clipping */
-.dock-inner-wrapper {
-  box-sizing: border-box;
-  width: max-content;
-  max-width: 90vw;
-  height: 48px;
+  right: 0;
+  bottom: 0;
+  left: 0;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  background: rgb(255 255 255 / 85%);
-  backdrop-filter: blur(16px);
-  padding: 0 8px;
-  border-radius: 32px;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 12%);
-  border: 1px solid rgb(255 255 255 / 60%);
-  overflow-x: auto;
-  scrollbar-width: none; /* Hide scrollbar Firefox */
-}
-
-.dock-inner-wrapper::-webkit-scrollbar {
-  display: none; /* Hide scrollbar Chrome/Safari */
-}
-
-/* Circle Hamburger Action Button */
-.dock-hamburger-btn {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #fff;
-  border: none;
-  display: flex;
-  align-items: center;
   justify-content: center;
-  cursor: pointer;
-  box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
-  flex-shrink: 0;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  width: 100%;
+  max-width: none;
+  padding: 0 24px 24px;
+  transform: none;
+  pointer-events: none;
 }
 
-.dock-hamburger-btn:hover {
-  background: #f0f4ff;
+.navigation.floating-bottom-dock::before {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: min(48vh, 440px);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 84%) 62%, #fff 100%);
+  content: '';
+  pointer-events: none;
 }
 
-.dock-hamburger-btn:focus-visible {
-  outline: 2px solid #3874ff;
-  outline-offset: 2px;
-}
-
-/* Dock Item List */
-.dock-list {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  flex-shrink: 0;
-}
-
-.dock-item-l1 {
+.dock-inner-wrapper {
   position: relative;
   display: flex;
   align-items: center;
-  height: 100%;
-  flex-shrink: 0; /* Prevents hidden/collapsed buttons */
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  pointer-events: auto;
 }
 
-/* Filter Pill Button - Inactive State (Active=False) */
-.dock-pill-btn {
-  height: 36px;
-  background: #fff;
-  color: #1e1e1e;
-  border: none;
-  border-radius: 20px;
-  padding: 0 18px;
-  font-size: 0.95rem;
-  font-weight: 500;
-  cursor: pointer;
+.dock-navigation {
+  max-width: calc(100vw - 90px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.dock-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.dock-list {
   display: flex;
   align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  white-space: nowrap;
-  box-shadow: 0 2px 4px rgb(0 0 0 / 4%);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  flex-shrink: 0;
-}
-
-/* Hover, Focus & Disabled States */
-.dock-pill-btn:hover {
-  background: #f4f5f8;
-}
-
-.dock-pill-btn:focus-visible {
-  outline: 2px solid #3874ff;
-  outline-offset: 2px;
-}
-
-.dock-pill-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* Chevron Indicator (Closed State - Downward) */
-.dock-chevron-icon::after {
-  content: "";
-  display: inline-block;
-  width: 5px;
-  height: 5px;
-  border-right: 2px solid currentcolor;
-  border-bottom: 2px solid currentcolor;
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-  margin-left: 2px;
-  margin-bottom: 2px;
-}
-
-/* Filter Pill Button - Active State (Active=True) */
-.dock-pill-btn[aria-expanded="true"] {
-  background-color: #3874ff;
-  color: #fff;
-  box-shadow: 0 4px 12px rgb(56 116 255 / 35%);
-}
-
-/* Chevron Indicator (Open State - Upward) */
-.dock-pill-btn[aria-expanded="true"] .dock-chevron-icon::after {
-  transform: rotate(-135deg);
-  margin-bottom: -2px;
-}
-
-/* Megamenu Overlay Panel */
-.dock-megamenu-panel {
-  display: none;
-  position: absolute;
-  bottom: calc(100% + 20px);
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgb(215 218 224 / 92%);
-  backdrop-filter: blur(24px);
-  border-radius: 24px;
-  padding: 32px 36px;
-  box-shadow: 0 24px 48px rgb(0 0 0 / 16%);
-  width: 720px;
-  max-width: 90vw;
-  box-sizing: border-box;
-  z-index: 10000;
-  border: 1px solid rgb(255 255 255 / 40%);
-}
-
-.dock-pill-btn[aria-expanded="true"] + .dock-megamenu-panel {
-  display: block;
-}
-
-/* Megamenu 2-Column Grid Layout */
-.dock-l2-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0 40px;
-  list-style: none;
+  gap: 10px;
+  width: max-content;
   margin: 0;
   padding: 0;
+  list-style: none;
 }
 
-.dock-l2-item {
-  border-bottom: 1px solid rgb(0 0 0 / 12%);
+.dock-level-two-row {
+  position: relative;
 }
 
-.dock-l2-link {
+.dock-item {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.dock-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgb(0 0 0 / 6%);
+  border-radius: 24px;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: none;
+  color: #202426;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.25;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.dock-pill-btn:hover {
+  border-color: rgb(75 128 247 / 35%);
+}
+
+.dock-pill-btn[aria-expanded="true"] {
+  border-color: #4b80f7;
+  background: #4b80f7;
+  color: #fff;
+}
+
+.dock-chevron-icon {
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentcolor;
+  border-bottom: 1.5px solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.dock-pill-btn[aria-expanded="true"] .dock-chevron-icon {
+  transform: translateY(2px) rotate(225deg);
+}
+
+.dock-hamburger-btn {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgb(0 0 0 / 6%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 90%);
+  cursor: pointer;
+}
+
+.dock-hamburger-btn span,
+.dock-hamburger-btn span::before,
+.dock-hamburger-btn span::after {
+  position: absolute;
+  width: 14px;
+  height: 1px;
+  background: #4b80f7;
+  content: '';
+}
+
+.dock-hamburger-btn span::before {
+  transform: translateY(-4px);
+}
+
+.dock-hamburger-btn span::after {
+  transform: translateY(4px);
+}
+
+.dock-megamenu-panel {
+  position: absolute;
+  bottom: calc(100% + 24px);
+  left: 50%;
+  width: min(720px, calc(100vw - 48px));
+  max-height: min(55vh, 460px);
+  padding: 18px 28px;
+  overflow-y: auto;
+  border: 1px solid rgb(255 255 255 / 72%);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 78%);
+  box-shadow: 0 12px 36px rgb(0 0 0 / 8%);
+  backdrop-filter: blur(18px);
+  transform: translateX(-50%);
+}
+
+.dock-l3-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.dock-l3-item {
+  min-width: 0;
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+}
+
+.dock-l3-link {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 4px;
-  color: #111827;
+  min-height: 42px;
+  padding: 10px 0;
+  color: #343a3d;
+  font-size: 13px;
   text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 500;
-  transition: color 0.15s ease;
 }
 
-.dock-l2-link:hover {
+.dock-pill-btn:focus-visible,
+.dock-hamburger-btn:focus-visible,
+.dock-l3-link:focus-visible {
+  outline: 3px solid #4b80f7;
+  outline-offset: 3px;
+}
+
+.dock-l3-link::after {
+  margin-left: 12px;
+  content: '\2192';
+}
+
+.dock-l3-link:hover {
   color: #3874ff;
 }
 
-.dock-arrow-right {
-  font-size: 1.1rem;
-  color: #4b5563;
-  font-weight: 400;
-}
-
-/* Mobile & Tablet Responsiveness */
 @media (width <= 900px) {
   .navigation.floating-bottom-dock {
-    width: 94vw;
-    bottom: 16px;
+    padding: 0 12px 12px;
+  }
+
+  .navigation.floating-bottom-dock::before {
+    height: min(52vh, 420px);
   }
 
   .dock-inner-wrapper {
-    max-width: 100%;
-    overflow-x: auto;
+    width: 100%;
+  }
+
+  .dock-navigation {
+    max-width: calc(100vw - 78px);
+  }
+
+  .dock-list {
     justify-content: flex-start;
   }
 
   .dock-megamenu-panel {
-    width: 88vw;
-    padding: 20px;
+    left: 0;
+    width: min(720px, calc(100vw - 24px));
+    padding: 12px 18px;
+    transform: none;
   }
 
-  .dock-l2-grid {
-    grid-template-columns: 1fr;
+  .dock-l3-grid {
+    grid-template-columns: minmax(0, 1fr);
   }
 }

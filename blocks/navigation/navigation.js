@@ -1,129 +1,199 @@
-/**
- * Bottom Floating Dock Navigation with Megamenu
- * Matched to Figma Specs: 863px container, 48px height pills, 12px gap
- */
-function processMenuHierarchy(menuSource) {
-  const navList = document.createElement('ul');
-  navList.className = 'dock-list';
+function getItemLabel(item) {
+  const copy = item.cloneNode(true);
+  copy.querySelectorAll('ul').forEach((list) => list.remove());
+  return copy.textContent.trim();
+}
 
-  const rootUl = menuSource.querySelector('ul') || menuSource;
-  if (!rootUl || rootUl.tagName !== 'UL') return navList;
+function getItemLink(item) {
+  const link = item.querySelector(':scope > a[href], :scope > p > a[href]');
+  return link ? { href: link.getAttribute('href'), target: link.target } : null;
+}
 
-  [...rootUl.children].forEach((l1Li) => {
-    const l1Item = document.createElement('li');
-    l1Item.className = 'dock-item-l1';
+function getItems(list) {
+  return [...list.children]
+    .filter((item) => item.tagName === 'LI')
+    .map((item) => {
+      const nestedList = [...item.children].find((child) => child.tagName === 'UL');
+      return {
+        label: getItemLabel(item),
+        link: getItemLink(item),
+        children: nestedList ? getItems(nestedList) : [],
+      };
+    })
+    .filter((item) => item.label);
+}
 
-    const l1Anchor = l1Li.querySelector(':scope > a');
-    const l2Ul = l1Li.querySelector(':scope > ul');
+function getRootList(block) {
+  const menu = block.querySelector('[data-aue-prop="menu"]') || block;
+  return menu.matches('ul') ? menu : menu.querySelector('ul');
+}
 
-    if (l2Ul) {
-      // Filter Pill Toggle Button (Active / Inactive)
-      const toggleBtn = document.createElement('button');
-      toggleBtn.type = 'button';
-      toggleBtn.className = 'dock-pill-btn';
-      toggleBtn.setAttribute('aria-expanded', 'false');
-      toggleBtn.setAttribute('aria-haspopup', 'true');
+function createLink(item, className) {
+  const link = document.createElement(item.link ? 'a' : 'span');
+  link.className = className;
+  link.textContent = item.label;
+  if (item.link) {
+    link.href = item.link.href;
+    if (item.link.target) link.target = item.link.target;
+    if (item.link.target === '_blank') link.rel = 'noopener noreferrer';
+  }
+  return link;
+}
 
-      const labelText = l1Anchor ? l1Anchor.textContent.trim() : l1Li.firstChild.textContent.trim();
-      toggleBtn.innerHTML = `
-        <span class="dock-pill-label">${labelText}</span>
-        <span class="dock-chevron-icon"></span>
-      `;
+function createPill(item, onSelect) {
+  const button = document.createElement('button');
+  button.className = 'dock-pill-btn';
+  button.type = 'button';
+  button.textContent = item.label;
+  button.addEventListener('click', () => onSelect(item, button));
 
-      // Megamenu Panel
-      const megaPanel = document.createElement('div');
-      megaPanel.className = 'dock-megamenu-panel';
+  const chevron = document.createElement('span');
+  chevron.className = 'dock-chevron-icon';
+  chevron.setAttribute('aria-hidden', 'true');
+  button.append(chevron);
+  return button;
+}
 
-      const l2List = document.createElement('ul');
-      l2List.className = 'dock-l2-grid';
+function createLevel(items, className, onSelect) {
+  const list = document.createElement('ul');
+  list.className = `dock-list ${className}`;
 
-      [...l2Ul.children].forEach((l2Li) => {
-        const l2Item = document.createElement('li');
-        l2Item.className = 'dock-l2-item';
-
-        const l2Anchor = l2Li.querySelector('a');
-        const textContent = l2Anchor ? l2Anchor.textContent.trim() : l2Li.textContent.trim();
-        const targetHref = l2Anchor ? l2Anchor.getAttribute('href') : '#';
-
-        l2Item.innerHTML = `
-          <a href="${targetHref}" class="dock-l2-link">
-            <span>${textContent}</span>
-            <span class="dock-arrow-right">→</span>
-          </a>
-        `;
-
-        l2List.append(l2Item);
-      });
-
-      megaPanel.append(l2List);
-      l1Item.append(toggleBtn, megaPanel);
-
-      // Toggle Actions
-      toggleBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isExpanded = toggleBtn.getAttribute('aria-expanded') === 'true';
-
-        // Close other active pills
-        navList.querySelectorAll('.dock-pill-btn').forEach((btn) => {
-          btn.setAttribute('aria-expanded', 'false');
-        });
-
-        toggleBtn.setAttribute('aria-expanded', isExpanded ? 'false' : 'true');
-      });
-    } else if (l1Anchor) {
-      l1Anchor.className = 'dock-pill-btn single-link';
-      l1Item.append(l1Anchor.cloneNode(true));
+  items.forEach((item) => {
+    const listItem = document.createElement('li');
+    listItem.className = 'dock-item';
+    if (item.children.length) {
+      listItem.append(createPill(item, onSelect));
+    } else if (item.link) {
+      listItem.append(createLink(item, 'dock-pill-btn single-link'));
+    } else {
+      const label = document.createElement('span');
+      label.className = 'dock-pill-btn single-link';
+      label.textContent = item.label;
+      listItem.append(label);
     }
-
-    navList.append(l1Item);
+    list.append(listItem);
   });
 
-  return navList;
+  return list;
+}
+
+function createThirdLevelPanel(item) {
+  const panel = document.createElement('div');
+  panel.className = 'dock-megamenu-panel';
+  panel.setAttribute('aria-label', `${item.label} links`);
+
+  const list = document.createElement('ul');
+  list.className = 'dock-l3-grid';
+  item.children.forEach((child) => {
+    const listItem = document.createElement('li');
+    listItem.className = 'dock-l3-item';
+    const link = createLink(child, 'dock-l3-link');
+    listItem.append(link);
+    list.append(listItem);
+  });
+
+  panel.append(list);
+  return panel;
 }
 
 export default function decorate(block) {
-  // Extract menu rich text dynamically for Universal Editor
-  const menuSource = block.querySelector('[data-aue-prop="menu"]')
-    || block.querySelector('ul')
-    || block;
+  const rootList = getRootList(block);
+  const items = rootList ? getItems(rootList) : [];
+  let activeL1 = null;
+  let activeL2 = null;
 
-  const navList = processMenuHierarchy(menuSource);
-
-  // Clear original content
-  block.textContent = '';
+  block.replaceChildren();
   block.classList.add('floating-bottom-dock');
 
-  const dockWrapper = document.createElement('div');
-  dockWrapper.className = 'dock-inner-wrapper';
+  const dock = document.createElement('div');
+  dock.className = 'dock-inner-wrapper';
 
-  // Left Hamburger Menu Action
-  const hamburgerBtn = document.createElement('button');
-  hamburgerBtn.className = 'dock-hamburger-btn';
-  hamburgerBtn.type = 'button';
-  hamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
-  hamburgerBtn.innerHTML = `
-    <svg width="18" height="14" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M1 1H17M1 7H17M1 13H17" stroke="#3874FF" stroke-width="2" stroke-linecap="round"/>
-    </svg>
-  `;
+  const hamburger = document.createElement('button');
+  hamburger.className = 'dock-hamburger-btn';
+  hamburger.type = 'button';
+  hamburger.setAttribute('aria-label', 'Show main navigation');
+  hamburger.innerHTML = '<span aria-hidden="true"></span>';
 
-  dockWrapper.append(hamburgerBtn, navList);
-  block.append(dockWrapper);
+  const nav = document.createElement('nav');
+  nav.className = 'dock-navigation';
+  nav.setAttribute('aria-label', 'Primary navigation');
 
-  // Click & Keyboard Backdrop Dismissal
-  document.addEventListener('click', (e) => {
-    if (!block.contains(e.target)) {
-      block.querySelectorAll('.dock-pill-btn').forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'false');
-      });
+  const render = () => {
+    nav.replaceChildren();
+
+    if (!activeL1) {
+      nav.append(createLevel(items, 'dock-level-one', (item, button) => {
+        activeL1 = item;
+        activeL2 = null;
+        render();
+        nav.querySelector('.dock-level-two .dock-pill-btn')?.focus();
+        button.blur();
+      }));
+      hamburger.hidden = true;
+      return;
+    }
+
+    hamburger.hidden = false;
+    const levelTwoItems = document.createElement('div');
+    levelTwoItems.className = 'dock-level-two-row';
+    levelTwoItems.append(createLevel(activeL1.children, 'dock-level-two', (item, button) => {
+      activeL2 = activeL2 === item ? null : item;
+      render();
+      const activeButton = [...nav.querySelectorAll('.dock-level-two .dock-pill-btn')]
+        .find((candidate) => candidate.textContent.trim().startsWith(item.label));
+      if (activeButton && activeL2) {
+        activeButton.setAttribute('aria-expanded', 'true');
+        activeButton.setAttribute('aria-controls', 'navigation-third-level-panel');
+        activeButton.focus();
+      }
+      button.blur();
+    }));
+
+    if (activeL2?.children.length) {
+      const activeButton = [...levelTwoItems.querySelectorAll('.dock-pill-btn')]
+        .find((candidate) => candidate.textContent.trim().startsWith(activeL2.label));
+      if (activeButton) {
+        activeButton.setAttribute('aria-expanded', 'true');
+        activeButton.setAttribute('aria-controls', 'navigation-third-level-panel');
+      }
+      const panel = createThirdLevelPanel(activeL2);
+      panel.id = 'navigation-third-level-panel';
+      levelTwoItems.prepend(panel);
+    }
+
+    nav.append(levelTwoItems);
+  };
+
+  hamburger.addEventListener('click', () => {
+    activeL1 = null;
+    activeL2 = null;
+    render();
+    nav.querySelector('.dock-level-one .dock-pill-btn')?.focus();
+  });
+
+  block.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && activeL1) {
+      event.stopPropagation();
+      if (activeL2) {
+        activeL2 = null;
+        render();
+        nav.querySelector('.dock-level-two .dock-pill-btn')?.focus();
+      } else {
+        activeL1 = null;
+        render();
+        nav.querySelector('.dock-level-one .dock-pill-btn')?.focus();
+      }
     }
   });
 
-  window.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      block.querySelectorAll('.dock-pill-btn').forEach((btn) => {
-        btn.setAttribute('aria-expanded', 'false');
-      });
+  document.addEventListener('click', (event) => {
+    if (!block.contains(event.target) && activeL2) {
+      activeL2 = null;
+      render();
     }
   });
+
+  dock.append(hamburger, nav);
+  block.append(dock);
+  render();
 }
