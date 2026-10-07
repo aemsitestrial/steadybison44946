@@ -5939,6 +5939,10 @@
         "valueType": "string",
         "options": [
           {
+            "title": "Floating Bottom Dock",
+            "value": "floating-bottom"
+          },
+          {
             "title": "Standard Top Header",
             "value": "standard"
           },
@@ -5953,45 +5957,15 @@
           {
             "title": "Centered Header",
             "value": "centered"
-          },
-          {
-            "title": "Floating Bottom Dock",
-            "value": "floating-bottom"
           }
         ],
-        "value": "standard"
-      },
-      {
-        "component": "reference",
-        "name": "tcsLogo",
-        "label": "Primary Logo",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "tcsLogoLink",
-        "label": "Primary Logo Link",
-        "valueType": "string",
-        "value": "/"
-      },
-      {
-        "component": "reference",
-        "name": "tataLogo",
-        "label": "Secondary Logo",
-        "valueType": "string"
-      },
-      {
-        "component": "text",
-        "name": "tataLogoLink",
-        "label": "Secondary Logo Link",
-        "valueType": "string",
-        "value": "https://www.tata.com"
+        "value": "floating-bottom"
       },
       {
         "component": "richtext",
         "name": "menu",
         "label": "Navigation Menu",
-        "description": "Create nested lists: top-level items are L1, nested items are L2, and their nested links are L3.",
+        "description": "Create nested lists: Level 1 items form dock pill buttons, Level 2 items form megamenu grid entries.",
         "valueType": "string",
         "value": ""
       }
