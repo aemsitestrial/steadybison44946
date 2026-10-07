@@ -5933,6 +5933,61 @@
     "id": "navigation",
     "fields": [
       {
+        "component": "select",
+        "name": "headerVariant",
+        "label": "Header Variant",
+        "valueType": "string",
+        "options": [
+          {
+            "title": "Standard Top Header",
+            "value": "standard"
+          },
+          {
+            "title": "Compact Header",
+            "value": "compact"
+          },
+          {
+            "title": "Dark Header",
+            "value": "dark"
+          },
+          {
+            "title": "Centered Header",
+            "value": "centered"
+          },
+          {
+            "title": "Floating Bottom Dock",
+            "value": "floating-bottom"
+          }
+        ],
+        "value": "standard"
+      },
+      {
+        "component": "reference",
+        "name": "tcsLogo",
+        "label": "Primary Logo",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tcsLogoLink",
+        "label": "Primary Logo Link",
+        "valueType": "string",
+        "value": "/"
+      },
+      {
+        "component": "reference",
+        "name": "tataLogo",
+        "label": "Secondary Logo",
+        "valueType": "string"
+      },
+      {
+        "component": "text",
+        "name": "tataLogoLink",
+        "label": "Secondary Logo Link",
+        "valueType": "string",
+        "value": "https://www.tata.com"
+      },
+      {
         "component": "richtext",
         "name": "menu",
         "label": "Navigation Menu",
