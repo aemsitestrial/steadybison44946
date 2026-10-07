@@ -5930,6 +5930,19 @@
     ]
   },
   {
+    "id": "navigation",
+    "fields": [
+      {
+        "component": "richtext",
+        "name": "menu",
+        "label": "Navigation Menu",
+        "description": "Create nested lists: top-level items are L1, nested items are L2, and their nested links are L3.",
+        "valueType": "string",
+        "value": ""
+      }
+    ]
+  },
+  {
     "id": "quote",
     "fields": [
       {

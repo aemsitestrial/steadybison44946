@@ -1,0 +1,225 @@
+.navigation.navigation-ready {
+	position: fixed;
+	z-index: 1000;
+	right: 0;
+	bottom: 24px;
+	left: 0;
+	display: flex;
+	justify-content: center;
+	width: 100%;
+	pointer-events: none;
+}
+
+.navigation-menu,
+.navigation-menu * {
+	box-sizing: border-box;
+}
+
+.navigation-menu {
+	width: min(100% - 32px, 1200px);
+	color: #092e35;
+	font-family: inherit;
+	pointer-events: auto;
+}
+
+.navigation-content {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+}
+
+.navigation-level-row,
+.navigation-level {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+.navigation-level {
+	max-width: 100%;
+}
+
+.navigation-choice,
+.navigation-link,
+.navigation-back {
+	min-height: 44px;
+	border: 1px solid rgb(9 46 53 / 8%);
+	border-radius: 24px;
+	background: rgb(255 255 255 / 94%);
+	color: #171d1f;
+	font: inherit;
+	font-size: 15px;
+	line-height: 1.25;
+	text-decoration: none;
+}
+
+.navigation-choice,
+.navigation-link {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 10px 18px;
+	white-space: nowrap;
+}
+
+.navigation-choice {
+	cursor: pointer;
+}
+
+.navigation-choice::after {
+	width: 7px;
+	height: 7px;
+	margin-left: 12px;
+	border-right: 1.5px solid currentcolor;
+	border-bottom: 1.5px solid currentcolor;
+	content: '';
+	transform: translateY(-2px) rotate(45deg);
+}
+
+.navigation-choice[aria-expanded="true"] {
+	border-color: #4b80f7;
+	background: #4b80f7;
+	color: #fff;
+}
+
+.navigation-choice[aria-expanded="true"]::after {
+	transform: translateY(2px) rotate(225deg);
+}
+
+.navigation-back {
+	flex: 0 0 44px;
+	width: 44px;
+	padding: 0;
+	color: #4b80f7;
+	cursor: pointer;
+	font-size: 20px;
+}
+
+.navigation-link:hover,
+.navigation-choice:hover,
+.navigation-back:hover {
+	border-color: #4b80f7;
+}
+
+.navigation-choice:focus-visible,
+.navigation-link:focus-visible,
+.navigation-back:focus-visible {
+	outline: 3px solid #4b80f7;
+	outline-offset: 3px;
+}
+
+.navigation-submenu {
+	position: absolute;
+	bottom: calc(100% + 16px);
+	left: 50%;
+	width: min(720px, 100%);
+	max-height: min(55vh, 460px);
+	padding: 18px 24px;
+	overflow-y: auto;
+	border: 1px solid rgb(255 255 255 / 75%);
+	border-radius: 18px;
+	background: rgb(255 255 255 / 88%);
+	box-shadow: 0 16px 48px rgb(0 20 40 / 18%);
+	backdrop-filter: blur(18px);
+	transform: translateX(-50%);
+}
+
+.navigation-level-three {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 0 24px;
+	align-items: stretch;
+}
+
+.navigation-level-three .navigation-item {
+	min-width: 0;
+	border-bottom: 1px solid rgb(9 46 53 / 12%);
+}
+
+.navigation-level-three .navigation-link {
+	display: flex;
+	justify-content: space-between;
+	width: 100%;
+	min-height: 48px;
+	padding: 10px 2px;
+	border: 0;
+	border-radius: 0;
+	background: transparent;
+	text-align: left;
+	white-space: normal;
+}
+
+.navigation-level-three a.navigation-link::after {
+	margin-left: 14px;
+	color: #4b80f7;
+	content: '\2192';
+}
+
+@media (width <= 760px) {
+	.navigation.navigation-ready {
+		bottom: 12px;
+	}
+
+	.navigation-menu {
+		width: calc(100% - 24px);
+	}
+
+	.navigation-content {
+		gap: 10px;
+	}
+
+	.navigation-level-row,
+	.navigation-level-one,
+	.navigation-level-two {
+		justify-content: flex-start;
+		width: 100%;
+		overflow-x: auto;
+		padding: 4px 2px 8px;
+		scrollbar-width: none;
+	}
+
+	.navigation-level-row::-webkit-scrollbar,
+	.navigation-level::-webkit-scrollbar {
+		display: none;
+	}
+
+	.navigation-choice,
+	.navigation-link {
+		min-height: 42px;
+		padding: 9px 15px;
+		font-size: 14px;
+	}
+
+	.navigation-submenu {
+		bottom: calc(100% + 10px);
+		width: 100%;
+		max-height: min(58vh, 420px);
+		padding: 12px 16px;
+		border-radius: 14px;
+	}
+
+	.navigation-level-three {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
+@media (prefers-reduced-motion: no-preference) {
+	.navigation-submenu {
+		animation: navigation-submenu-in 160ms ease-out both;
+	}
+
+	@keyframes navigation-submenu-in {
+		from {
+			opacity: 0;
+			transform: translate(-50%, 8px);
+		}
+
+		to {
+			opacity: 1;
+			transform: translate(-50%, 0);
+		}
+	}
+}
