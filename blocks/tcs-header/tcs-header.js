@@ -396,106 +396,73 @@ function decorateNavigationDock(container, taxonomy, config) {
 }
 
 export default async function decorate(block) {
-  const render = async () => {
-    if (block.dataset.rendering === 'true') return;
-    block.dataset.rendering = 'true';
-
-    try {
-      const config = {
-        headerVariant: normalizeVariant(getProp(block, 'headerVariant', 'standard')),
-        tcsLogo: getProp(block, 'tcsLogo'),
-        tcsLogoLink: getProp(block, 'tcsLogoLink', '/'),
-        tataLogo: getProp(block, 'tataLogo'),
-        tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
-        tcsLogoAlt: getProp(block, 'tcsLogoAlt', 'Tata Consultancy Services'),
-        tataLogoAlt: getProp(block, 'tataLogoAlt', 'TATA Group'),
-        navigationMotion: normalizeMotionType(getProp(block, 'navigationMotion', 'slide')),
-        navRootPath: normalizeRootPath(getProp(block, 'navRootPath', '/')),
-        navDepth: normalizeDepth(getProp(block, 'navDepth', 3), 3, 1, 3),
-        canvasPlaceholder: getProp(block, 'canvasPlaceholder', 'Ask us a question'),
-        showCanvasSearchIcon: String(getProp(block, 'showCanvasSearchIcon', 'true')).toLowerCase() !== 'false',
-        canvasActionUrl: getProp(block, 'canvasActionUrl', '/search'),
-        canvasNavRootPath: normalizeRootPath(getProp(block, 'canvasNavRootPath', '/')),
-        canvasNavDepth: normalizeDepth(getProp(block, 'canvasNavDepth', 3), 3, 1, 3),
-        canvasMotion: normalizeMotionType(getProp(block, 'canvasMotion', 'slide')),
-      };
-
-      block.textContent = '';
-      block.classList.remove('variant-standard', 'variant-compact', 'variant-dark', 'variant-centered');
-      block.classList.add(`variant-${config.headerVariant}`);
-      block.dataset.variant = config.headerVariant;
-      block.dataset.navigationMotion = config.navigationMotion;
-      block.dataset.canvasMotion = config.canvasMotion;
-
-      const navWrapper = document.createElement('div');
-      navWrapper.className = 'tcs-nav-wrapper';
-
-      const nav = document.createElement('nav');
-      nav.id = 'tcs-nav';
-
-      const brandPrimary = document.createElement('div');
-      brandPrimary.className = 'nav-brand-primary';
-      const primaryAnchor = document.createElement('a');
-      primaryAnchor.href = config.tcsLogoLink;
-
-      if (config.tcsLogo) {
-        primaryAnchor.append(createOptimizedPicture(config.tcsLogo, config.tcsLogoAlt || 'TCS', false, [{ width: '300' }]));
-      } else {
-        primaryAnchor.textContent = 'TCS';
-      }
-      brandPrimary.append(primaryAnchor);
-
-      const brandSecondary = document.createElement('div');
-      brandSecondary.className = 'nav-brand-secondary';
-      const secondaryAnchor = document.createElement('a');
-      secondaryAnchor.href = config.tataLogoLink;
-      secondaryAnchor.target = '_blank';
-      secondaryAnchor.rel = 'noopener noreferrer';
-
-      if (config.tataLogo) {
-        secondaryAnchor.append(createOptimizedPicture(config.tataLogo, config.tataLogoAlt || 'TATA', false, [{ width: '160' }]));
-      } else {
-        secondaryAnchor.textContent = 'TATA';
-      }
-      brandSecondary.append(secondaryAnchor);
-
-      nav.append(brandPrimary, brandSecondary);
-      navWrapper.append(nav);
-      block.append(navWrapper);
-
-      const navDockContainer = document.createElement('div');
-      block.append(navDockContainer);
-
-      const rawIndex = await fetchQueryIndex();
-      const taxonomy = buildTaxonomyFromIndex(rawIndex, config.navRootPath, config.navDepth);
-
-      decorateNavigationDock(navDockContainer, taxonomy, config);
-    } finally {
-      delete block.dataset.rendering;
-    }
+  const config = {
+    headerVariant: normalizeVariant(getProp(block, 'headerVariant', 'standard')),
+    tcsLogo: getProp(block, 'tcsLogo'),
+    tcsLogoLink: getProp(block, 'tcsLogoLink', '/'),
+    tataLogo: getProp(block, 'tataLogo'),
+    tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
+    tcsLogoAlt: getProp(block, 'tcsLogoAlt', 'Tata Consultancy Services'),
+    tataLogoAlt: getProp(block, 'tataLogoAlt', 'TATA Group'),
+    navigationMotion: normalizeMotionType(getProp(block, 'navigationMotion', 'slide')),
+    navRootPath: normalizeRootPath(getProp(block, 'navRootPath', '/')),
+    navDepth: normalizeDepth(getProp(block, 'navDepth', 3), 3, 1, 3),
+    canvasPlaceholder: getProp(block, 'canvasPlaceholder', 'Ask us a question'),
+    showCanvasSearchIcon: String(getProp(block, 'showCanvasSearchIcon', 'true')).toLowerCase() !== 'false',
+    canvasActionUrl: getProp(block, 'canvasActionUrl', '/search'),
+    canvasNavRootPath: normalizeRootPath(getProp(block, 'canvasNavRootPath', '/')),
+    canvasNavDepth: normalizeDepth(getProp(block, 'canvasNavDepth', 3), 3, 1, 3),
+    canvasMotion: normalizeMotionType(getProp(block, 'canvasMotion', 'slide')),
   };
 
-  if (!block.dataset.editorObserverBound) {
-    const observer = new MutationObserver((mutations) => {
-      const relevantChange = mutations.some((mutation) => (
-        mutation.type === 'attributes'
-        || mutation.type === 'childList'
-      ));
+  block.textContent = '';
+  block.classList.remove('variant-standard', 'variant-compact', 'variant-dark', 'variant-centered');
+  block.classList.add(`variant-${config.headerVariant}`);
+  block.dataset.variant = config.headerVariant;
+  block.dataset.navigationMotion = config.navigationMotion;
+  block.dataset.canvasMotion = config.canvasMotion;
 
-      if (relevantChange && block.dataset.rendering !== 'true') {
-        render();
-      }
-    });
+  const navWrapper = document.createElement('div');
+  navWrapper.className = 'tcs-nav-wrapper';
 
-    observer.observe(block, {
-      attributes: true,
-      attributeFilter: ['data-aue-prop', 'data-aue-model', 'data-aue-label', 'data-aue-type', 'class'],
-      childList: true,
-      subtree: true,
-    });
+  const nav = document.createElement('nav');
+  nav.id = 'tcs-nav';
 
-    block.dataset.editorObserverBound = 'true';
+  const brandPrimary = document.createElement('div');
+  brandPrimary.className = 'nav-brand-primary';
+  const primaryAnchor = document.createElement('a');
+  primaryAnchor.href = config.tcsLogoLink;
+
+  if (config.tcsLogo) {
+    primaryAnchor.append(createOptimizedPicture(config.tcsLogo, config.tcsLogoAlt || 'TCS', false, [{ width: '300' }]));
+  } else {
+    primaryAnchor.textContent = 'TCS';
   }
+  brandPrimary.append(primaryAnchor);
 
-  await render();
+  const brandSecondary = document.createElement('div');
+  brandSecondary.className = 'nav-brand-secondary';
+  const secondaryAnchor = document.createElement('a');
+  secondaryAnchor.href = config.tataLogoLink;
+  secondaryAnchor.target = '_blank';
+  secondaryAnchor.rel = 'noopener noreferrer';
+
+  if (config.tataLogo) {
+    secondaryAnchor.append(createOptimizedPicture(config.tataLogo, config.tataLogoAlt || 'TATA', false, [{ width: '160' }]));
+  } else {
+    secondaryAnchor.textContent = 'TATA';
+  }
+  brandSecondary.append(secondaryAnchor);
+
+  nav.append(brandPrimary, brandSecondary);
+  navWrapper.append(nav);
+  block.append(navWrapper);
+
+  const navDockContainer = document.createElement('div');
+  block.append(navDockContainer);
+
+  const rawIndex = await fetchQueryIndex();
+  const taxonomy = buildTaxonomyFromIndex(rawIndex, config.navRootPath, config.navDepth);
+
+  decorateNavigationDock(navDockContainer, taxonomy, config);
 }
