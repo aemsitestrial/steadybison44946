@@ -176,16 +176,23 @@ function createCanvasForm(config) {
     </svg>
   `;
 
-  if (config.showCanvasSearchIcon && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
-    micBtn.addEventListener('click', () => {
-      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-      const recognition = new SpeechRecognition();
-      recognition.onresult = (event) => {
-        input.value = event.results[0][0].transcript;
-      };
-      recognition.start();
-    });
-  } else if (!config.showCanvasSearchIcon) {
+  if (config.showCanvasSearchIcon) {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      micBtn.addEventListener('click', () => {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+        recognition.onresult = (event) => {
+          input.value = event.results[0][0].transcript;
+        };
+        recognition.start();
+      });
+    } else {
+      micBtn.setAttribute('aria-disabled', 'true');
+      micBtn.disabled = true;
+      micBtn.title = 'Voice search unavailable in this browser';
+      micBtn.style.opacity = '0.6';
+    }
+  } else {
     micBtn.remove();
   }
 
@@ -272,70 +279,11 @@ function createThirdLevelPanel(item) {
 }
 
 /**
- * Robust Scroll Observer: Hides floating dock when reaching .tcs-canvas
- * Disabled inside preview/editor environments so authored canvas values remain visible.
+ * The floating canvas dock should remain visible while scrolling, matching the required UX.
+ * The previous hide-on-scroll behavior is intentionally disabled.
  */
-function setupScrollDockObserver(container) {
-  const isAuthoringPreview = typeof window !== 'undefined'
-    && (
-      window.location.hostname.includes('author-p')
-      || window.location.hostname.includes('adobeaemcloud')
-      || !!document.body?.dataset?.aue
-      || !!document.body?.classList?.contains('aem-authoring')
-    );
-
-  if (isAuthoringPreview) {
-    container.classList.remove('dock-hidden');
-    return;
-  }
-
-  const findTargetBlock = () => (
-    document.querySelector('.tcs-canvas')
-    || document.querySelector('.tcs-canvas-wrapper')
-    || document.querySelector('.tcs-canvas-container')
-    || document.querySelector('[data-block-name="tcs-canvas"]')
-    || document.querySelector('footer')
-  );
-
-  const attachObserver = (target) => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            container.classList.add('dock-hidden');
-          } else {
-            container.classList.remove('dock-hidden');
-          }
-        });
-      },
-      {
-        root: null,
-        rootMargin: '0px 0px -12% 0px',
-        threshold: 0.15,
-      },
-    );
-
-    observer.observe(target);
-  };
-
-  const existingTarget = findTargetBlock();
-  if (existingTarget) {
-    attachObserver(existingTarget);
-    return;
-  }
-
-  const bodyObserver = new MutationObserver((mutations, me) => {
-    const target = findTargetBlock();
-    if (target) {
-      attachObserver(target);
-      me.disconnect();
-    }
-  });
-
-  bodyObserver.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
+function setupScrollDockObserver() {
+  // Intentionally no-op to keep the dock fixed and floating while the page scrolls.
 }
 
 function decorateNavigationDock(container, taxonomy, config) {
@@ -406,7 +354,7 @@ function decorateNavigationDock(container, taxonomy, config) {
   container.append(dock, nav);
   render();
 
-  setupScrollDockObserver(container);
+  setupScrollDockObserver();
 }
 
 export default async function decorate(block) {

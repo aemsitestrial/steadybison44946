@@ -115,7 +115,7 @@
 }
 
 .tcs-header .floating-bottom-dock {
-  position: fixed;
+  position: fixed !important;
   z-index: 9999;
   right: 0;
   bottom: 0;
