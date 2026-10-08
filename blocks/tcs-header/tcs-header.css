@@ -1,10 +1,10 @@
 /* ==========================================================================
-   BASIC TCS HEADER SHELL
+   TCS HEADER SHELL
    ========================================================================== */
 .tcs-header-wrapper {
   height: 124px;
 }
- 
+
 .tcs-header .tcs-nav-wrapper {
   position: relative;
   z-index: 10;
@@ -12,7 +12,7 @@
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
 }
- 
+
 .tcs-header nav#tcs-nav {
   box-sizing: border-box;
   position: relative;
@@ -25,325 +25,332 @@
   align-items: center;
   justify-content: space-between;
 }
- 
+
 /* Logos */
 .tcs-header .nav-brand-primary img {
   width: 146px;
   height: 34.8px;
   object-fit: contain;
 }
- 
+
 .tcs-header .nav-brand-secondary img {
   width: 50px;
   height: 44px;
   object-fit: contain;
 }
- 
+
 .tcs-header .nav-brand-primary picture,
 .tcs-header .nav-brand-secondary picture {
   display: block;
 }
- 
+
 .tcs-header .nav-brand-primary a,
 .tcs-header .nav-brand-secondary a {
   text-decoration: none;
   font-weight: 700;
   color: #1e1e1e;
 }
- 
+
+/* Variant Overrides */
 .tcs-header.variant-compact nav#tcs-nav {
   height: 80px;
   padding-top: 20px;
   padding-bottom: 20px;
 }
- 
+
 .tcs-header.variant-compact .nav-brand-primary img {
   width: 112px;
   height: 28px;
 }
- 
+
 .tcs-header.variant-centered nav#tcs-nav {
-  position: relative;
+  justify-content: center;
 }
- 
-.tcs-header.variant-centered .nav-brand-primary {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-}
- 
-/* Desktop Links */
-@media (width >= 1025px) {
-  .tcs-header .nav-hamburger {
-    display: none;
-  }
- 
-  .tcs-header .nav-sections .tcs-nav-list {
-    display: flex;
-    gap: 2.5rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
- 
-  .tcs-header .nav-sections a {
-    color: #1e1e1e;
-    text-decoration: none;
-    font-weight: 500;
-    font-size: 1rem;
-  }
- 
-  .tcs-header.variant-centered nav#tcs-nav {
-    justify-content: flex-start;
-    gap: 24px;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger {
-    display: block;
-    flex: 0 0 auto;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger button {
-    width: 40px;
-    height: 40px;
-    border: 0;
-    padding: 8px;
-    background: transparent;
-    cursor: pointer;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger-icon,
-  .tcs-header.variant-centered .nav-hamburger-icon::before,
-  .tcs-header.variant-centered .nav-hamburger-icon::after {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background-color: #1e1e1e;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger-icon::before,
-  .tcs-header.variant-centered .nav-hamburger-icon::after {
-    content: '';
-    position: relative;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger-icon::before {
-    top: -6px;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger-icon::after {
-    top: 4px;
-  }
- 
-  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon {
-    background-color: transparent;
-  }
- 
-  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::before {
-    transform: translateY(0) rotate(45deg);
-  }
- 
-  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::after {
-    transform: translateY(0) rotate(-45deg);
-  }
- 
-  .tcs-header.variant-centered .nav-sections {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-    margin: 0;
-    padding: 24px 80px;
-    box-sizing: border-box;
-    background: #fff;
-    border-top: 1px solid #e0e0e0;
-    box-shadow: 0 8px 16px rgb(0 0 0 / 10%);
-  }
- 
-  .tcs-header.variant-centered nav#tcs-nav[aria-expanded="true"] .nav-sections {
-    display: block;
-  }
- 
-  .tcs-header.variant-centered .nav-sections .tcs-nav-list {
-    justify-content: center;
-    gap: 2.5rem;
-  }
- 
-  .tcs-header.variant-centered .nav-brand-primary {
-    position: static;
-    flex: 0 0 auto;
-    transform: none;
-  }
- 
-  .tcs-header.variant-centered .nav-brand-secondary {
-    margin-left: auto;
-  }
-}
- 
-/* Mobile Layout */
+
+/* Responsive Top Header Bar */
 @media (width <= 1024px) {
   .tcs-header-wrapper {
     height: 64px;
   }
- 
+
   .tcs-header nav#tcs-nav {
     height: 64px;
     padding: 12px 20px;
   }
- 
+
   .tcs-header.variant-compact nav#tcs-nav {
     height: 56px;
     padding-top: 8px;
     padding-bottom: 8px;
   }
- 
-  .tcs-header.variant-centered .nav-brand-primary {
-    position: static;
-    transform: none;
-  }
- 
-  .tcs-header.variant-centered nav#tcs-nav {
-    justify-content: flex-start;
-    gap: 12px;
-  }
- 
-  .tcs-header.variant-centered .nav-hamburger {
-    display: block;
-    flex: 0 0 auto;
-  }
- 
+
   .tcs-header .nav-brand-primary img {
     width: 100px;
     height: 24px;
   }
- 
-  .tcs-header .nav-brand-secondary {
-    display: none;
-  }
- 
-  .tcs-header.variant-centered .nav-brand-secondary {
-    display: block;
-    margin-left: auto;
-  }
- 
-  .tcs-header.variant-centered .nav-brand-secondary img {
+
+  .tcs-header .nav-brand-secondary img {
     width: 42px;
     height: 36px;
   }
- 
-  .tcs-header .nav-sections {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 10;
-    width: 100%;
-    max-height: calc(100dvh - 64px);
-    background: #fff;
-    padding: 2rem;
-    box-sizing: border-box;
-    overflow-y: auto;
-    overscroll-behavior: contain;
-  }
- 
-  .tcs-header.variant-centered .nav-sections {
-    top: 100%;
-  }
- 
-  .tcs-header.variant-compact .nav-sections {
-    max-height: calc(100dvh - 56px);
-  }
- 
-  .tcs-header .nav-sections .tcs-nav-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
- 
-  .tcs-header .nav-sections a {
-    color: #1e1e1e;
-    text-decoration: none;
-    font-size: 1rem;
-  }
- 
-  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-sections {
-    display: block;
-  }
- 
-  .tcs-header .nav-hamburger button {
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0.5rem;
-  }
- 
-  .tcs-header .nav-hamburger-icon,
-  .tcs-header .nav-hamburger-icon::before,
-  .tcs-header .nav-hamburger-icon::after {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background-color: #1e1e1e;
-    transition: transform 0.2s ease, background-color 0.2s ease;
-  }
- 
-  .tcs-header .nav-hamburger-icon::before {
-    content: "";
-    transform: translateY(-6px);
-  }
- 
-  .tcs-header .nav-hamburger-icon::after {
-    content: "";
-    transform: translateY(4px);
-  }
- 
-  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon {
-    background-color: transparent;
-  }
- 
-  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::before {
-    transform: translateY(0) rotate(45deg);
-  }
- 
-  .tcs-header nav#tcs-nav[aria-expanded="true"] .nav-hamburger-icon::after {
-    transform: translateY(0) rotate(-45deg);
-  }
 }
- 
-/* Dark theme overrides must follow responsive base colors. */
+
+/* Dark Variant Overrides */
 .tcs-header.variant-dark .tcs-nav-wrapper,
 .tcs-header[data-variant="dark"] .tcs-nav-wrapper {
   background-color: #1e1e1e;
   border-bottom-color: #333;
 }
- 
+
 .tcs-header[data-variant="dark"] .nav-brand-primary a,
 .tcs-header[data-variant="dark"] .nav-brand-secondary a,
 .tcs-header.variant-dark .nav-brand-primary a,
-.tcs-header.variant-dark .nav-brand-secondary a,
-.tcs-header.variant-dark nav#tcs-nav .nav-sections a,
-.tcs-header[data-variant="dark"] nav#tcs-nav .nav-sections a,
-.tcs-header.variant-dark nav#tcs-nav .nav-sections li,
-.tcs-header[data-variant="dark"] nav#tcs-nav .nav-sections li {
+.tcs-header.variant-dark .nav-brand-secondary a {
   color: #fff !important;
 }
- 
-.tcs-header.variant-dark .nav-sections,
-.tcs-header[data-variant="dark"] .nav-sections {
-  background-color: #1e1e1e;
+
+/* ==========================================================================
+   DYNAMIC FLOATING BOTTOM NAVIGATION DOCK
+   ========================================================================== */
+.tcs-header .navigation-dock-wrapper {
+  overflow: visible !important;
 }
- 
-.tcs-header.variant-dark .nav-hamburger-icon,
-.tcs-header.variant-dark .nav-hamburger-icon::before,
-.tcs-header.variant-dark .nav-hamburger-icon::after,
-.tcs-header[data-variant="dark"] .nav-hamburger-icon,
-.tcs-header[data-variant="dark"] .nav-hamburger-icon::before,
-.tcs-header[data-variant="dark"] .nav-hamburger-icon::after {
-  background-color: #fff;
+
+.tcs-header .floating-bottom-dock {
+  position: fixed;
+  z-index: 9999;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: none;
+  padding: 0 24px 24px;
+  transform: none;
+  pointer-events: none;
+}
+
+/* Bottom Fade Mask */
+.tcs-header .floating-bottom-dock::before {
+  position: absolute;
+  z-index: -1;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: min(48vh, 440px);
+  background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 84%) 62%, #fff 100%);
+  content: '';
+  pointer-events: none;
+}
+
+.tcs-header .dock-inner-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  max-width: 100%;
+  pointer-events: auto;
+}
+
+.tcs-header .dock-navigation {
+  max-width: calc(100vw - 90px);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.tcs-header .dock-navigation::-webkit-scrollbar {
+  display: none;
+}
+
+.tcs-header .dock-list {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: max-content;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tcs-header .dock-level-two-row {
+  position: relative;
+}
+
+.tcs-header .dock-item {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+/* Navigation Pills */
+.tcs-header .dock-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 18px;
+  border: 1px solid rgb(0 0 0 / 6%);
+  border-radius: 24px;
+  background: rgb(255 255 255 / 96%);
+  box-shadow: none;
+  color: #202426;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.25;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.tcs-header .dock-pill-btn:hover {
+  border-color: rgb(75 128 247 / 35%);
+}
+
+.tcs-header .dock-pill-btn[aria-expanded="true"] {
+  border-color: #4b80f7;
+  background: #4b80f7;
+  color: #fff;
+}
+
+.tcs-header .dock-chevron-icon {
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentcolor;
+  border-bottom: 1.5px solid currentcolor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform 0.2s ease;
+}
+
+.tcs-header .dock-pill-btn[aria-expanded="true"] .dock-chevron-icon {
+  transform: translateY(2px) rotate(225deg);
+}
+
+/* Home / Reset Hamburger Round Button */
+.tcs-header .dock-hamburger-btn {
+  position: relative;
+  display: inline-flex;
+  flex: 0 0 44px;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid rgb(0 0 0 / 6%);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 90%);
+  cursor: pointer;
+}
+
+.tcs-header .dock-hamburger-btn span,
+.tcs-header .dock-hamburger-btn span::before,
+.tcs-header .dock-hamburger-btn span::after {
+  position: absolute;
+  width: 14px;
+  height: 1px;
+  background: #4b80f7;
+  content: '';
+}
+
+.tcs-header .dock-hamburger-btn span::before {
+  transform: translateY(-4px);
+}
+
+.tcs-header .dock-hamburger-btn span::after {
+  transform: translateY(4px);
+}
+
+/* L3 Floating Megamenu Grid Panel */
+.tcs-header .dock-megamenu-panel {
+  position: absolute;
+  bottom: calc(100% + 24px);
+  left: 50%;
+  width: min(720px, calc(100vw - 48px));
+  max-height: min(55vh, 460px);
+  padding: 18px 28px;
+  overflow-y: auto;
+  border: 1px solid rgb(255 255 255 / 72%);
+  border-radius: 18px;
+  background: rgb(255 255 255 / 78%);
+  box-shadow: 0 12px 36px rgb(0 0 0 / 8%);
+  backdrop-filter: blur(18px);
+  transform: translateX(-50%);
+}
+
+.tcs-header .dock-l3-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tcs-header .dock-l3-item {
+  min-width: 0;
+  border-bottom: 1px solid rgb(0 0 0 / 10%);
+}
+
+.tcs-header .dock-l3-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 42px;
+  padding: 10px 0;
+  color: #343a3d;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.tcs-header .dock-pill-btn:focus-visible,
+.tcs-header .dock-hamburger-btn:focus-visible,
+.tcs-header .dock-l3-link:focus-visible {
+  outline: 3px solid #4b80f7;
+  outline-offset: 3px;
+}
+
+.tcs-header .dock-l3-link::after {
+  margin-left: 12px;
+  content: '\2192';
+}
+
+.tcs-header .dock-l3-link:hover {
+  color: #3874ff;
+}
+
+/* Mobile & Tablet Dock Responsiveness */
+@media (width <= 900px) {
+  .tcs-header .floating-bottom-dock {
+    padding: 0 12px 12px;
+  }
+
+  .tcs-header .floating-bottom-dock::before {
+    height: min(52vh, 420px);
+  }
+
+  .tcs-header .dock-inner-wrapper {
+    width: 100%;
+  }
+
+  .tcs-header .dock-navigation {
+    max-width: calc(100vw - 78px);
+  }
+
+  .tcs-header .dock-list {
+    justify-content: flex-start;
+  }
+
+  .tcs-header .dock-megamenu-panel {
+    left: 0;
+    width: min(720px, calc(100vw - 24px));
+    padding: 12px 18px;
+    transform: none;
+  }
+
+  .tcs-header .dock-l3-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

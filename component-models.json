@@ -6327,13 +6327,6 @@
         "name": "tataLogoLink",
         "label": "Tata Logo Target URL",
         "value": "https://www.tata.com"
-      },
-      {
-        "component": "richtext",
-        "valueType": "string",
-        "name": "menu",
-        "label": "Navigation Links",
-        "description": "Add top-level links or a bulleted list for submenus."
       }
     ]
   },
