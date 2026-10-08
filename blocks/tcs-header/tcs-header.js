@@ -278,13 +278,6 @@ function createThirdLevelPanel(item) {
   return panel;
 }
 
-/**
- * Permanently fixed dock: Scroll observer is disabled.
- */
-function setupScrollDockObserver() {
-  // No-op to keep the dock permanently locked at the bottom.
-}
-
 function decorateNavigationDock(container, taxonomy, config) {
   const currentPath = window.location.pathname;
   const {
@@ -351,8 +344,6 @@ function decorateNavigationDock(container, taxonomy, config) {
   dock.append(hamburger, canvasForm);
   container.append(dock, nav);
   render();
-
-  setupScrollDockObserver();
 }
 
 export default async function decorate(block) {
@@ -382,7 +373,7 @@ export default async function decorate(block) {
   block.dataset.navigationMotion = config.navigationMotion;
   block.dataset.canvasMotion = config.canvasMotion;
 
-  /* Top Navigation Bar */
+  /* 1. Top Header Bar */
   const navWrapper = document.createElement('div');
   navWrapper.className = 'tcs-nav-wrapper';
 
@@ -419,9 +410,18 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  /* Bottom Floating Dock Container */
+  /* Keep the fixed dock outside section wrappers. */
+  let telePortContainer = document.querySelector('body > .tcs-header-dock-global');
+  if (!telePortContainer) {
+    telePortContainer = document.createElement('div');
+    telePortContainer.className = 'tcs-header tcs-header-dock-global';
+    document.body.append(telePortContainer);
+  } else {
+    telePortContainer.textContent = '';
+  }
+
   const navDockContainer = document.createElement('div');
-  block.append(navDockContainer);
+  telePortContainer.append(navDockContainer);
 
   const rawIndex = await fetchQueryIndex();
   const taxonomy = buildTaxonomyFromIndex(rawIndex, config.navRootPath, config.navDepth);

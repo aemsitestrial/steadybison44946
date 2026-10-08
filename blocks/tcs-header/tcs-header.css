@@ -108,35 +108,36 @@
 }
 
 /* ==========================================================================
-   PERMANENTLY FIXED FLOATING BOTTOM DOCK WITH CANVAS SEARCH
+   PERMANENTLY FIXED FLOATING BOTTOM DOCK & CANVAS
    ========================================================================== */
+body > .tcs-header-dock-global {
+  position: static !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
 .tcs-header .navigation-dock-wrapper {
   overflow: visible !important;
 }
 
 .tcs-header .floating-bottom-dock {
   position: fixed !important;
-  z-index: 9999;
-  right: 0;
-  bottom: 24px;
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
-  width: min(1280px, calc(100vw - 48px));
-  padding: 0;
-  pointer-events: none;
+  z-index: 99999 !important;
+  right: 0 !important;
+  bottom: 24px !important;
+  left: 50% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
+  width: min(1280px, calc(100vw - 48px)) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  pointer-events: none !important;
   opacity: 1 !important;
   visibility: visible !important;
-  transform: translateX(-50%) translateY(0) !important;
-}
-
-/* Disable hidden state completely so it never hides during scroll */
-.tcs-header .navigation-dock-wrapper.dock-hidden {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
   transform: translateX(-50%) translateY(0) !important;
 }
 
@@ -468,8 +469,8 @@
 
 @media (width <= 900px) {
   .tcs-header .floating-bottom-dock {
-    bottom: 16px;
-    padding: 0 12px;
+    bottom: 16px !important;
+    padding: 0 12px !important;
   }
 
   .tcs-header .dock-inner-wrapper {
