@@ -421,7 +421,10 @@ export default async function decorate(block) {
   block.append(navWrapper);
 
   const navDockContainer = document.createElement('div');
-  block.append(navDockContainer);
+  const dockWrapper = document.createElement('div');
+  dockWrapper.className = 'tcs-header';
+  dockWrapper.append(navDockContainer);
+  document.body.append(dockWrapper);
 
   const rawIndex = await fetchQueryIndex();
   const taxonomy = buildTaxonomyFromIndex(rawIndex, config.navRootPath, config.navDepth);
