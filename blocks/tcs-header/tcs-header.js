@@ -410,7 +410,7 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  /* Keep the bottom dock outside section wrappers so it stays viewport-fixed. */
+  /* Keep the fixed dock outside section wrappers. */
   let telePortContainer = document.querySelector('body > .tcs-header-dock-global');
   if (!telePortContainer) {
     telePortContainer = document.createElement('div');
