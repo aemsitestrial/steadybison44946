@@ -5,6 +5,13 @@
   height: 124px;
 }
 
+.tcs-header:not(.tcs-header-dock-global) {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #fff;
+}
+
 .tcs-header .tcs-nav-wrapper {
   position: relative;
   z-index: 10;
@@ -123,22 +130,20 @@ body > .tcs-header-dock-global {
 }
 
 .tcs-header .floating-bottom-dock {
-  position: fixed !important;
-  z-index: 99999 !important;
-  right: 0 !important;
-  bottom: 24px !important;
-  left: 50% !important;
+  position: relative !important;
+  z-index: 20 !important;
+  inset: auto !important;
   display: flex !important;
   flex-direction: column !important;
   align-items: center !important;
   gap: 12px !important;
-  width: min(1280px, calc(100vw - 48px)) !important;
-  margin: 0 !important;
+  width: min(1280px, 100%) !important;
+  margin: 0 auto !important;
   padding: 0 !important;
-  pointer-events: none !important;
+  pointer-events: auto !important;
   opacity: 1 !important;
   visibility: visible !important;
-  transform: translateX(-50%) translateY(0) !important;
+  transform: none !important;
 }
 
 .tcs-header .floating-bottom-dock::before {
@@ -469,7 +474,6 @@ body > .tcs-header-dock-global {
 
 @media (width <= 900px) {
   .tcs-header .floating-bottom-dock {
-    bottom: 16px !important;
     padding: 0 12px !important;
   }
 
