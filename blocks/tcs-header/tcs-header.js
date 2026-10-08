@@ -273,8 +273,22 @@ function createThirdLevelPanel(item) {
 
 /**
  * Robust Scroll Observer: Hides floating dock when reaching .tcs-canvas
+ * Disabled inside preview/editor environments so authored canvas values remain visible.
  */
 function setupScrollDockObserver(container) {
+  const isAuthoringPreview = typeof window !== 'undefined'
+    && (
+      window.location.hostname.includes('author-p')
+      || window.location.hostname.includes('adobeaemcloud')
+      || !!document.body?.dataset?.aue
+      || !!document.body?.classList?.contains('aem-authoring')
+    );
+
+  if (isAuthoringPreview) {
+    container.classList.remove('dock-hidden');
+    return;
+  }
+
   const findTargetBlock = () => (
     document.querySelector('.tcs-canvas')
     || document.querySelector('.tcs-canvas-wrapper')
