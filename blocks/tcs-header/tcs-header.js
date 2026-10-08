@@ -1,9 +1,25 @@
 import { createOptimizedPicture } from '../../scripts/aem.js';
 
-/* Helper to safely read block properties */
 function getProp(block, name, fallback = '') {
   const lower = name.toLowerCase();
-  const fieldOrder = ['headerVariant', 'tcsLogo', 'tcsLogoLink', 'tataLogo', 'tataLogoLink'];
+  const fieldOrder = [
+    'headerVariant',
+    'tcsLogo',
+    'tcsLogoLink',
+    'tataLogo',
+    'tataLogoLink',
+    'tcsLogoAlt',
+    'tataLogoAlt',
+    'navigationMotion',
+    'navRootPath',
+    'navDepth',
+    'canvasPlaceholder',
+    'showCanvasSearchIcon',
+    'canvasActionUrl',
+    'canvasNavRootPath',
+    'canvasNavDepth',
+    'canvasMotion',
+  ];
 
   const getValue = (element) => {
     if (!element) return '';
@@ -45,9 +61,24 @@ function normalizeVariant(value) {
   return ['standard', 'compact', 'dark', 'centered'].includes(normalized) ? normalized : 'standard';
 }
 
-/* ==========================================================================
-   QUERY INDEX FETCHING & TAXONOMY BUILDER
-   ========================================================================== */
+function normalizeMotionType(value, fallback = 'slide') {
+  const normalized = String(value || fallback).trim().toLowerCase();
+  return ['none', 'slide', 'fade'].includes(normalized) ? normalized : fallback;
+}
+
+function normalizeRootPath(value) {
+  const candidate = String(value || '/').trim();
+  if (!candidate || candidate === '/') return '/';
+  const normalized = candidate.startsWith('/') ? candidate : `/${candidate}`;
+  return normalized.replace(/\/+$/, '') || '/';
+}
+
+function normalizeDepth(value, fallback = 3, min = 1, max = 3) {
+  const parsed = Number.parseInt(value, 10);
+  if (!Number.isFinite(parsed)) return fallback;
+  return Math.min(Math.max(parsed, min), max);
+}
+
 async function fetchQueryIndex() {
   try {
     const response = await fetch('/query-index.json');
@@ -55,33 +86,40 @@ async function fetchQueryIndex() {
     const json = await response.json();
     return json.data || [];
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.error('Failed to load query-index.json for navigation:', error);
     return [];
   }
 }
 
-/**
- * Builds a hierarchical tree (L1 -> L2 -> L3) from flat query-index rows
- */
-function buildTaxonomyFromIndex(indexData) {
-  const validItems = indexData.filter((item) => item.path && item.hideInNav !== 'true');
+function buildTaxonomyFromIndex(indexData, rootPath = '/', maxDepth = 3) {
+  const normalizedRoot = normalizeRootPath(rootPath);
+  const maxDepthValue = normalizeDepth(maxDepth, 3, 1, 3);
 
-  // Helper to compute path depth (e.g., "/services/cloud" -> 2)
-  const getDepth = (path) => path.split('/').filter(Boolean).length;
+  const validItems = indexData.filter((item) => {
+    if (!item.path || item.hideInNav === 'true') return false;
+    if (normalizedRoot === '/') return true;
+    return item.path === normalizedRoot || item.path.startsWith(`${normalizedRoot}/`);
+  });
+
+  const getRelativeDepth = (path) => {
+    if (normalizedRoot === '/') return path.split('/').filter(Boolean).length;
+    const relativePath = path.startsWith(normalizedRoot)
+      ? path.slice(normalizedRoot.length).replace(/^\/+/, '')
+      : path;
+    return relativePath ? relativePath.split('/').filter(Boolean).length : 0;
+  };
 
   const l1Items = validItems
-    .filter((item) => getDepth(item.path) === 1)
+    .filter((item) => getRelativeDepth(item.path) === 1)
     .sort((a, b) => (Number(a.navOrder) || 99) - (Number(b.navOrder) || 99));
 
   return l1Items.map((l1) => {
     const l2Items = validItems
-      .filter((item) => getDepth(item.path) === 2 && item.path.startsWith(`${l1.path}/`))
+      .filter((item) => getRelativeDepth(item.path) === 2 && item.path.startsWith(`${l1.path}/`))
       .sort((a, b) => (Number(a.navOrder) || 99) - (Number(b.navOrder) || 99));
 
-    const l2Children = l2Items.map((l2) => {
+    const l2Children = (maxDepthValue >= 2 ? l2Items : []).map((l2) => {
       const l3Items = validItems
-        .filter((item) => getDepth(item.path) === 3 && item.path.startsWith(`${l2.path}/`))
+        .filter((item) => getRelativeDepth(item.path) === 3 && item.path.startsWith(`${l2.path}/`))
         .sort((a, b) => (Number(a.navOrder) || 99) - (Number(b.navOrder) || 99))
         .map((l3) => ({
           label: l3.title || l3.path.split('/').pop(),
@@ -92,7 +130,7 @@ function buildTaxonomyFromIndex(indexData) {
       return {
         label: l2.title || l2.path.split('/').pop(),
         link: { href: l2.path },
-        children: l3Items,
+        children: maxDepthValue >= 3 ? l3Items : [],
       };
     });
 
@@ -104,9 +142,6 @@ function buildTaxonomyFromIndex(indexData) {
   });
 }
 
-/**
- * Detects initial L1/L2 active state from current page URL
- */
 function getActiveFromCurrentPath(items, currentPath) {
   const l1Match = items.find((l1) => currentPath === l1.link.href || currentPath.startsWith(`${l1.link.href}/`));
   if (!l1Match) return { activeL1: null, activeL2: null };
@@ -115,9 +150,61 @@ function getActiveFromCurrentPath(items, currentPath) {
   return { activeL1: l1Match, activeL2: l2Match || null };
 }
 
-/* ==========================================================================
-   NAVIGATION DOCK DOM BUILDERS
-   ========================================================================== */
+function createCanvasForm(config) {
+  const form = document.createElement('form');
+  form.className = 'dock-canvas-form';
+  form.action = config.canvasActionUrl;
+  form.method = 'GET';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.name = 'q';
+  input.className = 'dock-canvas-input';
+  input.placeholder = config.canvasPlaceholder || 'Ask us a question';
+
+  const actions = document.createElement('div');
+  actions.className = 'dock-canvas-actions';
+
+  const micBtn = document.createElement('button');
+  micBtn.type = 'button';
+  micBtn.className = 'dock-mic-btn';
+  micBtn.setAttribute('aria-label', 'Voice Search');
+  micBtn.innerHTML = `
+    <svg viewBox="0 0 24 24">
+      <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/>
+      <path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/>
+    </svg>
+  `;
+
+  if (config.showCanvasSearchIcon && ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window)) {
+    micBtn.addEventListener('click', () => {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      const recognition = new SpeechRecognition();
+      recognition.onresult = (event) => {
+        input.value = event.results[0][0].transcript;
+      };
+      recognition.start();
+    });
+  } else if (!config.showCanvasSearchIcon) {
+    micBtn.remove();
+  }
+
+  const submitBtn = document.createElement('button');
+  submitBtn.type = 'submit';
+  submitBtn.className = 'dock-submit-btn';
+  submitBtn.setAttribute('aria-label', 'Submit');
+  submitBtn.innerHTML = `
+    <svg viewBox="0 0 24 24">
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <polyline points="12 5 19 12 12 19"></polyline>
+    </svg>
+  `;
+
+  actions.append(micBtn, submitBtn);
+  form.append(input, actions);
+  return form;
+}
+
 function createLink(item, className) {
   const link = document.createElement(item.link ? 'a' : 'span');
   link.className = className;
@@ -184,7 +271,60 @@ function createThirdLevelPanel(item) {
   return panel;
 }
 
-function decorateNavigationDock(container, taxonomy) {
+/**
+ * Robust Scroll Observer: Hides floating dock when reaching .tcs-canvas
+ */
+function setupScrollDockObserver(container) {
+  const findTargetBlock = () => (
+    document.querySelector('.tcs-canvas')
+    || document.querySelector('.tcs-canvas-wrapper')
+    || document.querySelector('.tcs-canvas-container')
+    || document.querySelector('[data-block-name="tcs-canvas"]')
+    || document.querySelector('footer')
+  );
+
+  const attachObserver = (target) => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            container.classList.add('dock-hidden');
+          } else {
+            container.classList.remove('dock-hidden');
+          }
+        });
+      },
+      {
+        root: null,
+        rootMargin: '0px 0px -12% 0px',
+        threshold: 0.15,
+      },
+    );
+
+    observer.observe(target);
+  };
+
+  const existingTarget = findTargetBlock();
+  if (existingTarget) {
+    attachObserver(existingTarget);
+    return;
+  }
+
+  const bodyObserver = new MutationObserver((mutations, me) => {
+    const target = findTargetBlock();
+    if (target) {
+      attachObserver(target);
+      me.disconnect();
+    }
+  });
+
+  bodyObserver.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+}
+
+function decorateNavigationDock(container, taxonomy, config) {
   const currentPath = window.location.pathname;
   const {
     activeL1: initialActiveL1,
@@ -195,6 +335,7 @@ function decorateNavigationDock(container, taxonomy) {
   let activeL2 = initialActiveL2;
 
   container.className = 'navigation-dock-wrapper floating-bottom-dock';
+  container.dataset.motionType = config.navigationMotion;
 
   const dock = document.createElement('div');
   dock.className = 'dock-inner-wrapper';
@@ -202,8 +343,10 @@ function decorateNavigationDock(container, taxonomy) {
   const hamburger = document.createElement('button');
   hamburger.className = 'dock-hamburger-btn';
   hamburger.type = 'button';
-  hamburger.setAttribute('aria-label', 'Show main navigation');
+  hamburger.setAttribute('aria-label', 'Toggle Menu');
   hamburger.innerHTML = '<span aria-hidden="true"></span>';
+
+  const canvasForm = createCanvasForm(config);
 
   const nav = document.createElement('nav');
   nav.className = 'dock-navigation';
@@ -217,36 +360,20 @@ function decorateNavigationDock(container, taxonomy) {
         activeL1 = item;
         activeL2 = null;
         render();
-        nav.querySelector('.dock-level-two .dock-pill-btn')?.focus();
         button.blur();
       }));
-      hamburger.hidden = true;
       return;
     }
 
-    hamburger.hidden = false;
     const levelTwoItems = document.createElement('div');
     levelTwoItems.className = 'dock-level-two-row';
     levelTwoItems.append(createLevel(activeL1.children, 'dock-level-two', (item, button) => {
       activeL2 = activeL2 === item ? null : item;
       render();
-      const activeButton = [...nav.querySelectorAll('.dock-level-two .dock-pill-btn')]
-        .find((candidate) => candidate.textContent.trim().startsWith(item.label));
-      if (activeButton && activeL2) {
-        activeButton.setAttribute('aria-expanded', 'true');
-        activeButton.setAttribute('aria-controls', 'navigation-third-level-panel');
-        activeButton.focus();
-      }
       button.blur();
     }));
 
     if (activeL2?.children.length) {
-      const activeButton = [...levelTwoItems.querySelectorAll('.dock-pill-btn')]
-        .find((candidate) => candidate.textContent.trim().startsWith(activeL2.label));
-      if (activeButton) {
-        activeButton.setAttribute('aria-expanded', 'true');
-        activeButton.setAttribute('aria-controls', 'navigation-third-level-panel');
-      }
       const panel = createThirdLevelPanel(activeL2);
       panel.id = 'navigation-third-level-panel';
       levelTwoItems.prepend(panel);
@@ -256,42 +383,18 @@ function decorateNavigationDock(container, taxonomy) {
   };
 
   hamburger.addEventListener('click', () => {
-    activeL1 = null;
+    activeL1 = activeL1 ? null : taxonomy[0];
     activeL2 = null;
     render();
-    nav.querySelector('.dock-level-one .dock-pill-btn')?.focus();
   });
 
-  container.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && activeL1) {
-      event.stopPropagation();
-      if (activeL2) {
-        activeL2 = null;
-        render();
-        nav.querySelector('.dock-level-two .dock-pill-btn')?.focus();
-      } else {
-        activeL1 = null;
-        render();
-        nav.querySelector('.dock-level-one .dock-pill-btn')?.focus();
-      }
-    }
-  });
-
-  document.addEventListener('click', (event) => {
-    if (!container.contains(event.target) && activeL2) {
-      activeL2 = null;
-      render();
-    }
-  });
-
-  dock.append(hamburger, nav);
-  container.append(dock);
+  dock.append(hamburger, canvasForm);
+  container.append(dock, nav);
   render();
+
+  setupScrollDockObserver(container);
 }
 
-/* ==========================================================================
-   MAIN DECORATE EXPORT
-   ========================================================================== */
 export default async function decorate(block) {
   const config = {
     headerVariant: normalizeVariant(getProp(block, 'headerVariant', 'standard')),
@@ -299,20 +402,31 @@ export default async function decorate(block) {
     tcsLogoLink: getProp(block, 'tcsLogoLink', '/'),
     tataLogo: getProp(block, 'tataLogo'),
     tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
+    tcsLogoAlt: getProp(block, 'tcsLogoAlt', 'Tata Consultancy Services'),
+    tataLogoAlt: getProp(block, 'tataLogoAlt', 'TATA Group'),
+    navigationMotion: normalizeMotionType(getProp(block, 'navigationMotion', 'slide')),
+    navRootPath: normalizeRootPath(getProp(block, 'navRootPath', '/')),
+    navDepth: normalizeDepth(getProp(block, 'navDepth', 3), 3, 1, 3),
+    canvasPlaceholder: getProp(block, 'canvasPlaceholder', 'Ask us a question'),
+    showCanvasSearchIcon: String(getProp(block, 'showCanvasSearchIcon', 'true')).toLowerCase() !== 'false',
+    canvasActionUrl: getProp(block, 'canvasActionUrl', '/search'),
+    canvasNavRootPath: normalizeRootPath(getProp(block, 'canvasNavRootPath', '/')),
+    canvasNavDepth: normalizeDepth(getProp(block, 'canvasNavDepth', 3), 3, 1, 3),
+    canvasMotion: normalizeMotionType(getProp(block, 'canvasMotion', 'slide')),
   };
 
   block.textContent = '';
   block.classList.remove('variant-standard', 'variant-compact', 'variant-dark', 'variant-centered');
   block.classList.add(`variant-${config.headerVariant}`);
   block.dataset.variant = config.headerVariant;
+  block.dataset.navigationMotion = config.navigationMotion;
+  block.dataset.canvasMotion = config.canvasMotion;
 
-  /* 1. Build Top Header Bar */
   const navWrapper = document.createElement('div');
   navWrapper.className = 'tcs-nav-wrapper';
 
   const nav = document.createElement('nav');
   nav.id = 'tcs-nav';
-  nav.setAttribute('aria-expanded', 'false');
 
   const brandPrimary = document.createElement('div');
   brandPrimary.className = 'nav-brand-primary';
@@ -320,12 +434,7 @@ export default async function decorate(block) {
   primaryAnchor.href = config.tcsLogoLink;
 
   if (config.tcsLogo) {
-    primaryAnchor.append(createOptimizedPicture(
-      config.tcsLogo,
-      'Tata Consultancy Services',
-      false,
-      [{ width: '300' }],
-    ));
+    primaryAnchor.append(createOptimizedPicture(config.tcsLogo, config.tcsLogoAlt || 'TCS', false, [{ width: '300' }]));
   } else {
     primaryAnchor.textContent = 'TCS';
   }
@@ -339,12 +448,7 @@ export default async function decorate(block) {
   secondaryAnchor.rel = 'noopener noreferrer';
 
   if (config.tataLogo) {
-    secondaryAnchor.append(createOptimizedPicture(
-      config.tataLogo,
-      'TATA Group',
-      false,
-      [{ width: '160' }],
-    ));
+    secondaryAnchor.append(createOptimizedPicture(config.tataLogo, config.tataLogoAlt || 'TATA', false, [{ width: '160' }]));
   } else {
     secondaryAnchor.textContent = 'TATA';
   }
@@ -354,14 +458,11 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  /* 2. Asynchronously Fetch Query Index and Render Contextual Bottom Dock */
   const navDockContainer = document.createElement('div');
   block.append(navDockContainer);
 
   const rawIndex = await fetchQueryIndex();
-  const taxonomy = buildTaxonomyFromIndex(rawIndex);
+  const taxonomy = buildTaxonomyFromIndex(rawIndex, config.navRootPath, config.navDepth);
 
-  if (taxonomy.length > 0) {
-    decorateNavigationDock(navDockContainer, taxonomy);
-  }
+  decorateNavigationDock(navDockContainer, taxonomy, config);
 }
