@@ -118,14 +118,14 @@
   position: fixed !important;
   z-index: 9999;
   right: 0;
-  bottom: 0;
+  bottom: 24px;
   left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 12px;
   width: min(1280px, calc(100vw - 48px));
-  padding: 0 0 20px;
+  padding: 0;
   pointer-events: none;
   opacity: 1;
   transform: translateX(-50%) translateY(0);
@@ -140,15 +140,7 @@
 }
 
 .tcs-header .floating-bottom-dock::before {
-  position: absolute;
-  z-index: -1;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: min(48vh, 440px);
-  background: linear-gradient(180deg, rgb(255 255 255 / 0%) 0%, rgb(255 255 255 / 84%) 62%, #fff 100%);
-  content: '';
-  pointer-events: none;
+  display: none;
 }
 
 .tcs-header .dock-inner-wrapper {
@@ -475,7 +467,8 @@
 
 @media (width <= 900px) {
   .tcs-header .floating-bottom-dock {
-    padding: 0 12px 12px;
+    bottom: 16px;
+    padding: 0 12px;
   }
 
   .tcs-header .dock-inner-wrapper {
