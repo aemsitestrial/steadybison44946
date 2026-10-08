@@ -108,7 +108,7 @@
 }
 
 /* ==========================================================================
-   FLOATING BOTTOM DOCK WITH CANVAS SEARCH
+   PERMANENTLY FIXED FLOATING BOTTOM DOCK WITH CANVAS SEARCH
    ========================================================================== */
 .tcs-header .navigation-dock-wrapper {
   overflow: visible !important;
@@ -127,16 +127,17 @@
   width: min(1280px, calc(100vw - 48px));
   padding: 0;
   pointer-events: none;
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-  transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateX(-50%) translateY(0) !important;
 }
 
-/* Hidden state when scrolled over .tcs-canvas */
+/* Disable hidden state completely so it never hides during scroll */
 .tcs-header .navigation-dock-wrapper.dock-hidden {
-  opacity: 0 !important;
-  pointer-events: none !important;
-  transform: translateX(-50%) translateY(30px) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateX(-50%) translateY(0) !important;
 }
 
 .tcs-header .floating-bottom-dock::before {

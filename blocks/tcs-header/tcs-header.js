@@ -279,11 +279,10 @@ function createThirdLevelPanel(item) {
 }
 
 /**
- * The floating canvas dock should remain visible while scrolling, matching the required UX.
- * The previous hide-on-scroll behavior is intentionally disabled.
+ * Permanently fixed dock: Scroll observer is disabled.
  */
 function setupScrollDockObserver() {
-  // Intentionally no-op to keep the dock fixed and floating while the page scrolls.
+  // No-op to keep the dock permanently locked at the bottom.
 }
 
 function decorateNavigationDock(container, taxonomy, config) {
@@ -297,7 +296,6 @@ function decorateNavigationDock(container, taxonomy, config) {
   let activeL2 = initialActiveL2;
 
   container.className = 'navigation-dock-wrapper floating-bottom-dock';
-  container.dataset.motionType = config.navigationMotion;
 
   const dock = document.createElement('div');
   dock.className = 'dock-inner-wrapper';
@@ -384,6 +382,7 @@ export default async function decorate(block) {
   block.dataset.navigationMotion = config.navigationMotion;
   block.dataset.canvasMotion = config.canvasMotion;
 
+  /* Top Navigation Bar */
   const navWrapper = document.createElement('div');
   navWrapper.className = 'tcs-nav-wrapper';
 
@@ -420,11 +419,9 @@ export default async function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
+  /* Bottom Floating Dock Container */
   const navDockContainer = document.createElement('div');
-  const dockWrapper = document.createElement('div');
-  dockWrapper.className = 'tcs-header';
-  dockWrapper.append(navDockContainer);
-  document.body.append(dockWrapper);
+  block.append(navDockContainer);
 
   const rawIndex = await fetchQueryIndex();
   const taxonomy = buildTaxonomyFromIndex(rawIndex, config.navRootPath, config.navDepth);
