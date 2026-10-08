@@ -5,10 +5,16 @@
   height: 124px;
 }
 
+.tcs-header .tcs-nav-placeholder {
+  height: 124px;
+}
+
 .tcs-header .tcs-nav-wrapper {
-  position: sticky;
+  position: fixed;
   z-index: 1000;
   top: 0;
+  right: 0;
+  left: 0;
   width: 100%;
   background-color: #fff;
   border-bottom: 1px solid #e0e0e0;
@@ -59,6 +65,10 @@
   padding-bottom: 20px;
 }
 
+.tcs-header.variant-compact .tcs-nav-placeholder {
+  height: 80px;
+}
+
 .tcs-header.variant-compact .nav-brand-primary img {
   width: 112px;
   height: 28px;
@@ -73,6 +83,10 @@
     height: 64px;
   }
 
+  .tcs-header .tcs-nav-placeholder {
+    height: 64px;
+  }
+
   .tcs-header nav#tcs-nav {
     height: 64px;
     padding: 12px 20px;
@@ -82,6 +96,10 @@
     height: 56px;
     padding-top: 8px;
     padding-bottom: 8px;
+  }
+
+  .tcs-header.variant-compact .tcs-nav-placeholder {
+    height: 56px;
   }
 
   .tcs-header .nav-brand-primary img {
@@ -113,7 +131,7 @@
    ========================================================================== */
 body > .tcs-header-dock-global {
   position: static !important;
-  height: 0 !important;
+  height: 160px !important;
   margin: 0 !important;
   padding: 0 !important;
   overflow: visible !important;
