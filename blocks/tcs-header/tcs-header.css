@@ -266,6 +266,7 @@
 }
 
 .tcs-header .dock-submit-btn {
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -284,18 +285,32 @@
 }
 
 .tcs-header .dock-submit-btn svg {
-  display: block;
-  width: 18px;
-  height: 18px;
-  fill: none;
+  display: none;
 }
 
-.tcs-header .dock-submit-btn svg line,
-.tcs-header .dock-submit-btn svg polyline {
-  stroke: currentcolor;
-  stroke-width: 2;
-  stroke-linecap: round;
-  stroke-linejoin: round;
+.tcs-header .dock-submit-btn::before,
+.tcs-header .dock-submit-btn::after {
+  position: absolute;
+  top: 50%;
+  content: '';
+}
+
+.tcs-header .dock-submit-btn::before {
+  left: calc(50% - 9px);
+  width: 16px;
+  height: 2px;
+  border-radius: 1px;
+  background: #fff;
+  transform: translateY(-50%);
+}
+
+.tcs-header .dock-submit-btn::after {
+  left: calc(50% + 1px);
+  width: 7px;
+  height: 7px;
+  border-top: 2px solid #fff;
+  border-right: 2px solid #fff;
+  transform: translateY(-50%) rotate(45deg);
 }
 
 /* Navigation List */
