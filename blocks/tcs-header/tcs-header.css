@@ -158,6 +158,14 @@ body > .tcs-header-dock-global {
   opacity: 1 !important;
   visibility: visible !important;
   transform: translateX(-50%) translateY(0) !important;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.tcs-header .floating-bottom-dock.floating-disabled {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateX(-50%) translateY(20px) !important;
 }
 
 .tcs-header .floating-bottom-dock::before {
@@ -184,11 +192,16 @@ body > .tcs-header-dock-global {
   width: 58px;
   height: 58px;
   padding: 0;
-  border: 1.5px solid #4a4a4a;
+  border: 1px solid rgb(0 0 0 / 8%);
   border-radius: 50%;
-  background: #fff;
+  background: rgb(255 255 255 / 92%);
   cursor: pointer;
   box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tcs-header .dock-hamburger-btn:hover {
+  transform: translateY(-1px);
 }
 
 .tcs-header .dock-hamburger-btn span,
@@ -199,6 +212,8 @@ body > .tcs-header-dock-global {
   height: 2px;
   background: #4a4a4a;
   content: '';
+  border-radius: 99px;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 .tcs-header .dock-hamburger-btn span::before {
@@ -207,6 +222,23 @@ body > .tcs-header-dock-global {
 
 .tcs-header .dock-hamburger-btn span::after {
   transform: translateY(5px);
+}
+
+.tcs-header .dock-hamburger-btn.is-open {
+  background: rgb(255 255 255 / 96%);
+  border-color: rgb(0 0 0 / 10%);
+}
+
+.tcs-header .dock-hamburger-btn.is-open span {
+  background: transparent;
+}
+
+.tcs-header .dock-hamburger-btn.is-open span::before {
+  transform: rotate(45deg);
+}
+
+.tcs-header .dock-hamburger-btn.is-open span::after {
+  transform: rotate(-45deg);
 }
 
 /* Canvas Search Bar Shell */
@@ -304,10 +336,19 @@ body > .tcs-header-dock-global {
   overflow-x: auto;
   scrollbar-width: none;
   pointer-events: auto;
+  margin-top: 12px;
 }
 
 .tcs-header .dock-navigation::-webkit-scrollbar {
   display: none;
+}
+
+.tcs-header .dock-level-two-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 16px;
+  width: 100%;
 }
 
 .tcs-header .dock-list {
@@ -347,6 +388,12 @@ body > .tcs-header-dock-global {
   border-color: #4b80f7;
   background: #4b80f7;
   color: #fff;
+}
+
+.tcs-header .dock-level-one .dock-pill-btn,
+.tcs-header .dock-level-two .dock-pill-btn {
+  border-radius: 999px;
+  padding-inline: 22px;
 }
 
 .tcs-header .dock-chevron-icon {

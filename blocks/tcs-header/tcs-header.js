@@ -284,6 +284,7 @@ function decorateNavigationDock(container, taxonomy, config) {
 
   let activeL1 = initialActiveL1;
   let activeL2 = initialActiveL2;
+  let menuOpen = false;
 
   container.className = 'navigation-dock-wrapper floating-bottom-dock';
 
@@ -304,11 +305,18 @@ function decorateNavigationDock(container, taxonomy, config) {
 
   const render = () => {
     nav.replaceChildren();
+    hamburger.classList.toggle('is-open', menuOpen);
+    hamburger.setAttribute('aria-expanded', String(menuOpen));
+
+    if (!menuOpen) {
+      return;
+    }
 
     if (!activeL1) {
       nav.append(createLevel(taxonomy, 'dock-level-one', (item, button) => {
         activeL1 = item;
         activeL2 = null;
+        menuOpen = true;
         render();
         button.blur();
       }));
@@ -333,14 +341,37 @@ function decorateNavigationDock(container, taxonomy, config) {
   };
 
   hamburger.addEventListener('click', () => {
-    activeL1 = activeL1 ? null : taxonomy[0];
-    activeL2 = null;
+    if (menuOpen) {
+      menuOpen = false;
+      activeL1 = null;
+      activeL2 = null;
+    } else {
+      menuOpen = true;
+      activeL1 = activeL1 || taxonomy[0] || null;
+      activeL2 = null;
+    }
     render();
   });
+
+  const updateFloatingDockState = () => {
+    const exclusionTargets = ['#table-list', '#footer-sai', '[data-disable-floating-canvas]'];
+    const shouldHide = exclusionTargets.some((selector) => {
+      const element = document.querySelector(selector);
+      if (!element || !document.body.contains(element)) return false;
+      const rect = element.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    });
+
+    container.classList.toggle('floating-disabled', shouldHide);
+  };
 
   dock.append(hamburger, canvasForm);
   container.append(dock, nav);
   render();
+  updateFloatingDockState();
+
+  window.addEventListener('scroll', updateFloatingDockState, { passive: true });
+  window.addEventListener('resize', updateFloatingDockState);
 }
 
 export default async function decorate(block) {
