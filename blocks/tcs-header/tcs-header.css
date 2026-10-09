@@ -285,32 +285,9 @@
 }
 
 .tcs-header .dock-submit-btn svg {
-  display: none;
-}
-
-.tcs-header .dock-submit-btn::before,
-.tcs-header .dock-submit-btn::after {
-  position: absolute;
-  top: 50%;
-  content: '';
-}
-
-.tcs-header .dock-submit-btn::before {
-  left: calc(50% - 9px);
-  width: 16px;
-  height: 2px;
-  border-radius: 1px;
-  background: #fff;
-  transform: translateY(-50%);
-}
-
-.tcs-header .dock-submit-btn::after {
-  left: calc(50% + 1px);
-  width: 7px;
-  height: 7px;
-  border-top: 2px solid #fff;
-  border-right: 2px solid #fff;
-  transform: translateY(-50%) rotate(45deg);
+  display: block;
+  width: 18px;
+  height: 18px;
 }
 
 /* Navigation List */
