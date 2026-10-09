@@ -226,8 +226,9 @@ function createCanvasForm(config) {
   submitBtn.className = 'dock-submit-btn';
   submitBtn.setAttribute('aria-label', 'Submit');
   submitBtn.innerHTML = `
-    <svg viewBox="0 0 24 24" aria-hidden="true">
-      <path d="M5 12h14m-7-7 7 7-7 7" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+    <svg viewBox="0 0 24 24">
+      <line x1="5" y1="12" x2="19" y2="12"></line>
+      <polyline points="12 5 19 12 12 19"></polyline>
     </svg>
   `;
 
