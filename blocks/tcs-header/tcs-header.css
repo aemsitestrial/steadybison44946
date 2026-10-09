@@ -284,11 +284,18 @@
 }
 
 .tcs-header .dock-submit-btn svg {
+  display: block;
   width: 18px;
   height: 18px;
-  stroke: currentcolor;
-  stroke-width: 2.5;
   fill: none;
+}
+
+.tcs-header .dock-submit-btn svg line,
+.tcs-header .dock-submit-btn svg polyline {
+  stroke: currentcolor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 /* Navigation List */
