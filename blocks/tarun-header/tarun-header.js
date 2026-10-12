@@ -185,7 +185,7 @@ export default function decorate(block) {
   }
   brandSecondary.append(secondaryAnchor);
 
-  // Header Hamburger Trigger (Clean Frameless Vector Icon - Issue 2 Fix)
+  // Header Hamburger Trigger
   const headerHamburgerWrapper = document.createElement('div');
   headerHamburgerWrapper.className = 'nav-hamburger';
   const headerHamburgerBtn = document.createElement('button');
@@ -204,9 +204,7 @@ export default function decorate(block) {
   navWrapper.append(nav);
   block.append(navWrapper);
 
-  // ==========================================================================
-  // MOBILE & TABLET FULL-SCREEN OVERLAY DRILL-DOWN (Issue 3 Fix)
-  // ==========================================================================
+  // Mobile/Tablet Fullscreen Overlay
   const overlay = document.createElement('div');
   overlay.className = 'tarun-mobile-nav-overlay hidden';
 
@@ -317,7 +315,7 @@ export default function decorate(block) {
   });
 
   // ==========================================================================
-  // FLOATING CONTROL BAR (Issue 1 Centered Alignment Fix)
+  // FLOATING CONTROL BAR (Issue 1 Circle Button Fix)
   // ==========================================================================
   const floatingControlBar = document.createElement('div');
   floatingControlBar.className = 'tarun-floating-control-bar is-fixed';
@@ -325,11 +323,11 @@ export default function decorate(block) {
   const searchRow = document.createElement('div');
   searchRow.className = 'tarun-search-row';
 
-  // Floating Desktop Hamburger
+  // Issue 1 Fix: Circular Frosted Floating Hamburger
   const desktopHamburgerWrapper = document.createElement('div');
   desktopHamburgerWrapper.className = 'tarun-hamburger-wrapper';
   const desktopFloatingHamburgerBtn = document.createElement('button');
-  desktopFloatingHamburgerBtn.className = 'tarun-header-hamburger';
+  desktopFloatingHamburgerBtn.className = 'tarun-floating-hamburger';
   desktopFloatingHamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
   desktopFloatingHamburgerBtn.innerHTML = `
     <span class="icon-hamburger">
@@ -348,7 +346,7 @@ export default function decorate(block) {
   `;
   desktopHamburgerWrapper.append(desktopFloatingHamburgerBtn);
 
-  // Floating Search Canvas Box
+  // Floating Search Box
   const searchVariation = config.searchVariation.toLowerCase();
   const searchBox = document.createElement('div');
   searchBox.className = `tarun-search-box mode-${searchVariation}`;
@@ -383,7 +381,7 @@ export default function decorate(block) {
 
   searchBox.innerHTML = searchHtml;
 
-  // Desktop Floating Dropdown Panel Container
+  // Issue 2 Fix: Floating Desktop Dropdown Container
   const desktopNavContainer = document.createElement('div');
   desktopNavContainer.className = 'tarun-desktop-nav-container hidden';
 
@@ -399,7 +397,7 @@ export default function decorate(block) {
   floatingControlBar.append(desktopNavContainer, searchRow);
   document.body.append(floatingControlBar);
 
-  // Desktop Navigation Toggle Logic
+  // Desktop Navigation Toggle & Pill Rendering
   let isDesktopNavOpen = false;
 
   const renderDesktopSubmenuCard = (items) => {
@@ -432,6 +430,8 @@ export default function decorate(block) {
     if (!navTreeData) {
       navTreeData = await fetchHierarchicalNavData();
     }
+
+    if (!navTreeData || navTreeData.length === 0) return;
 
     navTreeData.forEach((l1, idx) => {
       const l1Pill = document.createElement('div');

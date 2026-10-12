@@ -44,7 +44,7 @@
   align-items: center;
 }
 
-/* ISSUE 2 FIX: Clean, Frameless Header Hamburger Button (Matching image_454409.png) */
+/* Header Hamburger Button (Top Header - Clean Icon) */
 .tarun-header-hamburger {
   background: none;
   border: none;
@@ -54,11 +54,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: none;
-  backdrop-filter: none;
-  border-radius: 0;
-  width: auto;
-  height: auto;
 }
 
 .tarun-header-hamburger svg {
@@ -68,19 +63,49 @@
 }
 
 /* ==========================================================================
-   ISSUE 1 FIX: PERFECTLY CENTERED FLOATING SEARCH CANVAS (Matching image_44ea93.jpg)
+   ISSUE 1 FIX: CIRCULAR FLOATING DESKTOP HAMBURGER (Matching Screenshot 2026-10-12 180952.jpg)
+   ========================================================================== */
+.tarun-floating-hamburger {
+  box-sizing: border-box;
+  width: 48px;
+  height: 48px;
+  background: rgb(255 255 255 / 85%);
+  border: 1px solid rgb(0 0 0 / 12%);
+  backdrop-filter: blur(14px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 10px;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+}
+
+.tarun-floating-hamburger svg {
+  width: 18px;
+  height: 18px;
+  stroke: #2b2b2b;
+}
+
+.tarun-floating-hamburger:hover {
+  background: #fff;
+  border-color: rgb(0 0 0 / 25%);
+}
+
+/* ==========================================================================
+   CENTERED FLOATING CONTROL BAR
    ========================================================================== */
 .tarun-floating-control-bar {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 16px;
   width: fit-content;
   max-width: calc(100vw - 32px);
   z-index: 1000;
   margin: 0 auto;
-  transition: transform 0.2s ease;
 }
 
 .tarun-floating-control-bar.is-fixed {
@@ -88,7 +113,6 @@
   bottom: 30px;
   left: 0;
   right: 0;
-  margin: 0 auto;
 }
 
 .tarun-search-row {
@@ -105,7 +129,7 @@
   display: flex;
   align-items: center;
   width: 530px;
-  max-width: calc(100vw - 32px);
+  max-width: calc(100vw - 110px);
   height: 60px;
   background: rgb(255 255 255 / 85%);
   border: 1px solid rgb(0 0 0 / 12%);
@@ -178,25 +202,35 @@
 }
 
 /* ==========================================================================
-   DESKTOP NAVIGATION DROPDOWN PANELS
+   ISSUE 2 FIX: FLOATING DESKTOP NAVIGATION PILLS & SUBMENU CONTAINER
    ========================================================================== */
 .tarun-desktop-nav-container {
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 16px;
   width: 100%;
   max-width: 780px;
+  z-index: 1001;
 }
 
 .tarun-nav-pills-row {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
   flex-wrap: wrap;
   width: 100%;
-  padding: 6px 0;
+  padding: 8px 16px;
+  background: rgb(255 255 255 / 85%);
+  border: 1px solid rgb(255 255 255 / 60%);
+  backdrop-filter: blur(20px);
+  border-radius: 30px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 8%);
 }
 
 .tarun-nav-pill {
@@ -205,16 +239,22 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  height: 32px;
-  padding: 0 14px;
-  background-color: #f3f3f3;
-  border: 1px solid #e5e5e5;
+  height: 36px;
+  padding: 0 16px;
+  background-color: transparent;
+  border: none;
   border-radius: 999px;
   font-family: Inter, sans-serif;
-  font-size: 13px;
-  font-weight: 400;
-  color: #4a4a4a;
+  font-size: 14px;
+  font-weight: 500;
+  color: #2c2d30;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tarun-nav-pill .tarun-pill-link {
+  color: inherit;
+  text-decoration: none !important;
 }
 
 .tarun-nav-pill.active {
@@ -222,16 +262,20 @@
   color: #fff;
 }
 
+.tarun-nav-pill:not(.active):hover {
+  background: rgb(0 0 0 / 5%);
+}
+
 .tarun-submenu-panel {
   width: 100%;
   max-width: 760px;
-  background: rgb(255 255 255 / 75%);
-  border: 1px solid rgb(255 255 255 / 60%);
+  background: rgb(255 255 255 / 85%);
+  border: 1px solid rgb(255 255 255 / 70%);
   backdrop-filter: blur(24px);
-  border-radius: 24px;
-  padding: 28px 36px;
+  border-radius: 20px;
+  padding: 24px 32px;
   box-sizing: border-box;
-  box-shadow: 0 12px 32px rgb(0 0 0 / 6%), 0 2px 6px rgb(0 0 0 / 3%);
+  box-shadow: 0 12px 32px rgb(0 0 0 / 10%);
 }
 
 .tarun-submenu-grid {
@@ -253,8 +297,12 @@
   text-decoration: none !important;
 }
 
+.tarun-submenu-item:hover {
+  color: #4e82f7;
+}
+
 /* ==========================================================================
-   ISSUE 3 FIX: MOBILE & TABLET OVERLAY WITH EXACT "MENU" TYPOGRAPHY SPECS
+   MOBILE & TABLET OVERLAY (DRAWER)
    ========================================================================== */
 .tarun-mobile-nav-overlay {
   position: fixed;
@@ -334,7 +382,6 @@
   stroke: #1e2222;
 }
 
-/* ISSUE 3 SPECIFIC TYPOGRAPHY RULES */
 .tarun-mobile-title-row h2.tarun-mobile-title {
   width: 370px;
   height: 39px;
@@ -345,7 +392,7 @@
   font-style: normal;
   font-size: 32px;
   line-height: 140%;
-  letter-spacing: -0.025em; /* -2.5% */
+  letter-spacing: -0.025em;
   color: rgb(12 12 13 / 100%);
 }
 
@@ -392,7 +439,6 @@
    RESPONSIVE BREAKPOINTS
    ========================================================================== */
 
-/* DESKTOP MODE (>1024px) */
 @media (width >= 1025px) {
   .tarun-header nav#tarun-nav {
     justify-content: space-between;
@@ -411,7 +457,6 @@
   }
 }
 
-/* TABLET & MOBILE MODE (<=1024px) */
 @media (width <= 1024px) {
   .tarun-header-wrapper {
     height: 64px;
@@ -438,8 +483,11 @@
     margin-left: auto;
   }
 
-  /* Hide floating hamburger button; keep search box floating centered */
   .tarun-floating-control-bar .tarun-hamburger-wrapper {
+    display: none !important;
+  }
+
+  .tarun-desktop-nav-container {
     display: none !important;
   }
 }
