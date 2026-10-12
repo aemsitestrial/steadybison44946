@@ -218,8 +218,19 @@
 
 /* Tablet + mobile layout */
 @media (width <= 1024px) {
+  .tarun-header .nav-brand-primary {
+    order: 1;
+  }
+
+  .tarun-header .nav-brand-secondary {
+    order: 2;
+    margin-left: 16px;
+  }
+
   .tarun-header .nav-hamburger {
     display: flex;
+    order: 3;
+    margin-left: auto;
   }
 
   .tarun-header-wrapper {
@@ -245,10 +256,6 @@
   .tarun-header .nav-brand-secondary img {
     width: 42px;
     height: 36px;
-  }
-
-  .tarun-header .nav-brand-secondary {
-    margin-left: auto;
   }
 
   .tarun-header nav#tarun-nav[aria-expanded="true"] .nav-sections {
