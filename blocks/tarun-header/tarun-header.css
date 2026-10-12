@@ -93,6 +93,14 @@
   font-size: 1rem;
 }
 
+.tarun-header[data-motion-type="slide"] {
+  --nav-motion: tarun-nav-slide;
+}
+
+.tarun-header[data-motion-type="fade"] {
+  --nav-motion: tarun-nav-fade;
+}
+
 .tarun-header.variant-dark .tarun-nav-wrapper,
 .tarun-header[data-variant="dark"] .tarun-nav-wrapper {
   background-color: #1e1e1e;
@@ -127,6 +135,29 @@
   background: #fff;
   border-top: 1px solid #e0e0e0;
   box-shadow: 0 12px 22px rgb(0 0 0 / 6%);
+  animation: var(--nav-motion, none) 220ms ease-out both;
+}
+
+@keyframes tarun-nav-slide {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes tarun-nav-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* Hamburger trigger */

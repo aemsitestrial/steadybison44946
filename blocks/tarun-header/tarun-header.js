@@ -5,7 +5,7 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
  */
 function getProp(block, name, fallback = '') {
   const lower = name.toLowerCase();
-  const fieldOrder = ['headerVariant', 'tcsLogo', 'tcsLogoLink', 'tataLogo', 'tataLogoLink', 'menu'];
+  const fieldOrder = ['headerVariant', 'tcsLogo', 'tcsLogoAlt', 'tcsLogoLink', 'tataLogo', 'tataLogoAlt', 'tataLogoLink', 'menu', 'motionType'];
 
   const getValue = (element) => {
     if (!element) return '';
@@ -45,27 +45,29 @@ function getProp(block, name, fallback = '') {
   return fallback;
 }
 
+function normalizeMotionType(value) {
+  const normalized = String(value || 'slide').trim().toLowerCase();
+  return ['none', 'slide', 'fade'].includes(normalized) ? normalized : 'slide';
+}
+
 function normalizeVariant(value) {
-  const normalized = String(value).trim().toLowerCase().replace(/\s+/g, '-');
-  return ['standard', 'compact', 'dark', 'centered'].includes(normalized)
-    ? normalized
-    : 'standard';
+  const normalized = String(value || 'standard').trim().toLowerCase().replace(/\s+/g, '-');
+  return ['standard', 'compact', 'dark', 'centered'].includes(normalized) ? normalized : 'standard';
 }
 
 export default function decorate(block) {
-  // 1. Extract Basic Properties
   const config = {
     headerVariant: normalizeVariant(getProp(block, 'headerVariant', 'standard')),
     tcsLogo: getProp(block, 'tcsLogo'),
+    tcsLogoAlt: getProp(block, 'tcsLogoAlt', 'Tata Consultancy Services'),
     tcsLogoLink: getProp(block, 'tcsLogoLink', '/'),
     tataLogo: getProp(block, 'tataLogo'),
+    tataLogoAlt: getProp(block, 'tataLogoAlt', 'TATA Group'),
     tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
+    motionType: normalizeMotionType(getProp(block, 'motionType', 'slide')),
   };
-  const supportedVariants = ['standard', 'compact', 'dark', 'centered'];
-  if (!supportedVariants.includes(config.headerVariant)) config.headerVariant = 'standard';
 
-  // 2. Extract Menu Content
-  const menuRow = [...block.children][5];
+  const menuRow = [...block.children][7];
   const menuSource = block.querySelector('[data-aue-prop="menu"]')
     || (menuRow && (menuRow.children[1] || menuRow))
     || block.querySelector('ul');
@@ -86,11 +88,11 @@ export default function decorate(block) {
     }
   }
 
-  // 3. Rebuild Clean Block DOM
   block.textContent = '';
   block.classList.remove('variant-standard', 'variant-compact', 'variant-dark', 'variant-centered');
   block.classList.add(`variant-${config.headerVariant}`);
   block.dataset.variant = config.headerVariant;
+  block.dataset.motionType = config.motionType;
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'tarun-nav-wrapper';
@@ -108,7 +110,7 @@ export default function decorate(block) {
   if (config.tcsLogo) {
     primaryAnchor.append(createOptimizedPicture(
       config.tcsLogo,
-      'Tata Consultancy Services',
+      config.tcsLogoAlt,
       false,
       [{ width: '300' }],
     ));
@@ -117,7 +119,6 @@ export default function decorate(block) {
   }
   brandPrimary.append(primaryAnchor);
 
-  // Navigation Links
   const navSections = document.createElement('div');
   navSections.className = 'nav-sections';
   navSections.append(navList);
@@ -133,7 +134,7 @@ export default function decorate(block) {
   if (config.tataLogo) {
     secondaryAnchor.append(createOptimizedPicture(
       config.tataLogo,
-      'TATA Group',
+      config.tataLogoAlt,
       false,
       [{ width: '160' }],
     ));

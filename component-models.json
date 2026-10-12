@@ -6306,26 +6306,40 @@
         "component": "reference",
         "valueType": "string",
         "name": "tcsLogo",
-        "label": "TCS Logo Image"
+        "label": "TCS Logo (Image)"
       },
       {
         "component": "text-input",
         "valueType": "string",
+        "name": "tcsLogoAlt",
+        "label": "TCS Logo Alt Text",
+        "value": "Tata Consultancy Services"
+      },
+      {
+        "component": "pathfield",
+        "valueType": "string",
         "name": "tcsLogoLink",
-        "label": "TCS Logo Target URL",
+        "label": "TCS Logo Link",
         "value": "/"
       },
       {
         "component": "reference",
         "valueType": "string",
         "name": "tataLogo",
-        "label": "Tata Logo Image"
+        "label": "Tata Logo (Image)"
       },
       {
         "component": "text-input",
         "valueType": "string",
+        "name": "tataLogoAlt",
+        "label": "Tata Logo Alt Text",
+        "value": "TATA Group"
+      },
+      {
+        "component": "pathfield",
+        "valueType": "string",
         "name": "tataLogoLink",
-        "label": "Tata Logo Target URL",
+        "label": "Tata Logo Link",
         "value": "https://www.tata.com"
       },
       {
@@ -6335,6 +6349,27 @@
         "label": "Navigation Links",
         "description": "Add top-level links or a bulleted list for submenus.",
         "filter": "richtext"
+      },
+      {
+        "component": "select",
+        "valueType": "string",
+        "name": "motionType",
+        "label": "Motion Type",
+        "value": "slide",
+        "options": [
+          {
+            "name": "Slide",
+            "value": "slide"
+          },
+          {
+            "name": "Fade",
+            "value": "fade"
+          },
+          {
+            "name": "None",
+            "value": "none"
+          }
+        ]
       }
     ]
   },
