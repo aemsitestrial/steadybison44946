@@ -13,7 +13,13 @@ function getProp(block, name, fallback = '') {
     if (image) return image.getAttribute('src') || image.src;
     const anchor = element.matches('a') ? element : element.querySelector('a');
     if (anchor) return anchor.getAttribute('href') || anchor.textContent.trim();
-    return element.dataset.value || element.textContent.trim();
+    const input = element.matches('input, textarea, select')
+      ? element
+      : element.querySelector('input, textarea, select');
+    return input?.value
+      || element.dataset.value
+      || element.getAttribute('value')
+      || element.textContent.trim();
   };
 
   // 1. Direct dataset or data-aue-prop lookup
@@ -55,15 +61,19 @@ function normalizeVariant(value) {
   return ['standard', 'compact', 'dark', 'centered'].includes(normalized) ? normalized : 'standard';
 }
 
+function normalizeLink(value, fallback) {
+  return String(value || '').trim() || fallback;
+}
+
 export default function decorate(block) {
   const config = {
     headerVariant: normalizeVariant(getProp(block, 'headerVariant', 'standard')),
     tcsLogo: getProp(block, 'tcsLogo'),
     tcsLogoAlt: getProp(block, 'tcsLogoAlt', 'Tata Consultancy Services'),
-    tcsLogoLink: getProp(block, 'tcsLogoLink', '/'),
+    tcsLogoLink: normalizeLink(getProp(block, 'tcsLogoLink', '/'), '/'),
     tataLogo: getProp(block, 'tataLogo'),
     tataLogoAlt: getProp(block, 'tataLogoAlt', 'TATA Group'),
-    tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
+    tataLogoLink: normalizeLink(getProp(block, 'tataLogoLink', 'https://www.tata.com'), 'https://www.tata.com'),
     motionType: normalizeMotionType(getProp(block, 'motionType', 'slide')),
   };
 
