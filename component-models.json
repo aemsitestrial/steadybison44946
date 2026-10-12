@@ -6339,6 +6339,18 @@
     ]
   },
   {
+    "id": "tcs-footer-hamburger",
+    "fields": [
+      {
+        "component": "text",
+        "name": "ariaLabel",
+        "label": "Aria Label",
+        "valueType": "string",
+        "value": "Open navigation menu"
+      }
+    ]
+  },
+  {
     "id": "tcs-header",
     "fields": [
       {
