@@ -6343,12 +6343,32 @@
         "value": "https://www.tata.com"
       },
       {
-        "component": "richtext",
+        "component": "select",
         "valueType": "string",
-        "name": "menu",
-        "label": "Navigation Links",
-        "description": "Add top-level links or a bulleted list for submenus.",
-        "filter": "richtext"
+        "name": "searchVariation",
+        "label": "Search Variation",
+        "value": "both",
+        "options": [
+          {
+            "name": "Text & Voice",
+            "value": "both"
+          },
+          {
+            "name": "Text Only",
+            "value": "text-only"
+          },
+          {
+            "name": "Voice Only",
+            "value": "voice-only"
+          }
+        ]
+      },
+      {
+        "component": "text-input",
+        "valueType": "string",
+        "name": "searchPlaceholder",
+        "label": "Search Placeholder Text",
+        "value": "Ask TCS..."
       },
       {
         "component": "select",
@@ -6370,18 +6390,6 @@
             "value": "none"
           }
         ]
-      }
-    ]
-  },
-  {
-    "id": "tcs-footer-hamburger",
-    "fields": [
-      {
-        "component": "text",
-        "name": "ariaLabel",
-        "label": "Aria Label",
-        "valueType": "string",
-        "value": "Open navigation menu"
       }
     ]
   },
