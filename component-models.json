@@ -6316,7 +6316,7 @@
         "value": "Tata Consultancy Services"
       },
       {
-        "component": "pathfield",
+        "component": "text-input",
         "valueType": "string",
         "name": "tcsLogoLink",
         "label": "TCS Logo Link",
@@ -6336,7 +6336,7 @@
         "value": "TATA Group"
       },
       {
-        "component": "pathfield",
+        "component": "text-input",
         "valueType": "string",
         "name": "tataLogoLink",
         "label": "Tata Logo Link",
