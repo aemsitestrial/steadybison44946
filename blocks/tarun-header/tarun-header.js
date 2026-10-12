@@ -185,20 +185,18 @@ export default function decorate(block) {
   }
   brandSecondary.append(secondaryAnchor);
 
-  // Header Hamburger Trigger (Tablet + Mobile)
+  // Header Hamburger Trigger (Clean Frameless Vector Icon - Issue 2 Fix)
   const headerHamburgerWrapper = document.createElement('div');
   headerHamburgerWrapper.className = 'nav-hamburger';
   const headerHamburgerBtn = document.createElement('button');
   headerHamburgerBtn.className = 'tarun-header-hamburger';
   headerHamburgerBtn.setAttribute('aria-label', 'Open navigation menu');
   headerHamburgerBtn.innerHTML = `
-    <span class="icon-hamburger">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
-        <line x1="3" y1="6" x2="21" y2="6"></line>
-        <line x1="3" y1="12" x2="21" y2="12"></line>
-        <line x1="3" y1="18" x2="21" y2="18"></line>
-      </svg>
-    </span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
   `;
   headerHamburgerWrapper.append(headerHamburgerBtn);
 
@@ -207,7 +205,7 @@ export default function decorate(block) {
   block.append(navWrapper);
 
   // ==========================================================================
-  // MOBILE & TABLET FULL-SCREEN OVERLAY DRILL-DOWN
+  // MOBILE & TABLET FULL-SCREEN OVERLAY DRILL-DOWN (Issue 3 Fix)
   // ==========================================================================
   const overlay = document.createElement('div');
   overlay.className = 'tarun-mobile-nav-overlay hidden';
@@ -319,7 +317,7 @@ export default function decorate(block) {
   });
 
   // ==========================================================================
-  // FLOATING CONTROL BAR (DESKTOP HAMBURGER + CANVAS SEARCH)
+  // FLOATING CONTROL BAR (Issue 1 Centered Alignment Fix)
   // ==========================================================================
   const floatingControlBar = document.createElement('div');
   floatingControlBar.className = 'tarun-floating-control-bar is-fixed';

@@ -44,69 +44,59 @@
   align-items: center;
 }
 
+/* ISSUE 2 FIX: Clean, Frameless Header Hamburger Button (Matching image_454409.png) */
 .tarun-header-hamburger {
-  box-sizing: border-box;
-  width: 48px;
-  height: 48px;
-  background: rgb(255 255 255 / 80%);
-  border: 1px solid rgb(0 0 0 / 10%);
-  backdrop-filter: blur(14px);
-  border-radius: 50%;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  padding: 10px;
-  flex-shrink: 0;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  box-shadow: none;
+  backdrop-filter: none;
+  border-radius: 0;
+  width: auto;
+  height: auto;
 }
 
 .tarun-header-hamburger svg {
-  width: 18px;
-  height: 18px;
-  stroke: #2b2b2b;
-}
-
-.tarun-header-hamburger:hover {
-  background: #fff;
-  border-color: rgb(0 0 0 / 20%);
-}
-
-/* Dark Variant */
-.tarun-header.variant-dark .tarun-nav-wrapper,
-.tarun-header[data-variant="dark"] .tarun-nav-wrapper {
-  background-color: #1e1e1e;
-  border-bottom-color: #333;
+  width: 28px;
+  height: 20px;
+  stroke: #121213;
 }
 
 /* ==========================================================================
-   DESKTOP FLOATING CONTROL BAR (HAMBURGER + CANVAS SEARCH)
+   ISSUE 1 FIX: PERFECTLY CENTERED FLOATING SEARCH CANVAS (Matching image_44ea93.jpg)
    ========================================================================== */
 .tarun-floating-control-bar {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 20px;
-  width: 100%;
-  max-width: 780px;
+  width: fit-content;
+  max-width: calc(100vw - 32px);
   z-index: 1000;
-  transition: transform 0.2s ease, position 0.2s ease;
+  margin: 0 auto;
+  transition: transform 0.2s ease;
 }
 
 .tarun-floating-control-bar.is-fixed {
   position: fixed;
   bottom: 30px;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
+  right: 0;
+  margin: 0 auto;
 }
 
 .tarun-search-row {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 16px;
   width: 100%;
-  justify-content: center;
 }
 
 .tarun-search-box {
@@ -114,10 +104,10 @@
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  width: 100%;
-  max-width: 530px;
+  width: 530px;
+  max-width: calc(100vw - 32px);
   height: 60px;
-  background: rgb(255 255 255 / 80%);
+  background: rgb(255 255 255 / 85%);
   border: 1px solid rgb(0 0 0 / 12%);
   backdrop-filter: blur(30px);
   border-radius: 50px;
@@ -137,7 +127,7 @@
   height: 100%;
   border: none;
   background: transparent;
-  padding: 0 90px 0 12px;
+  padding: 0 90px 0 16px;
   font-family: Inter, sans-serif;
   font-size: 16px;
   color: #1e2222;
@@ -166,7 +156,6 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
 }
 
 .tarun-search-actions .submit-btn {
@@ -226,7 +215,6 @@
   font-weight: 400;
   color: #4a4a4a;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .tarun-nav-pill.active {
@@ -266,7 +254,7 @@
 }
 
 /* ==========================================================================
-   MOBILE & TABLET FULL-SCREEN DRILL-DOWN OVERLAY
+   ISSUE 3 FIX: MOBILE & TABLET OVERLAY WITH EXACT "MENU" TYPOGRAPHY SPECS
    ========================================================================== */
 .tarun-mobile-nav-overlay {
   position: fixed;
@@ -280,7 +268,6 @@
   flex-direction: column;
   overflow-y: auto;
   box-sizing: border-box;
-  isolation: isolate;
 }
 
 .tarun-mobile-nav-header {
@@ -347,16 +334,19 @@
   stroke: #1e2222;
 }
 
-.tarun-mobile-title-row h2 {
-  font-family: Inter, sans-serif;
-  font-size: 32px;
-  font-weight: 500;
-  color: #1e2222;
+/* ISSUE 3 SPECIFIC TYPOGRAPHY RULES */
+.tarun-mobile-title-row h2.tarun-mobile-title {
+  width: 370px;
+  height: 39px;
+  opacity: 1;
   margin: 0;
-}
-
-.tarun-mobile-list-container {
-  width: 100%;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
+  font-weight: 600;
+  font-style: normal;
+  font-size: 32px;
+  line-height: 140%;
+  letter-spacing: -0.025em; /* -2.5% */
+  color: rgb(12 12 13 / 100%);
 }
 
 .tarun-mobile-list {
@@ -448,18 +438,15 @@
     margin-left: auto;
   }
 
-  /* Hide floating hamburger button; keep search box floating */
+  /* Hide floating hamburger button; keep search box floating centered */
   .tarun-floating-control-bar .tarun-hamburger-wrapper {
     display: none !important;
-  }
-
-  .tarun-floating-control-bar {
-    max-width: 530px;
   }
 }
 
 @media (width <= 767px) {
   .tarun-search-box {
+    width: calc(100vw - 32px);
     height: 54px;
     padding: 6px 12px;
   }
