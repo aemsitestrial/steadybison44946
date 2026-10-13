@@ -94,18 +94,6 @@ async function fetchHierarchicalNavData() {
 
 function getProp(block, name, fallback = '') {
   const lower = name.toLowerCase();
-  const fieldOrder = [
-    'headerVariant',
-    'tcsLogo',
-    'tcsLogoAlt',
-    'tcsLogoLink',
-    'tataLogo',
-    'tataLogoAlt',
-    'tataLogoLink',
-    'searchVariation',
-    'searchPlaceholder',
-    'motionType',
-  ];
 
   const getValue = (element) => {
     if (!element) return '';
@@ -119,15 +107,18 @@ function getProp(block, name, fallback = '') {
     return input?.value || element.dataset.value || element.getAttribute('value') || element.textContent.trim();
   };
 
+  // 1. Check direct dataset attributes
   if (block.dataset[name] !== undefined && block.dataset[name] !== '') return block.dataset[name];
   if (block.dataset[lower] !== undefined && block.dataset[lower] !== '') return block.dataset[lower];
 
+  // 2. Check Universal Editor attributes
   const attrElem = block.querySelector(`[data-aue-prop="${name}"], [data-aue-prop="${lower}"]`);
   if (attrElem) {
     const val = getValue(attrElem);
     if (val) return val;
   }
 
+  // 3. Key-Value Row Match (Strictly matching key cell to property name)
   const rows = [...block.children];
   for (let index = 0; index < rows.length; index += 1) {
     const row = rows[index];
@@ -141,13 +132,6 @@ function getProp(block, name, fallback = '') {
     }
   }
 
-  const fieldIndex = fieldOrder.indexOf(name);
-  if (fieldIndex >= 0 && rows[fieldIndex]) {
-    const cols = [...rows[fieldIndex].children];
-    const val = getValue(cols.length > 1 ? cols[1] : rows[fieldIndex]);
-    if (val) return val;
-  }
-
   return fallback;
 }
 
@@ -157,7 +141,7 @@ export default function decorate(block) {
     tcsLogo: getProp(block, 'tcsLogo'),
     tcsLogoAlt: getProp(block, 'tcsLogoAlt', 'Tata Consultancy Services'),
     tcsLogoLink: getProp(block, 'tcsLogoLink', '/'),
-    tataLogo: getProp(block, 'tataLogo', 'https://www.tata.com'),
+    tataLogo: getProp(block, 'tataLogo'),
     tataLogoAlt: getProp(block, 'tataLogoAlt', 'TATA Group'),
     tataLogoLink: getProp(block, 'tataLogoLink', 'https://www.tata.com'),
   };
@@ -183,7 +167,7 @@ export default function decorate(block) {
   }
   brandPrimary.append(primaryAnchor);
 
-  // Tata Secondary Logo
+  // TATA Secondary Logo
   const brandSecondary = document.createElement('div');
   brandSecondary.className = 'nav-brand-secondary';
   const secondaryAnchor = document.createElement('a');
@@ -191,13 +175,10 @@ export default function decorate(block) {
   secondaryAnchor.target = '_blank';
   secondaryAnchor.rel = 'noopener noreferrer';
 
-  if (config.tataLogo && (config.tataLogo.startsWith('/') || config.tataLogo.startsWith('http') || config.tataLogo.includes('.'))) {
-    secondaryAnchor.append(createOptimizedPicture(config.tataLogo, config.tataLogoAlt, false, [{ width: '160' }]));
+  if (config.tataLogo) {
+    secondaryAnchor.append(createOptimizedPicture(config.tataLogo, config.tataLogoAlt, false, [{ width: '300' }]));
   } else {
-    const tataImg = document.createElement('img');
-    tataImg.src = 'https://www.tata.com/content/dam/tata/images/home-page/desktop/logo_tata_desktop.png';
-    tataImg.alt = config.tataLogoAlt || 'TATA Group';
-    secondaryAnchor.append(tataImg);
+    secondaryAnchor.textContent = 'TATA';
   }
   brandSecondary.append(secondaryAnchor);
 
