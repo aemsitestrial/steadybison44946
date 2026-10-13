@@ -616,10 +616,38 @@ function decorateBlocks(main) {
  * @returns {Promise}
  */
 async function loadHeader(header) {
-  const headerBlock = buildBlock('header', '');
-  header.append(headerBlock);
-  decorateBlock(headerBlock);
-  return loadBlock(headerBlock);
+  const pageHeaderBlock = document.querySelector('main .tcs-header');
+  if (pageHeaderBlock) return;
+
+  const headerPath = (getMetadata('header') || '/tcs-header').replace(/(\.plain)?\.html$/, '');
+  const resp = await fetch(`${headerPath}.plain.html`);
+
+  if (!resp.ok) {
+    console.log('Failed to load header: ', resp.status, resp.statusText);
+    return;
+  }
+
+  const html = await resp.text();
+  const fragment = new DOMParser().parseFromString(html, 'text/html');
+  const headerBlock = fragment.querySelector('.tcs-header');
+  if (!headerBlock) {
+    console.error(`Header block not found in ${headerPath}`);
+    return;
+  }
+  header.replaceChildren(document.importNode(headerBlock, true));
+
+  const resetMediaPath = (selector, attribute) => {
+    header.querySelectorAll(`${selector}[${attribute}^="./media_"]`).forEach((element) => {
+      const fragmentUrl = new URL(headerPath, window.location);
+      element[attribute] = new URL(element.getAttribute(attribute), fragmentUrl).href;
+    });
+  };
+  resetMediaPath('img', 'src');
+  resetMediaPath('source', 'srcset');
+
+  const loadedHeaderBlock = header.querySelector('.tcs-header');
+  decorateBlock(loadedHeaderBlock);
+  await loadBlock(loadedHeaderBlock);
 }
 
 /**
