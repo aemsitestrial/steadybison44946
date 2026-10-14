@@ -24,6 +24,10 @@
   box-sizing: border-box;
 }
 
+main > .section:has(.tcs-header) .hero picture {
+  top: -124px;
+}
+
 .hero img {
   object-fit: cover;
   width: 100%;
@@ -33,5 +37,11 @@
 @media (width >= 900px) {
   .hero {
     padding: 40px 32px;
+  }
+}
+
+@media (width <= 1024px) {
+  main > .section:has(.tcs-header) .hero picture {
+    top: -64px;
   }
 }
