@@ -11,8 +11,8 @@
   left: 0;
   z-index: 100;
   width: 100%;
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
+  background-color: transparent;
+  border-bottom: none;
 }
 
 .tcs-header nav#tcs-nav {
@@ -20,9 +20,9 @@
   position: relative;
   z-index: 100;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 12px;
+  gap: 10px;
   margin: 0 auto;
   max-width: 1440px;
   height: 124px;
@@ -81,8 +81,8 @@
 /* Dark Variant */
 .tcs-header.variant-dark .tcs-nav-wrapper,
 .tcs-header[data-variant="dark"] .tcs-nav-wrapper {
-  background-color: #1e1e1e;
-  border-bottom-color: #333;
+  background-color: transparent;
+  border-bottom: none;
 }
 
 /* ==========================================================================
@@ -254,6 +254,7 @@
   }
 
   .tcs-header nav#tcs-nav {
+    align-items: center;
     height: 64px;
     padding: 12px 20px;
   }
