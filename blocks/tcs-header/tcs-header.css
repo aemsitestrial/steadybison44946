@@ -11,7 +11,9 @@
   left: 0;
   z-index: 100;
   width: 100%;
-  background-color: transparent;
+  background:
+    radial-gradient(60% 70% at 15% 110%, rgb(70 115 219 / 22%) 0%, transparent 75%),
+    radial-gradient(55% 65% at 85% 110%, rgb(232 185 49 / 22%) 0%, transparent 75%);
   border-bottom: none;
 }
 
@@ -81,7 +83,9 @@
 /* Dark Variant */
 .tcs-header.variant-dark .tcs-nav-wrapper,
 .tcs-header[data-variant="dark"] .tcs-nav-wrapper {
-  background-color: transparent;
+  background:
+    radial-gradient(60% 70% at 15% 110%, rgb(70 115 219 / 22%) 0%, transparent 75%),
+    radial-gradient(55% 65% at 85% 110%, rgb(232 185 49 / 22%) 0%, transparent 75%);
   border-bottom: none;
 }
 
