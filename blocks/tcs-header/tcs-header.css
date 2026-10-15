@@ -13,7 +13,8 @@
   width: 100%;
   background:
     radial-gradient(60% 70% at 15% 110%, rgb(70 115 219 / 22%) 0%, transparent 75%),
-    radial-gradient(55% 65% at 85% 110%, rgb(232 185 49 / 22%) 0%, transparent 75%);
+    radial-gradient(55% 65% at 85% 110%, rgb(232 185 49 / 22%) 0%, transparent 75%),
+    #fff;
   border-bottom: none;
 }
 
@@ -27,7 +28,7 @@
   gap: 10px;
   margin: 0 auto;
   max-width: 1440px;
-  height: 124px;
+  height: 72px;
   padding: 40px 80px;
 }
 
@@ -85,7 +86,8 @@
 .tcs-header[data-variant="dark"] .tcs-nav-wrapper {
   background:
     radial-gradient(60% 70% at 15% 110%, rgb(70 115 219 / 22%) 0%, transparent 75%),
-    radial-gradient(55% 65% at 85% 110%, rgb(232 185 49 / 22%) 0%, transparent 75%);
+    radial-gradient(55% 65% at 85% 110%, rgb(232 185 49 / 22%) 0%, transparent 75%),
+    #fff;
   border-bottom: none;
 }
 
