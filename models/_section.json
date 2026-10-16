@@ -65,7 +65,6 @@
         "title",
 	"teaser",
         "video",
-        "form-variations",
         "content-cards",
         "sub-card-container",
         "card",
@@ -74,7 +73,8 @@
         "navigation",
         "tarun-header",
         "tcs-footer-hamburger",
-        "header-demo"
+        "header-demo",
+        "form-variations"
       ]
     }
   ]
